@@ -8,10 +8,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".Activity.HomeActivity"/>
         <activity android:name=".Activity.GuideActivity" />
         <activity android:name=".Activity.LaunchAcitivity" />
-        <activity android:name=".Activity.HomeActivity" />
         <activity android:name=".Activity.AddMemo" />
         <activity android:name=".Activity.AddDiary"></activity>
     </application>
