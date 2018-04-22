@@ -90,8 +90,6 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
         guide_vp.setAdapter(guideAdapter);
 
         guide_vp.addOnPageChangeListener(this);
-
-
     }
 
     public void initdots(){
