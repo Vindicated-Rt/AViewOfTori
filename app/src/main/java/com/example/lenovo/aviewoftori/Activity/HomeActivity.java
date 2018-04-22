@@ -23,7 +23,7 @@ import com.example.lenovo.aviewoftori.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener{
+public class HomeActivity extends AppCompatActivity {
 
     private ViewPager home_viewPager;//初始化滑动视图
 
@@ -94,17 +94,5 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         title.add(getString(R.string.memo));
 
         title.add(getString(R.string.tool));
-    }
-
-    public boolean onMenuItemClick(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.home:
-
-
-
-                break;
-        }
-        return false;
     }
 }
