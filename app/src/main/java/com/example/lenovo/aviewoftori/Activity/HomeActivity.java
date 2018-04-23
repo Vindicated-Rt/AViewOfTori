@@ -84,7 +84,7 @@ public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageC
 
         home_toolbar.setTitle(getString(R.string.memo));
 
-        home_toolbar.setNavigationIcon(R.drawable.home_side);
+        home_toolbar.setNavigationIcon(R.mipmap.home_side);
 
         home_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
 
