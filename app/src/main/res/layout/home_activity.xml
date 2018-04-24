@@ -12,7 +12,6 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/home_toolbar"
-            app:title=""
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </android.support.v7.widget.Toolbar>
@@ -31,15 +30,15 @@
         </android.support.v4.view.ViewPager>
     </LinearLayout>
 
-    <LinearLayout
+    <android.support.design.widget.NavigationView
+        android:id="@+id/home_side_layout"
         android:layout_gravity="left"
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:headerLayout="@layout/side_headview"
+        app:menu="@menu/side_menu"
+        >
 
-        <include
-            layout="@layout/side_bar">
-        </include>
-    </LinearLayout>
+    </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/side_lable_one"
+            android:title="@string/memo">
+
+            <menu>
+
+                <item
+                    android:id="@+id/side_item_memo"
+                    android:icon="@mipmap/side_icon_memo"
+                    android:title="@string/memo"/>
+
+                <item
+                    android:id="@+id/side_item_collect"
+                    android:icon="@mipmap/side_icon_collect"
+                    android:title="@string/collect"/>
+
+            </menu>
+
+        </item>
+
+        <item
+            android:id="@+id/side_lable_two"
+            android:title="@string/setting">
+
+            <menu>
+
+                <item
+                    android:id="@+id/side_item_office"
+                    android:icon="@mipmap/side_icon_office"
+                    android:title="@string/office"/>
+
+                <item
+                    android:id="@+id/side_item_setting"
+                    android:icon="@mipmap/side_icon_setting"
+                    android:title="@string/setting"/>
+
+            </menu>
+
+        </item>
+
+    </group>
+
+</menu>

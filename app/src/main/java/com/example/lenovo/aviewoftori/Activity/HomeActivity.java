@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +26,7 @@ import com.example.lenovo.aviewoftori.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener{
+public class HomeActivity extends AppCompatActivity {
 
     private ViewPager home_viewPager;//初始化滑动视图
 
@@ -60,6 +61,49 @@ public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageC
 
         home_viewPager.setCurrentItem(1);
 
+        /*viewPager滑动监听事件*/
+        home_viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            public void onPageSelected(int position) {
+
+                switch (position) {
+
+                    case 0:
+
+                        getSupportActionBar().setTitle(getString(R.string.diary));
+
+                        home_toolbar.getMenu().findItem(R.id.toolbar_list_grid_btn).setVisible(false);
+
+                        break;
+
+                    case 1:
+
+                        getSupportActionBar().setTitle(getString(R.string.memo));
+
+                        home_toolbar.getMenu().findItem(R.id.toolbar_list_grid_btn).setVisible(true);
+
+                        break;
+
+                    case 2:
+
+                        getSupportActionBar().setTitle(getString(R.string.tool));
+
+                        home_toolbar.getMenu().findItem(R.id.toolbar_list_grid_btn).setVisible(false);
+
+                        break;
+                }
+            }
+
+
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
     }
 
     /*实例化对象*/
@@ -69,28 +113,25 @@ public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageC
 
         home_pagertitle = (PagerTabStrip) findViewById(R.id.home_viewpager_title);
 
-        drawerLayout = (DrawerLayout)findViewById(R.id.home_drawerlayout);
-
-        home_viewPager.setOnPageChangeListener(this);
+        drawerLayout = (DrawerLayout) findViewById(R.id.home_drawerlayout);
 
     }
 
     /*设置toolbar*/
-    public void setToolbar(){
+    public void setToolbar() {
 
-        home_toolbar = (Toolbar) findViewById(R.id.home_toolbar);
+        home_toolbar = (Toolbar) findViewById(R.id.home_toolbar);//实例化toolbar
 
-        setSupportActionBar(home_toolbar);
+        setSupportActionBar(home_toolbar);//给当前布局添加toolbar
 
-        home_toolbar.setTitle(getString(R.string.memo));
+        home_toolbar.setNavigationIcon(R.mipmap.home_side);//设置导航图标
 
-        home_toolbar.setNavigationIcon(R.drawable.home_side);
-
+        /*导航图标监听点击事件*/
         home_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
 
-                drawerLayout.openDrawer(Gravity.LEFT);
+                drawerLayout.openDrawer(Gravity.LEFT);//打开侧滑栏
             }
         });
     }
@@ -111,35 +152,12 @@ public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageC
         title.add(getString(R.string.tool));
     }
 
-    /*页卡监听事件控制toolbar标题*/
-    public void onPageSelected(int position) {
+    /*布置toolbar布局*/
+    public boolean onCreateOptionsMenu(Menu menu) {
 
-        switch (position){
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
 
-            case 0:
-
-                getSupportActionBar().setTitle(getString(R.string.diary));
-
-                break;
-
-            case 1:
-
-                getSupportActionBar().setTitle(getString(R.string.memo));
-
-                break;
-
-            case 2:
-
-                getSupportActionBar().setTitle(getString(R.string.tool));
-
-                break;
-        }
-    }
-
-    public void onPageScrollStateChanged(int state) {
-    }
-
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        return true;
     }
 
 }
