@@ -5,9 +5,18 @@
     tools:context="com.example.lenovo.aviewoftori.Fragment.DiaryFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="@color/down_color_diary">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/diary_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
 
 </FrameLayout>
