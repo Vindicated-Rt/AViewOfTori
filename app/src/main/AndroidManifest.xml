@@ -18,8 +18,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.HomeActivity" />
-        <activity android:name=".Activity.AddMemo" />
-        <activity android:name=".Activity.AddDiary"></activity>
     </application>
 
 </manifest>

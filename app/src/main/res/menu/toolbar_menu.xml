@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/toolbar_list_grid_btn"
-        android:title="列表表格"
+        android:title=""
         android:icon="@mipmap/toolbar_icon_list"
         app:showAsAction="always" />
 
