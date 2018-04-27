@@ -1,6 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -10,22 +11,28 @@
         <ListView
             android:id="@+id/memo_listview"
             android:visibility="visible"
+            android:dividerHeight="1dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
         </ListView>
 
         <GridView
             android:id="@+id/memo_gridview"
             android:visibility="gone"
+            android:numColumns="2"
+            android:horizontalSpacing="10dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
         </GridView>
 
     </LinearLayout>
 
-    <Button
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/button"
-
+        android:alpha="0.5"
+        android:src="@mipmap/icon_add"
+        android:tint="@color/white"
+        app:fabSize="normal"
         android:layout_gravity="bottom|center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

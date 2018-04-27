@@ -51,7 +51,6 @@ public class DiaryFragment extends Fragment {
 
         addData();
 
-        // Inflate the layout for this fragment
         return view;
     }
 

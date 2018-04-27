@@ -16,6 +16,8 @@ public class FragmentAdapter extends FragmentStatePagerAdapter implements ViewPa
 
     private List<String> tiltle;
 
+    private Fragment pagerFrament;
+
     /*构造方法*/
     public FragmentAdapter(FragmentManager fm, List<Fragment> fragments, List<String> tiltle) {
 
@@ -54,6 +56,17 @@ public class FragmentAdapter extends FragmentStatePagerAdapter implements ViewPa
     /*销毁页面*/
     public void destroyItem(ViewGroup container, int position, Object object) {
         super.destroyItem(container, position, object);
+    }
+
+    /*设置当前Fragment方法*/
+    public void setPrimaryItem(ViewGroup container, int position, Object object) {
+        pagerFrament = (Fragment) object;
+        super.setPrimaryItem(container, position, object);
+    }
+
+    /*获取当前Fragment方法*/
+    public Fragment getCurrentFragment() {
+        return pagerFrament;
     }
 
     @Override

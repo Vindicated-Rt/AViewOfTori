@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/toolbar_list_btn"
+        android:title=""
+        android:icon="@mipmap/toolbar_icon_list"
+        android:visible="true"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/toolbar_gird_btn"
+        android:title=""
+        android:icon="@mipmap/toolbar_icon_grid"
+        android:visible="false"
+        app:showAsAction="always"/>
+
+</menu>
