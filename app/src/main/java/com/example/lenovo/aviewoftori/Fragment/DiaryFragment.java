@@ -87,9 +87,6 @@ public class DiaryFragment extends Fragment {
         //将适配器绑定到控件上
         diary_rv.setAdapter(diaryAdapter);
 
-        addData();
-
-        return view;
     }
 
     /*添加数据*/
