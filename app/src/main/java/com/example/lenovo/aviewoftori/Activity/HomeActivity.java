@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ActionMenuView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
@@ -24,7 +25,7 @@ import com.example.lenovo.aviewoftori.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener{
+public class HomeActivity extends AppCompatActivity {
 
     private ViewPager home_viewPager;//初始化滑动视图
 
@@ -38,7 +39,7 @@ public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     private DrawerLayout drawerLayout;//初始化侧滑栏
 
-    private FragmentAdapter home_adapter;//初始化fragment适配器
+    private FragmentAdapter fragmentAdapter;//初始化fragment适配器
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,62 +54,13 @@ public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageC
 
         setToolbar();
 
-        home_adapter = new FragmentAdapter(getSupportFragmentManager(), fragments, title);
+        fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), fragments, title);
 
         setViewPager();
 
-        home_viewPager.setAdapter(home_adapter);
+        home_viewPager.setAdapter(fragmentAdapter);
 
         home_viewPager.setCurrentItem(1);
-
-        /*viewPager滑动监听事件*/
-        home_viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            public void onPageSelected(int position) {
-
-                switch (position) {
-
-                    case 0:
-
-                        getSupportActionBar().setTitle(getString(R.string.diary));
-
-                        home_toolbar.getMenu().findItem(R.id.toolbar_list_btn).setVisible(false);
-
-                        home_toolbar.getMenu().findItem(R.id.toolbar_gird_btn).setVisible(false);
-
-                        break;
-
-                    case 1:
-
-                        getSupportActionBar().setTitle(getString(R.string.memo));
-
-                        home_toolbar.getMenu().findItem(R.id.toolbar_list_btn).setVisible(true);
-
-                        home_toolbar.getMenu().findItem(R.id.toolbar_gird_btn).setVisible(false);
-
-                        break;
-
-                    case 2:
-
-                        getSupportActionBar().setTitle(getString(R.string.tool));
-
-                        home_toolbar.getMenu().findItem(R.id.toolbar_list_btn).setVisible(false);
-
-                        home_toolbar.getMenu().findItem(R.id.toolbar_gird_btn).setVisible(false);
-
-                        break;
-                }
-            }
-
-
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
 
     }
 
@@ -121,6 +73,32 @@ public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageC
 
         drawerLayout = (DrawerLayout) findViewById(R.id.home_drawerlayout);
 
+        home_pagertitle.setTabIndicatorColor(getResources().getColor(R.color.Main_color));
+
+    }
+
+    /*添加ViewPager的数据源*/
+    public void setViewPager() {
+
+        fragments.add(new DiaryFragment());
+
+        fragments.add(new MemoFragment());
+
+        fragments.add(new ToolFragment());
+
+        title.add(getString(R.string.diary));
+
+        title.add(getString(R.string.memo));
+
+        title.add(getString(R.string.tool));
+    }
+
+    /*布置toolbar布局*/
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.home_toolbar_menu, menu);
+
+        return true;
     }
 
     /*设置toolbar*/
@@ -145,13 +123,13 @@ public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageC
     /*item点击事件*/
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        Fragment memo_fragment = (Fragment) home_adapter.getCurrentFragment();
+        Fragment memo_fragment = (Fragment) fragmentAdapter.getCurrentFragment();
 
         ListView memo_listview = (ListView) memo_fragment.getView().findViewById(R.id.memo_listview);
 
         GridView memo_gridview = (GridView) memo_fragment.getView().findViewById(R.id.memo_gridview);
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
 
             case R.id.toolbar_list_btn:
 
@@ -182,67 +160,59 @@ public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageC
         return super.onOptionsItemSelected(item);
     }
 
-    /*添加ViewPager的数据源*/
-    public void setViewPager() {
+    /*以viewpager页卡数控制toolbar状态*/
+    public boolean onPrepareOptionsMenu(Menu menu) {
 
-        fragments.add(new DiaryFragment());
-
-        fragments.add(new MemoFragment());
-
-        fragments.add(new ToolFragment());
-
-        title.add(getString(R.string.diary));
-
-        title.add(getString(R.string.memo));
-
-        title.add(getString(R.string.tool));
-    }
-
-    /*布置toolbar布局*/
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.home_toolbar_menu, menu);
-
-        return true;
-    }
-
-    /*页卡切换设置*/
-    public void onPageSelected(int position) {
-
-        Fragment memo_fragment = (Fragment) home_adapter.getCurrentFragment();
+        Fragment memo_fragment = (Fragment) fragmentAdapter.getCurrentFragment();
 
         ListView memo_listview = (ListView) memo_fragment.getView().findViewById(R.id.memo_listview);
 
         GridView memo_gridview = (GridView) memo_fragment.getView().findViewById(R.id.memo_gridview);
 
-        switch (position) {
+        switch (home_viewPager.getCurrentItem()) {
+
             case 0:
+
+                getSupportActionBar().setTitle(getString(R.string.diary));
+
+                home_toolbar.getMenu().findItem(R.id.toolbar_list_btn).setVisible(false);
+
+                home_toolbar.getMenu().findItem(R.id.toolbar_gird_btn).setVisible(false);
 
                 break;
 
             case 1:
 
-                home_toolbar.getMenu().findItem(R.id.toolbar_list_btn).setVisible(true);
+                getSupportActionBar().setTitle(getString(R.string.memo));
 
-                home_toolbar.getMenu().findItem(R.id.toolbar_gird_btn).setVisible(false);
+                if (memo_listview.getVisibility() == View.VISIBLE) {
 
-                memo_listview.setVisibility(View.VISIBLE);
+                    home_toolbar.getMenu().findItem(R.id.toolbar_list_btn).setVisible(true);
 
-                memo_gridview.setVisibility(View.GONE);
+                    home_toolbar.getMenu().findItem(R.id.toolbar_gird_btn).setVisible(false);
+
+                } else {
+
+                    home_toolbar.getMenu().findItem(R.id.toolbar_list_btn).setVisible(false);
+
+                    home_toolbar.getMenu().findItem(R.id.toolbar_gird_btn).setVisible(true);
+                }
 
                 break;
 
             case 2:
 
+                getSupportActionBar().setTitle(getString(R.string.tool));
+
+                home_toolbar.getMenu().findItem(R.id.toolbar_list_btn).setVisible(false);
+
+                home_toolbar.getMenu().findItem(R.id.toolbar_gird_btn).setVisible(false);
+
                 break;
+
         }
+
+        return super.onPrepareOptionsMenu(menu);
     }
 
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    public void onPageScrollStateChanged(int state) {
-
-    }
 }
