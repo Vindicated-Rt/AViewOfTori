@@ -9,7 +9,7 @@ import android.widget.Toast;
  * Created by asus on 2018/4/27.
  */
 
-public class DiaryBase extends SQLiteOpenHelper {
+public class DataBaseHelper extends SQLiteOpenHelper {
 
     /*数据库固定语句*/
     public static final String CREATE_DIARY = "create table Diary ("
@@ -18,10 +18,16 @@ public class DiaryBase extends SQLiteOpenHelper {
             + "time text, "
             + "image text)";
 
+    public static final String CREATE_MEMO = "create table Diary ("
+            + "id integer primary key autoincrement, "
+            + "content text, "
+            + "time text, "
+            + "image text)";
+
     private Context mContext;
 
     /*建表语句*/
-    public DiaryBase(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public DataBaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
 
         mContext = context;
@@ -33,6 +39,8 @@ public class DiaryBase extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL(CREATE_DIARY);
+
+        db.execSQL(CREATE_MEMO);
 
         Toast.makeText(mContext,"create succeeded",Toast.LENGTH_SHORT);
 

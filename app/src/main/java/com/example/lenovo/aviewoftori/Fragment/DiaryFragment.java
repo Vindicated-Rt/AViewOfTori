@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 
 import com.example.lenovo.aviewoftori.Activity.AddActivity;
 import com.example.lenovo.aviewoftori.Adapter.DiaryAdapter;
-import com.example.lenovo.aviewoftori.Base.DiaryBase;
 import com.example.lenovo.aviewoftori.Other.Diary;
 import com.example.lenovo.aviewoftori.R;
 
@@ -44,33 +43,14 @@ public class DiaryFragment extends Fragment {
 
         diary_rv = (RecyclerView) view.findViewById(R.id.diary_rv);
 
-        //创建数据库
-        createBase();
-
         //加载适配器
         bindingAdapter();
-
-        //添加数据
-        addData();
 
         //跳转添加界面,另为了view内获取控件，需传入view
         toAdd(view);
 
         // Inflate the layout for this fragment
         return view;
-    }
-
-    private void createBase() {
-
-        DiaryBase diaryBase;
-
-        diaryBase = new DiaryBase(getContext(),"DiaryStore.db",null,1);
-
-        diaryBase.getReadableDatabase();
-
-
-
-
     }
 
     private void bindingAdapter() {
@@ -89,11 +69,6 @@ public class DiaryFragment extends Fragment {
         diary_rv.setAdapter(diaryAdapter);
 
         addData();
-    }
-
-    /*添加数据*/
-    public void addData(){
-
     }
 
     public void toAdd(View view){
