@@ -73,7 +73,7 @@ public class HomeActivity extends AppCompatActivity {
 
         drawerLayout = (DrawerLayout) findViewById(R.id.home_drawerlayout);
 
-        home_pagertitle.setTabIndicatorColor(getResources().getColor(R.color.Main_color));
+        home_pagertitle.setTabIndicatorColor(getResources().getColor(R.color.main_color));
 
     }
 
