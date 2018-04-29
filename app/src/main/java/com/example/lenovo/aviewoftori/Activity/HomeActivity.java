@@ -1,21 +1,21 @@
 package com.example.lenovo.aviewoftori.Activity;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
 
 import com.example.lenovo.aviewoftori.Adapter.FragmentAdapter;
+import com.example.lenovo.aviewoftori.Base.DataBaseHelper;
 import com.example.lenovo.aviewoftori.Fragment.DiaryFragment;
 import com.example.lenovo.aviewoftori.Fragment.MemoFragment;
 import com.example.lenovo.aviewoftori.Fragment.ToolFragment;
@@ -52,6 +52,9 @@ public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageC
         homefindid();
 
         setToolbar();
+
+        /*创建数据库，建两张表*/
+        createBase();
 
         home_adapter = new FragmentAdapter(getSupportFragmentManager(), fragments, title);
 
@@ -109,6 +112,17 @@ public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageC
 
             }
         });
+
+    }
+
+    /*创建数据库*/
+    private void createBase() {
+
+        DataBaseHelper dataBaseHelper;
+
+        dataBaseHelper = new DataBaseHelper(this,"Store.db",null,1);
+
+        dataBaseHelper.getReadableDatabase();
 
     }
 
