@@ -18,7 +18,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             + "time text, "
             + "image text)";
 
-    public static final String CREATE_MEMO = "create table Diary ("
+    public static final String CREATE_MEMO = "create table Memo ("
             + "id integer primary key autoincrement, "
             + "content text, "
             + "time text, "

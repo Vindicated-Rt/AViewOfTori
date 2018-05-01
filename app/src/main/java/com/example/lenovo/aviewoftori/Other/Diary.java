@@ -10,15 +10,15 @@ public class Diary {
 
     private String time;
 
-    private int imageId;
+    private String image;
 
-    public Diary(String content,String time,int imageId){
+    public Diary(String content,String time,String image){
 
         this.content = content;
 
         this.time = time;
 
-        this.imageId = imageId;
+        this.image = image;
 
     }
 
@@ -34,9 +34,9 @@ public class Diary {
 
     }
 
-    public int getImageId(){
+    public String getImage(){
 
-        return imageId;
+        return image;
 
     }
 }

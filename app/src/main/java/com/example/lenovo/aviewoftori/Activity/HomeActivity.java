@@ -1,18 +1,16 @@
 package com.example.lenovo.aviewoftori.Activity;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ActionMenuView;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
 
@@ -60,7 +58,23 @@ public class HomeActivity extends AppCompatActivity {
 
         home_viewPager.setAdapter(fragmentAdapter);
 
+        //home_viewPager.setCurrentItem(1);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
         home_viewPager.setCurrentItem(1);
+
+        if(getIntent().getIntExtra("fragmentId",0) == 1){
+
+            fragmentAdapter.notifyDataSetChanged();
+
+            home_viewPager.setCurrentItem(0);
+
+        }
 
     }
 
@@ -214,5 +228,6 @@ public class HomeActivity extends AppCompatActivity {
 
         return super.onPrepareOptionsMenu(menu);
     }
+
 
 }
