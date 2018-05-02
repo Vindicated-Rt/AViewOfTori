@@ -88,6 +88,7 @@ public class MemoFragment extends Fragment {
     /*获取数据方法*/
     public void addData() {
 
+        /*初始化光标,限制逆序移动*/
         cursor = dbReader.query("Memo", null, null, null, null, null, "id desc");
 
         memoListAdapter = new MemoListAdapter(getContext(), cursor);

@@ -1,9 +1,12 @@
 package com.example.lenovo.aviewoftori.Activity;
 
+import android.app.Activity;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +14,7 @@ import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -52,9 +56,9 @@ public class AddActivity extends AppCompatActivity {
     private File storeImage;
 
     //跳转页面标识符
-    public static final int CHOOSE_PHOTO = 0;
-
     public static final int TAKE_PHOTO = 1;
+
+    public static final int CHOOSE_PHOTO = 2;
 
     private final String[] singleList = {"相册", "相机"};
 
@@ -86,7 +90,7 @@ public class AddActivity extends AppCompatActivity {
 
     }
 
-    //单选框，打开相机or打开相册
+    /*单选框，打开相机or打开相册*/
     public void dialogClick() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -102,17 +106,30 @@ public class AddActivity extends AppCompatActivity {
                 switch (which) {
 
                     case 0:
-                        //打开相册选图
-                        Toast.makeText(getBaseContext(), "11111111", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 1:
-                        //打开相机选图,是否授权
 
+                        if (Build.VERSION.SDK_INT >= 23){
+
+                            if (ContextCompat.checkSelfPermission(AddActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+                                ActivityCompat.requestPermissions(AddActivity.this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+
+                            } else {
+
+                                openAlbum();
+
+                            }
+
+                        }
+                        break;
+
+                    case 1:
+
+                        //打开相机选图,是否授权
                         if (Build.VERSION.SDK_INT >= 23) {
 
                             if (ContextCompat.checkSelfPermission(AddActivity.this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
 
-                                ActivityCompat.requestPermissions(AddActivity.this, new String[]{android.Manifest.permission.CAMERA}, 1);
+                                ActivityCompat.requestPermissions(AddActivity.this, new String[]{android.Manifest.permission.CAMERA}, 2);
 
                             } else {
 
@@ -140,6 +157,7 @@ public class AddActivity extends AppCompatActivity {
 
     }
 
+    /*打开相机*/
     private void openCamera() {
 
         storeImage = new File(getExternalCacheDir(), getTime() + ".jpg");
@@ -176,12 +194,38 @@ public class AddActivity extends AppCompatActivity {
 
     }
 
-    //用户是否授权
+    /*打开图库*/
+    private void openAlbum() {
+
+        Intent intent = new Intent("android.intent.action.GET_CONTENT");
+
+        intent.setType("image/*");
+
+        startActivityForResult(intent, CHOOSE_PHOTO);
+
+    }
+
+    /*用户是否授权*/
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
 
         switch (requestCode) {
 
             case 1:
+
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    openAlbum();
+
+                } else {
+
+                    Toast.makeText(this, "You denied the sd permission", Toast.LENGTH_SHORT).show();
+
+                }
+
+                break;
+
+            case 2:
+
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                     openCamera();
@@ -194,6 +238,8 @@ public class AddActivity extends AppCompatActivity {
                 break;
 
             default:
+
+                break;
 
         }
 
@@ -281,15 +327,125 @@ public class AddActivity extends AppCompatActivity {
                         e.printStackTrace();
 
                     }
-
                 }
+
+                break;
+
+            case CHOOSE_PHOTO:
+
+                /*判断版本号是否相同*/
+                if (resultCode == RESULT_OK) {
+
+                    if (Build.VERSION.SDK_INT >= 19) {
+
+                        handleImageOnKitKat(data);
+
+                    } else {
+
+                        handleImageBeforeKitKat(data);
+
+                    }
+                }
+
+                break;
+
+            default:
+
                 break;
 
         }
 
     }
 
+    private void handleImageOnKitKat(Intent data) {
+
+        String imagePath = null;
+
+        Uri uri = data.getData();
+
+        if (DocumentsContract.isDocumentUri(this, uri)) {
+
+            String docId = DocumentsContract.getDocumentId(uri);
+
+            if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
+
+                String id = docId.split(":")[1];
+
+                String selection = MediaStore.Images.Media._ID + "=" + id;
+
+                imagePath = getImxagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
+
+            } else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
+
+                Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(docId));
+
+                imagePath = getImxagePath(contentUri, null);
+
+            }
+
+        } else if ("content".equalsIgnoreCase(uri.getScheme())) {
+
+            imagePath = getImxagePath(uri, null);
+
+        } else if ("file".equalsIgnoreCase(uri.getScheme())) {
+
+            imagePath = uri.getPath();
+
+        }
+
+        displayImage(imagePath);
+
+    }
+
+    private void handleImageBeforeKitKat(Intent data) {
+
+        Uri uri = data.getData();
+
+        String imagePath = getImxagePath(uri, null);
+
+        displayImage(imagePath);
+
+    }
+
+    private String getImxagePath(Uri uri, String selection) {
+
+        String path = null;
+
+        Cursor cursor = getContentResolver().query(uri, null, selection, null, null);
+
+        if (cursor != null) {
+
+            if (cursor.moveToFirst()) {
+
+                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+
+            }
+
+            cursor.close();
+        }
+
+        return path;
+
+    }
+
+    private void displayImage(String imagePath) {
+
+        if (imagePath != null) {
+
+            Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+
+            add_ib.setImageBitmap(bitmap);
+
+        } else {
+
+            Toast.makeText(this, "failed to get image", Toast.LENGTH_SHORT).show();
+
+        }
+
+    }
+
     public void storeData() {
+
         DataBaseHelper dataBaseHelper;
 
         dataBaseHelper = new DataBaseHelper(this, "Store.db", null, 1);
