@@ -27,6 +27,7 @@
         </activity>
         <activity android:name=".Activity.HomeActivity" />
         <activity android:name=".Activity.AddActivity"/>
+        <activity android:name=".Activity.AboutUsActivity"/>
         <activity android:name=".Activity.LookActivity"/>
         <provider
             android:authorities="com.example.lenovo.aviewoftori.fileprovider"

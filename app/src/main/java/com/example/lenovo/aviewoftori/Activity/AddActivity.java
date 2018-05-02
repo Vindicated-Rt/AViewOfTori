@@ -56,7 +56,7 @@ public class AddActivity extends AppCompatActivity {
 
     public static final int TAKE_PHOTO = 1;
 
-    private final String[] singleList = {"相册","相机"};
+    private final String[] singleList = {"相册", "相机"};
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,14 +80,14 @@ public class AddActivity extends AppCompatActivity {
 
                 dialogClick();
 
-                    }
+            }
 
-                });
+        });
 
-        }
+    }
 
     //单选框，打开相机or打开相册
-    public  void dialogClick(){
+    public void dialogClick() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -100,34 +100,35 @@ public class AddActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
 
                 switch (which) {
-                                    case 0:
-                                        //打开相册选图
-                                        Toast.makeText(getBaseContext(), "11111111", Toast.LENGTH_SHORT).show();
-                                        break;
-                                    case 1:
-                                        //打开相机选图,是否授权
 
-                                        if(Build.VERSION.SDK_INT >= 23) {
+                    case 0:
+                        //打开相册选图
+                        Toast.makeText(getBaseContext(), "11111111", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        //打开相机选图,是否授权
 
-                                            if (ContextCompat.checkSelfPermission(AddActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                        if (Build.VERSION.SDK_INT >= 23) {
 
-                                                ActivityCompat.requestPermissions(AddActivity.this, new String[]{Manifest.permission.CAMERA}, 1);
+                            if (ContextCompat.checkSelfPermission(AddActivity.this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
 
-                                            }else{
+                                ActivityCompat.requestPermissions(AddActivity.this, new String[]{android.Manifest.permission.CAMERA}, 1);
 
-                                                //打开相机
-                                                openCamera();
-                                            }
+                            } else {
 
-                                        }
+                                //打开相机
+                                openCamera();
+                            }
 
-                                        break;
+                        }
 
-                                    default:
+                        break;
 
-                                        break;
+                    default:
 
-                                }
+                        break;
+
+                }
 
                 dialog.dismiss();
             }
@@ -176,18 +177,18 @@ public class AddActivity extends AppCompatActivity {
     }
 
     //用户是否授权
-    public void onRequestPermissionsResult(int requestCode,String[] permissions,int[] grantResults){
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
 
-        switch (requestCode){
+        switch (requestCode) {
 
             case 1:
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                   openCamera();
+                    openCamera();
 
-                }else {
+                } else {
 
-                    Toast.makeText(this,"You denied the permission",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "You denied the permission", Toast.LENGTH_SHORT).show();
 
                 }
                 break;
@@ -198,9 +199,9 @@ public class AddActivity extends AppCompatActivity {
 
     }
 
-    public void setTitle(){
+    public void setTitle() {
 
-         add_toolbar = (Toolbar) findViewById(R.id.add_toolbar);
+        add_toolbar = (Toolbar) findViewById(R.id.add_toolbar);
 
         setSupportActionBar(add_toolbar);
 
@@ -211,9 +212,8 @@ public class AddActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-               // Intent intent = new Intent(AddActivity.this,)
-
                 finish();
+
             }
         });
 
@@ -222,18 +222,35 @@ public class AddActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
 
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
 
                     case R.id.add_comfirm:
 
                         //储存数据
                         storeData();
 
-                        Intent intent = new Intent(AddActivity.this,HomeActivity.class);
+                        /*页面传值区分主界面的页卡显示*/
+                        if (getIntent().getStringExtra("flag").equals("0")) {
 
-                        intent.putExtra("fragmentId",1);
+                            Intent intent = new Intent(AddActivity.this, HomeActivity.class);
 
-                        startActivity(intent);
+                            intent.putExtra("fragmentId", 0);
+
+                            startActivity(intent);
+
+                            finish();
+
+                        } else if (getIntent().getStringExtra("flag").equals("1")) {
+
+                            Intent intent = new Intent(AddActivity.this, HomeActivity.class);
+
+                            intent.putExtra("fragmentId", 1);
+
+                            startActivity(intent);
+
+                            finish();
+                        }
+
 
                 }
 
@@ -247,13 +264,13 @@ public class AddActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        switch(requestCode){
+        switch (requestCode) {
 
             case TAKE_PHOTO:
 
-                if(resultCode == RESULT_OK){
+                if (resultCode == RESULT_OK) {
 
-                    try{
+                    try {
                         //将拍摄图片显示出来
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
 
@@ -265,7 +282,8 @@ public class AddActivity extends AppCompatActivity {
 
                     }
 
-                }break;
+                }
+                break;
 
         }
 
@@ -286,15 +304,15 @@ public class AddActivity extends AppCompatActivity {
 
         values.put("time", getTime());
 
-        values.put("image",storeImage+"");
+        values.put("image", storeImage + "");
 
         if (getIntent().getStringExtra("flag").equals("0")) {
 
             db.insert("Diary", null, values);
 
-        } else{
+        } else if (getIntent().getStringExtra("flag").equals("1")) {
 
-            db.insert("Memo",null,values);
+            db.insert("Memo", null, values);
 
         }
     }
@@ -314,9 +332,9 @@ public class AddActivity extends AppCompatActivity {
     }
 
     //为toolbar绑定菜单
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.add_toolbar_menu,menu);
+        getMenuInflater().inflate(R.menu.add_toolbar_menu, menu);
 
         return true;
     }

@@ -143,7 +143,5 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
         this.diaryList = list;
 
-
-
     }
 }

@@ -36,9 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:headerLayout="@layout/side_headview"
-        app:menu="@menu/side_menu"
-        >
-
+        app:menu="@menu/side_menu">
     </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

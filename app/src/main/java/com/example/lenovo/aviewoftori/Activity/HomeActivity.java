@@ -1,11 +1,13 @@
 package com.example.lenovo.aviewoftori.Activity;
 
-import android.os.Bundle;
+import android.content.Intent;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
@@ -39,6 +41,8 @@ public class HomeActivity extends AppCompatActivity {
 
     private FragmentAdapter fragmentAdapter;//初始化fragment适配器
 
+    private NavigationView side_view;//初始化侧滑栏布局
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,24 +62,19 @@ public class HomeActivity extends AppCompatActivity {
 
         home_viewPager.setAdapter(fragmentAdapter);
 
-        //home_viewPager.setCurrentItem(1);
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        home_viewPager.setCurrentItem(1);
-
-        if(getIntent().getIntExtra("fragmentId",0) == 1){
+        /*接受页面传值设置显示的页卡数*/
+        if (getIntent().getIntExtra("fragmentId", 1) == 0) {
 
             fragmentAdapter.notifyDataSetChanged();
 
             home_viewPager.setCurrentItem(0);
 
-        }
+        } else if (getIntent().getIntExtra("fragmentId", 1) == 1) {
 
+            fragmentAdapter.notifyDataSetChanged();
+
+            home_viewPager.setCurrentItem(1);
+        }
     }
 
     /*实例化对象*/
@@ -89,6 +88,26 @@ public class HomeActivity extends AppCompatActivity {
 
         home_pagertitle.setTabIndicatorColor(getResources().getColor(R.color.main_color));
 
+        side_view = (NavigationView) findViewById(R.id.home_side_layout);
+
+        /*侧滑栏item点击事件*/
+        side_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+            Intent intent = new Intent(HomeActivity.this, AboutUsActivity.class);
+
+            public boolean onNavigationItemSelected(MenuItem item) {
+
+                switch (item.getItemId()) {
+
+                    case R.id.side_item_aboutus:
+
+                        startActivity(intent);
+
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     /*添加ViewPager的数据源*/
@@ -134,7 +153,7 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    /*item点击事件*/
+    /*toolbar的item点击事件*/
     public boolean onOptionsItemSelected(MenuItem item) {
 
         Fragment memo_fragment = (Fragment) fragmentAdapter.getCurrentFragment();
@@ -181,8 +200,6 @@ public class HomeActivity extends AppCompatActivity {
 
         ListView memo_listview = (ListView) memo_fragment.getView().findViewById(R.id.memo_listview);
 
-        GridView memo_gridview = (GridView) memo_fragment.getView().findViewById(R.id.memo_gridview);
-
         switch (home_viewPager.getCurrentItem()) {
 
             case 0:
@@ -228,6 +245,5 @@ public class HomeActivity extends AppCompatActivity {
 
         return super.onPrepareOptionsMenu(menu);
     }
-
 
 }

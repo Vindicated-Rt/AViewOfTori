@@ -35,7 +35,7 @@ public class DiaryFragment extends Fragment {
 
     private String image;
 
-    private List<Diary>diaryList;
+    private List<Diary> diaryList;
 
     private DiaryAdapter diaryAdapter;
 
@@ -86,10 +86,11 @@ public class DiaryFragment extends Fragment {
 
                 image = cursor.getString(cursor.getColumnIndex("image"));
 
-                diaryList.add(new Diary(content, time, image));
+                diaryList.add(0, new Diary(content, time, image));
 
             } while (cursor.moveToNext());
         }
+
         cursor.close();
 
     }
@@ -111,17 +112,17 @@ public class DiaryFragment extends Fragment {
 
     }
 
-    public void toAdd(View view){
+    public void toAdd(View view) {
 
-        FloatingActionButton diary_fab = (FloatingActionButton)view.findViewById(R.id.diary_fab);
+        FloatingActionButton diary_fab = (FloatingActionButton) view.findViewById(R.id.diary_fab);
 
         diary_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent  = new Intent(getActivity(), AddActivity.class);
+                Intent intent = new Intent(getActivity(), AddActivity.class);
 
-                intent.putExtra("flag","0");
+                intent.putExtra("flag", "0");
 
                 startActivity(intent);
 
@@ -130,6 +131,4 @@ public class DiaryFragment extends Fragment {
 
 
     }
-
-
 }

@@ -40,6 +40,11 @@
                     android:icon="@mipmap/side_icon_setting"
                     android:title="@string/setting"/>
 
+                <item
+                    android:id="@+id/side_item_aboutus"
+                    android:icon="@mipmap/side_icon_aboutus"
+                    android:title="@string/aboutus"/>
+
             </menu>
 
         </item>
