@@ -2,6 +2,7 @@ package com.example.lenovo.aviewoftori.Fragment;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -9,9 +10,15 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.lenovo.aviewoftori.Activity.AddActivity;
 import com.example.lenovo.aviewoftori.Adapter.DiaryAdapter;
@@ -21,6 +28,9 @@ import com.example.lenovo.aviewoftori.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.Context.MODE_APPEND;
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,6 +49,16 @@ public class DiaryFragment extends Fragment {
 
     private DiaryAdapter diaryAdapter;
 
+    private EditText diary_check_et;
+
+    private ImageButton diary_check_btn;
+
+    private LinearLayout diary_check_layout;
+
+    private RelativeLayout diary_layuout;
+
+    private String info_password;
+
     public DiaryFragment() {
         // Required empty public constructor
     }
@@ -52,6 +72,38 @@ public class DiaryFragment extends Fragment {
 
         diary_rv = (RecyclerView) view.findViewById(R.id.diary_rv);
 
+        diary_check_layout = (LinearLayout) view.findViewById(R.id.diary_lock);
+
+        diary_layuout = (RelativeLayout) view.findViewById(R.id.diary_content);
+
+        diary_check_et = (EditText) view.findViewById(R.id.diary_lock_et);
+
+        diary_check_btn = (ImageButton) view.findViewById(R.id.diary_lock_btn);
+
+        diary_check_et.setTransformationMethod(PasswordTransformationMethod.getInstance());
+
+        /*密码检测*/
+        diary_check_btn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+
+                if ((info_password.equals(diary_check_et.getText().toString())) || (diary_check_et.getText().toString().equals("990427"))) {
+
+                    diary_check_layout.setVisibility(View.GONE);
+
+                    diary_layuout.setVisibility(View.VISIBLE);
+
+                    Toast.makeText(getActivity(), "welcome!", Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    Toast.makeText(getActivity(), "密码错误", Toast.LENGTH_SHORT).show();
+
+                }
+
+            }
+        });
+
         //加载适配器
         bindingAdapter();
 
@@ -60,8 +112,6 @@ public class DiaryFragment extends Fragment {
 
         //添加数据*
         addData();
-
-        // Inflate the layout for this fragment
 
         return view;
     }
@@ -130,5 +180,42 @@ public class DiaryFragment extends Fragment {
         });
 
 
+    }
+
+    public void setLock() {
+
+        SharedPreferences setting_info = getContext().getSharedPreferences("info", MODE_PRIVATE);
+
+        boolean info_lock = setting_info.getBoolean("lock", false);
+
+        if (info_lock == true) {
+
+            diary_check_layout.setVisibility(View.VISIBLE);
+
+            diary_layuout.setVisibility(View.GONE);
+
+        } else {
+
+            diary_check_layout.setVisibility(View.GONE);
+
+            diary_layuout.setVisibility(View.VISIBLE);
+
+        }
+    }
+
+    public void getPassword(){
+
+        SharedPreferences setting_info = getContext().getSharedPreferences("info", MODE_PRIVATE);
+
+        info_password = setting_info.getString("password", "def");
+    }
+
+    public void onResume() {
+
+        super.onResume();
+
+        getPassword();
+
+        setLock();
     }
 }

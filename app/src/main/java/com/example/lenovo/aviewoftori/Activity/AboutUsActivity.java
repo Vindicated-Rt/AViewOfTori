@@ -33,7 +33,7 @@ public class AboutUsActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(getString(R.string.aboutus));
 
         /*设置返回图标*/
-        aboutus_toolbar.setNavigationIcon(R.mipmap.aboutback);
+        aboutus_toolbar.setNavigationIcon(R.mipmap.back);
 
         /*导航图标监听事件*/
         aboutus_toolbar.setNavigationOnClickListener(new View.OnClickListener() {

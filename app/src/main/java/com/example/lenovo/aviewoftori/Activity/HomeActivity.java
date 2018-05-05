@@ -1,6 +1,8 @@
 package com.example.lenovo.aviewoftori.Activity;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerTabStrip;
@@ -26,6 +28,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
+
+    public static final int SET_TITLE_DIARY = 1;
+
+    public static final int SET_TITLE_MEMO = 2;
+
+    public static final int SET_TITLE_TOOL = 3;
 
     private ViewPager home_viewPager;//初始化滑动视图
 
@@ -93,7 +101,9 @@ public class HomeActivity extends AppCompatActivity {
         /*侧滑栏item点击事件*/
         side_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
-            Intent intent = new Intent(HomeActivity.this, AboutUsActivity.class);
+            Intent intent_AboutUS = new Intent(HomeActivity.this, AboutUsActivity.class);
+
+            Intent intent_setting = new Intent(HomeActivity.this, SettingActivity.class);
 
             public boolean onNavigationItemSelected(MenuItem item) {
 
@@ -101,7 +111,13 @@ public class HomeActivity extends AppCompatActivity {
 
                     case R.id.side_item_aboutus:
 
-                        startActivity(intent);
+                        startActivity(intent_AboutUS);
+
+                        break;
+
+                    case R.id.side_item_setting:
+
+                        startActivity(intent_setting);
 
                         break;
                 }
@@ -204,7 +220,18 @@ public class HomeActivity extends AppCompatActivity {
 
             case 0:
 
-                getSupportActionBar().setTitle(getString(R.string.diary));
+                new Thread(new Runnable() {
+
+                    public void run() {
+
+                        Message message = new Message();
+
+                        message.what = SET_TITLE_DIARY;
+
+                        handler.sendMessage(message);
+
+                    }
+                }).start();
 
                 home_toolbar.getMenu().findItem(R.id.toolbar_list_btn).setVisible(false);
 
@@ -214,7 +241,18 @@ public class HomeActivity extends AppCompatActivity {
 
             case 1:
 
-                getSupportActionBar().setTitle(getString(R.string.memo));
+                new Thread(new Runnable() {
+
+                    public void run() {
+
+                        Message message = new Message();
+
+                        message.what = SET_TITLE_MEMO;
+
+                        handler.sendMessage(message);
+
+                    }
+                }).start();
 
                 if (memo_listview.getVisibility() == View.VISIBLE) {
 
@@ -233,7 +271,18 @@ public class HomeActivity extends AppCompatActivity {
 
             case 2:
 
-                getSupportActionBar().setTitle(getString(R.string.tool));
+                new Thread(new Runnable() {
+
+                    public void run() {
+
+                        Message message = new Message();
+
+                        message.what = SET_TITLE_TOOL;
+
+                        handler.sendMessage(message);
+
+                    }
+                }).start();
 
                 home_toolbar.getMenu().findItem(R.id.toolbar_list_btn).setVisible(false);
 
@@ -245,5 +294,39 @@ public class HomeActivity extends AppCompatActivity {
 
         return super.onPrepareOptionsMenu(menu);
     }
+
+    /*线程控制刷新toolbar*/
+    private Handler handler = new Handler() {
+
+        public void handleMessage(Message msg){
+
+            switch (msg.what){
+
+                case SET_TITLE_DIARY:
+
+                    getSupportActionBar().setTitle(getString(R.string.diary));
+
+                    break;
+
+                case SET_TITLE_MEMO:
+
+                    getSupportActionBar().setTitle(getString(R.string.memo));
+
+                    break;
+
+                case SET_TITLE_TOOL:
+
+                    getSupportActionBar().setTitle(getString(R.string.tool));
+
+                    break;
+
+                default:
+
+                    break;
+            }
+
+        }
+
+    };
 
 }

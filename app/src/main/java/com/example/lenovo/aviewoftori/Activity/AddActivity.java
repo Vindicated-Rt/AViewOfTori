@@ -1,6 +1,5 @@
 package com.example.lenovo.aviewoftori.Activity;
 
-import android.app.Activity;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -11,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.icu.text.SimpleDateFormat;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -36,7 +36,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
-import java.util.jar.Manifest;
 
 
 /**
@@ -54,6 +53,8 @@ public class AddActivity extends AppCompatActivity {
     private Uri imageUri;
 
     private File storeImage;
+
+    private String imagePath = null;
 
     //跳转页面标识符
     public static final int TAKE_PHOTO = 1;
@@ -109,9 +110,9 @@ public class AddActivity extends AppCompatActivity {
 
                         if (Build.VERSION.SDK_INT >= 23){
 
-                            if (ContextCompat.checkSelfPermission(AddActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                            if (ContextCompat.checkSelfPermission(AddActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
-                                ActivityCompat.requestPermissions(AddActivity.this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                                ActivityCompat.requestPermissions(AddActivity.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
 
                             } else {
 
@@ -251,7 +252,7 @@ public class AddActivity extends AppCompatActivity {
 
         setSupportActionBar(add_toolbar);
 
-        add_toolbar.setNavigationIcon(R.mipmap.addback);
+        add_toolbar.setNavigationIcon(R.mipmap.back);
 
         //为NavigationIcons设置监听事件，返回
         add_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -345,6 +346,8 @@ public class AddActivity extends AppCompatActivity {
                         handleImageBeforeKitKat(data);
 
                     }
+
+                    storeImage = new File(imagePath);
                 }
 
                 break;
@@ -358,8 +361,6 @@ public class AddActivity extends AppCompatActivity {
     }
 
     private void handleImageOnKitKat(Intent data) {
-
-        String imagePath = null;
 
         Uri uri = data.getData();
 

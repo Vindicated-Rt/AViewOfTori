@@ -4,10 +4,23 @@
     android:layout_height="match_parent"
     tools:context="com.example.lenovo.aviewoftori.Fragment.DiaryFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:id="@+id/diary_lock"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <include
+            layout="@layout/diary_lock">
+        </include>
+    </LinearLayout>
+
     <RelativeLayout
+        android:id="@+id/diary_content"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:visibility="gone"
         android:background="@color/down_color_diary">
 
         <android.support.design.widget.FloatingActionButton

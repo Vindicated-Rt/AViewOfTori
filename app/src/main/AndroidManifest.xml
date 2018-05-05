@@ -3,11 +3,12 @@
     package="com.example.lenovo.aviewoftori">
 
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.front" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
-    <uses-permission android:name="andoid.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="andoid.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
@@ -17,8 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".Activity.GuideActivity"/>
-        <activity android:name=".Activity.LaunchAcitivity" >
+        <activity android:name=".Activity.GuideActivity" />
+        <activity android:name=".Activity.LaunchAcitivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,19 +27,21 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.HomeActivity" />
-        <activity android:name=".Activity.AddActivity"/>
-        <activity android:name=".Activity.AboutUsActivity"/>
-        <activity android:name=".Activity.LookActivity"/>
+        <activity android:name=".Activity.AddActivity" />
+        <activity android:name=".Activity.AboutUsActivity" />
+        <activity android:name=".Activity.LookActivity" />
+
         <provider
-            android:authorities="com.example.lenovo.aviewoftori.fileprovider"
             android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.lenovo.aviewoftori.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
-
+                android:resource="@xml/file_paths" />
         </provider>
+
+        <activity android:name=".Activity.SettingActivity"></activity>
     </application>
 
 </manifest>
