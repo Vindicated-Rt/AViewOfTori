@@ -276,29 +276,7 @@ public class AddActivity extends AppCompatActivity {
                         //储存数据
                         storeData();
 
-                        /*页面传值区分主界面的页卡显示*/
-                        if (getIntent().getStringExtra("flag").equals("0")) {
-
-                            Intent intent = new Intent(AddActivity.this, HomeActivity.class);
-
-                            intent.putExtra("fragmentId", 0);
-
-                            startActivity(intent);
-
-                            finish();
-
-                        } else if (getIntent().getStringExtra("flag").equals("1")) {
-
-                            Intent intent = new Intent(AddActivity.this, HomeActivity.class);
-
-                            intent.putExtra("fragmentId", 1);
-
-                            startActivity(intent);
-
-                            finish();
-                        }
-
-
+                        finish();
                 }
 
                 return true;

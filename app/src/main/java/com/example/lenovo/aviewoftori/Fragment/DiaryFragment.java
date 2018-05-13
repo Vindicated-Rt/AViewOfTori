@@ -87,7 +87,7 @@ public class DiaryFragment extends Fragment {
 
             public void onClick(View v) {
 
-                if ((info_password.equals(diary_check_et.getText().toString())) || (diary_check_et.getText().toString().equals("990427"))) {
+                if ((info_password.equals(diary_check_et.getText().toString())) || (diary_check_et.getText().toString().equals("def"))) {
 
                     diary_check_layout.setVisibility(View.GONE);
 

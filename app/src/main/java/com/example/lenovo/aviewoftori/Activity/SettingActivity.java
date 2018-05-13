@@ -51,6 +51,10 @@ public class SettingActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle(getString(R.string.setting));
 
+        setting_info = getSharedPreferences("info", MODE_PRIVATE);
+
+        editor = getSharedPreferences("info", MODE_PRIVATE).edit();
+
         setting_toolbar.setNavigationIcon(R.mipmap.back);
 
         /*设置返回导航按钮*/
@@ -66,23 +70,43 @@ public class SettingActivity extends AppCompatActivity {
 
             public void onClick(View v) {
 
-                dialogcheckold();
+                SharedPreferences setting_info = getSharedPreferences("info", MODE_PRIVATE);
+
+                String info_password = setting_info.getString("password", "def");
+
+                if(info_password.equals("def")){
+
+                    Toast.makeText(SettingActivity.this,"没有初始化密码",Toast.LENGTH_SHORT).show();
+
+                }else {
+
+                    dialogcheckold();
+
+                }
             }
         });
-
-        setting_info = getSharedPreferences("info", MODE_PRIVATE);
-
-        editor = getSharedPreferences("info", MODE_PRIVATE).edit();
 
         setSwitvh();
 
         /*开关设置监听事件*/
         passwore_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
+            String info_password = setting_info.getString("password", "def");
+
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
 
-                    editor.putBoolean("lock", true).commit();
+                    if(info_password.equals("def")){
+
+                        dialogsetnew();
+
+                    }
+
+                    if(!info_password.equals("def")){
+
+                        editor.putBoolean("lock", true).commit();
+
+                    }
 
                 } else {
 
@@ -124,9 +148,9 @@ public class SettingActivity extends AppCompatActivity {
 
                 String password = setlock_dialog_et.getText().toString();
 
-                String info_password = setting_info.getString("password", "990427");
+                String info_password = setting_info.getString("password", "def");
 
-                if (info_password.equals(password) || info_password.equals("990427")) {
+                if (info_password.equals(password) || info_password.equals("def")) {
 
                     editor.putBoolean("lock", false).commit();
 
@@ -185,7 +209,7 @@ public class SettingActivity extends AppCompatActivity {
 
             public void onClick(View v) {
 
-                String info_password = setting_info.getString("password", "990427");
+                String info_password = setting_info.getString("password", "def");
 
                 if (!"".equals(setlock_dialog_et.getText().toString()) && info_password.equals(setlock_dialog_et.getText().toString())) {
 

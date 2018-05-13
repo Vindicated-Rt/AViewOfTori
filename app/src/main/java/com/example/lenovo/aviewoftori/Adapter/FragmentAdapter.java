@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 
-public class FragmentAdapter extends FragmentStatePagerAdapter implements ViewPager.OnPageChangeListener{
+public class FragmentAdapter extends FragmentStatePagerAdapter implements ViewPager.OnPageChangeListener {
 
     private List<Fragment> fragments;
 
@@ -68,6 +68,17 @@ public class FragmentAdapter extends FragmentStatePagerAdapter implements ViewPa
     public Fragment getCurrentFragment() {
         return pagerFrament;
     }
+
+
+    public int getItemPosition(Object object) {
+        /*当主视图试图确定某个项目的位置是否已更改时调用。
+        * 如果给定项目的位置未更改，则返回{@link #POSITION_UNCHANGED};
+        * 如果该项目不再存在于适配器中，则返回{@link #POSITION_NONE}。
+        * 这是PagerAdapter类中的成员
+        * */
+        return POSITION_NONE;
+    }
+
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

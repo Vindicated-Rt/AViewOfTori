@@ -26,8 +26,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.HomeActivity" />
-        <activity android:name=".Activity.AddActivity" />
+        <activity android:name=".Activity.HomeActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity android:name=".Activity.AddActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize"/>
         <activity android:name=".Activity.AboutUsActivity" />
         <activity android:name=".Activity.LookActivity" />
 

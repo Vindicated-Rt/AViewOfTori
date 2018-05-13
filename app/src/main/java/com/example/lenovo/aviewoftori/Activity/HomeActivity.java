@@ -1,10 +1,19 @@
 package com.example.lenovo.aviewoftori.Activity;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -16,7 +25,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.lenovo.aviewoftori.Adapter.FragmentAdapter;
 import com.example.lenovo.aviewoftori.Fragment.DiaryFragment;
@@ -24,16 +35,19 @@ import com.example.lenovo.aviewoftori.Fragment.MemoFragment;
 import com.example.lenovo.aviewoftori.Fragment.ToolFragment;
 import com.example.lenovo.aviewoftori.R;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
-    public static final int SET_TITLE_DIARY = 1;
+    public static final int CHOOSE_PHOTO = 0;
 
-    public static final int SET_TITLE_MEMO = 2;
+    public static final int SET_DIARY = 1;
 
-    public static final int SET_TITLE_TOOL = 3;
+    public static final int SET_MEMO = 2;
+
+    public static final int SET_TOOL = 3;
 
     private ViewPager home_viewPager;//初始化滑动视图
 
@@ -64,25 +78,14 @@ public class HomeActivity extends AppCompatActivity {
 
         setToolbar();
 
-        fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), fragments, title);
-
         setViewPager();
+
+        fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), fragments, title);
 
         home_viewPager.setAdapter(fragmentAdapter);
 
-        /*接受页面传值设置显示的页卡数*/
-        if (getIntent().getIntExtra("fragmentId", 1) == 0) {
+        home_viewPager.setCurrentItem(1);
 
-            fragmentAdapter.notifyDataSetChanged();
-
-            home_viewPager.setCurrentItem(0);
-
-        } else if (getIntent().getIntExtra("fragmentId", 1) == 1) {
-
-            fragmentAdapter.notifyDataSetChanged();
-
-            home_viewPager.setCurrentItem(1);
-        }
     }
 
     /*实例化对象*/
@@ -159,6 +162,8 @@ public class HomeActivity extends AppCompatActivity {
 
         home_toolbar.setNavigationIcon(R.mipmap.home_side);//设置导航图标
 
+        getSupportActionBar().setTitle("");
+
         /*导航图标监听点击事件*/
         home_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
 
@@ -226,16 +231,12 @@ public class HomeActivity extends AppCompatActivity {
 
                         Message message = new Message();
 
-                        message.what = SET_TITLE_DIARY;
+                        message.what = SET_DIARY;
 
                         handler.sendMessage(message);
 
                     }
                 }).start();
-
-                home_toolbar.getMenu().findItem(R.id.toolbar_list_btn).setVisible(false);
-
-                home_toolbar.getMenu().findItem(R.id.toolbar_gird_btn).setVisible(false);
 
                 break;
 
@@ -247,7 +248,7 @@ public class HomeActivity extends AppCompatActivity {
 
                         Message message = new Message();
 
-                        message.what = SET_TITLE_MEMO;
+                        message.what = SET_MEMO;
 
                         handler.sendMessage(message);
 
@@ -277,16 +278,12 @@ public class HomeActivity extends AppCompatActivity {
 
                         Message message = new Message();
 
-                        message.what = SET_TITLE_TOOL;
+                        message.what = SET_TOOL;
 
                         handler.sendMessage(message);
 
                     }
                 }).start();
-
-                home_toolbar.getMenu().findItem(R.id.toolbar_list_btn).setVisible(false);
-
-                home_toolbar.getMenu().findItem(R.id.toolbar_gird_btn).setVisible(false);
 
                 break;
 
@@ -302,22 +299,23 @@ public class HomeActivity extends AppCompatActivity {
 
             switch (msg.what){
 
-                case SET_TITLE_DIARY:
+                case SET_DIARY:
 
-                    getSupportActionBar().setTitle(getString(R.string.diary));
+                    home_toolbar.getMenu().findItem(R.id.toolbar_list_btn).setVisible(false);
 
-                    break;
-
-                case SET_TITLE_MEMO:
-
-                    getSupportActionBar().setTitle(getString(R.string.memo));
+                    home_toolbar.getMenu().findItem(R.id.toolbar_gird_btn).setVisible(false);
 
                     break;
 
-                case SET_TITLE_TOOL:
+                case SET_MEMO:
 
-                    getSupportActionBar().setTitle(getString(R.string.tool));
+                    break;
 
+                case SET_TOOL:
+
+                    home_toolbar.getMenu().findItem(R.id.toolbar_list_btn).setVisible(false);
+
+                    home_toolbar.getMenu().findItem(R.id.toolbar_gird_btn).setVisible(false);
                     break;
 
                 default:
@@ -329,4 +327,10 @@ public class HomeActivity extends AppCompatActivity {
 
     };
 
+    protected void onResume() {
+
+        super.onResume();
+
+        fragmentAdapter.notifyDataSetChanged();
+    }
 }

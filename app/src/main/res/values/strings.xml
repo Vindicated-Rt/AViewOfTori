@@ -15,5 +15,5 @@
     <string name="aboutustext">关于我们</string>
     <string name="password">请输入密码</string>
     <string name="setting_check_password">添加密码</string>
-    <string name="setting_set_password">设置密码</string>
+    <string name="setting_change_password">修改密码</string>
 </resources>
