@@ -5,6 +5,12 @@
     tools:context="com.example.lenovo.aviewoftori.Fragment.ToolFragment">
 
     <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/tool_background"
+        android:alpha="0.2"/>
+
+    <ImageView
         android:id="@+id/tool_iv"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

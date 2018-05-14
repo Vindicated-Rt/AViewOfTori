@@ -2,7 +2,6 @@ package com.example.lenovo.aviewoftori.Activity;
 
 import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -10,7 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.icu.text.SimpleDateFormat;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,7 +17,6 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -46,7 +43,11 @@ public class AddActivity extends AppCompatActivity {
 
     private Toolbar add_toolbar;
 
-    private ImageButton add_ib;
+    private ImageButton add_camera;
+
+    private ImageButton add_album;
+
+    private ImageButton add_alarm;
 
     private EditText add_et;
 
@@ -71,92 +72,84 @@ public class AddActivity extends AppCompatActivity {
 
         setTitle();
 
-        addImage();
+        addAlarm();
+
+        addCamera();
+
+        addAlbum();
 
     }
 
-    public void addImage() {
+    private void addAlarm() {
 
-        add_ib = (ImageButton) findViewById(R.id.add_ib);
+        add_alarm = (ImageButton) findViewById(R.id.add_alarm);
 
-        add_ib.setOnClickListener(new View.OnClickListener() {
+        add_alarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                dialogClick();
+                Toast.makeText(getBaseContext(),"111",Toast.LENGTH_SHORT).show();
 
             }
-
         });
 
     }
 
-    /*单选框，打开相机or打开相册*/
-    public void dialogClick() {
+    private void addAlbum() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        add_album = (ImageButton) findViewById(R.id.add_album);
 
-        builder.setTitle("请选择方式");
-
-        builder.setIcon(R.mipmap.ic_launcher);
-
-        builder.setSingleChoiceItems(singleList, 0, new DialogInterface.OnClickListener() {
+        add_album.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View v) {
 
-                switch (which) {
+                if (Build.VERSION.SDK_INT >= 23){
 
-                    case 0:
+                    if (ContextCompat.checkSelfPermission(AddActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
-                        if (Build.VERSION.SDK_INT >= 23){
+                        ActivityCompat.requestPermissions(AddActivity.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
 
-                            if (ContextCompat.checkSelfPermission(AddActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    } else {
 
-                                ActivityCompat.requestPermissions(AddActivity.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                        openAlbum();
 
-                            } else {
-
-                                openAlbum();
-
-                            }
-
-                        }
-                        break;
-
-                    case 1:
-
-                        //打开相机选图,是否授权
-                        if (Build.VERSION.SDK_INT >= 23) {
-
-                            if (ContextCompat.checkSelfPermission(AddActivity.this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-
-                                ActivityCompat.requestPermissions(AddActivity.this, new String[]{android.Manifest.permission.CAMERA}, 2);
-
-                            } else {
-
-                                //打开相机
-                                openCamera();
-                            }
-
-                        }
-
-                        break;
-
-                    default:
-
-                        break;
+                    }
 
                 }
 
-                dialog.dismiss();
             }
         });
 
-        AlertDialog dialog = builder.create();
+    }
 
-        dialog.show();
+    private void addCamera() {
+
+        add_camera = (ImageButton) findViewById(R.id.add_camera);
+
+        add_camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //打开相机选图,是否授权
+                if (Build.VERSION.SDK_INT >= 23) {
+
+                    if (ContextCompat.checkSelfPermission(AddActivity.this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+
+                        ActivityCompat.requestPermissions(AddActivity.this, new String[]{android.Manifest.permission.CAMERA}, 2);
+
+                    } else {
+
+                        //打开相机
+                        openCamera();
+                    }
+
+                }
+
+            }
+        });
 
     }
+
 
     /*打开相机*/
     private void openCamera() {
