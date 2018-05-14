@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tool_setcolor"
+        android:id="@+id/poster_setcolor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -23,7 +23,7 @@
             android:src="@mipmap/setcolor_red" />
 
         <SeekBar
-            android:id="@+id/tool_setcolorR_sb"
+            android:id="@+id/poster_setcolorR_sb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/setcolorR"
@@ -38,12 +38,12 @@
             android:src="@mipmap/setcolor_green" />
 
         <SeekBar
-            android:id="@+id/tool_setcolorG_sb"
+            android:id="@+id/poster_setcolorG_sb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/setcolorG"
             android:layout_alignTop="@+id/setcolorG"
-            android:layout_below="@+id/tool_setcolorR_sb"
+            android:layout_below="@+id/poster_setcolorR_sb"
             android:layout_toRightOf="@+id/setcolorG" />
 
         <ImageView
@@ -54,19 +54,19 @@
             android:src="@mipmap/setcolor_bule" />
 
         <SeekBar
-            android:id="@+id/tool_setcolorB_sb"
+            android:id="@+id/poster_setcolorB_sb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/setcolorB"
             android:layout_alignTop="@+id/setcolorB"
-            android:layout_below="@+id/tool_setcolorG_sb"
+            android:layout_below="@+id/poster_setcolorG_sb"
             android:layout_toRightOf="@+id/setcolorB" />
 
 
     </RelativeLayout>
 
     <EditText
-        android:id="@+id/tool_setText"
+        android:id="@+id/poster_setText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="设置文本"
@@ -79,14 +79,14 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/tool_setline_btn"
+            android:id="@+id/poster_setline_btn"
             android:layout_weight="1"
             android:text="按行显示"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <Button
-            android:id="@+id/tool_setlist_btn"
+            android:id="@+id/poster_setlist_btn"
             android:layout_weight="1"
             android:text="按列显示"
             android:layout_width="wrap_content"

@@ -1,0 +1,62 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.lenovo.aviewoftori.Fragment.ToolFragment"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/poster_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.Toolbar>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/poster_iv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/poster_tv"
+            android:text="设置文本"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <SlidingDrawer
+            android:id="@+id/poster_sd"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_gravity="bottom"
+            android:animateOnClick="true"
+            android:content="@+id/poster_sd_content"
+            android:handle="@+id/poster_sd_handle">
+
+            <ImageView
+                android:id="@+id/poster_sd_handle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/poster_handle_up" />
+
+            <LinearLayout
+                android:id="@+id/poster_sd_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/text_color_diary"
+                android:orientation="vertical">
+
+                <include
+                    layout="@layout/slidingsrawer_content_layout"
+                    ></include>
+
+            </LinearLayout>
+
+        </SlidingDrawer>
+
+    </FrameLayout>
+
+</LinearLayout>

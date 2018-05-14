@@ -34,7 +34,8 @@
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="25dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:backgroundTintMode="add"/>
 
 
 </FrameLayout>

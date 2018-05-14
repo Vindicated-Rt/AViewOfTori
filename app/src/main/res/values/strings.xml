@@ -16,4 +16,5 @@
     <string name="password">请输入密码</string>
     <string name="setting_check_password">添加密码</string>
     <string name="setting_change_password">修改密码</string>
+    <string name="poster">海报</string>
 </resources>

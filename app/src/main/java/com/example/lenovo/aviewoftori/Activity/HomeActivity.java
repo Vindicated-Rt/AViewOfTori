@@ -41,8 +41,6 @@ import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
-    public static final int CHOOSE_PHOTO = 0;
-
     public static final int SET_DIARY = 1;
 
     public static final int SET_MEMO = 2;
