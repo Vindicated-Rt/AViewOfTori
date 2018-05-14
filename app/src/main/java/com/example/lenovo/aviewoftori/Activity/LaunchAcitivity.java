@@ -32,7 +32,7 @@ public class LaunchAcitivity extends AppCompatActivity {
 
         launch_iv = (ImageView) findViewById(R.id.launch_iv);
 
-        launch_iv.setImageResource(R.mipmap.launchimg);
+        launch_iv.setImageResource(R.mipmap.launch_img);
 
         ScaleAnimation scaleAnimation = new ScaleAnimation(1.4f,1.0f,1.4f,1.0f, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
 

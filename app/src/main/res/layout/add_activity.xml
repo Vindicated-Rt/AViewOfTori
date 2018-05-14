@@ -20,11 +20,36 @@
         android:gravity="top"
         android:layout_margin="10dp"/>
 
-    <ImageButton
-        android:id="@+id/add_ib"
-        android:src="@mipmap/addpicture"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="15dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:background="@color/down_color_diary">
+
+        <ImageButton
+
+            android:id="@+id/add_camera"
+            android:src="@mipmap/add_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:id="@+id/add_album"
+            android:src="@mipmap/add_album"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:id="@+id/add_alarm"
+            android:src="@mipmap/add_alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+
+
+    </LinearLayout>
 </LinearLayout>
