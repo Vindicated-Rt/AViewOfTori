@@ -292,7 +292,7 @@ public class AddActivity extends AppCompatActivity {
                         //将拍摄图片显示出来
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
 
-                        add_ib.setImageBitmap(bitmap);
+                        //add_ib.setImageBitmap(bitmap);
 
                     } catch (FileNotFoundException e) {
 
@@ -406,7 +406,7 @@ public class AddActivity extends AppCompatActivity {
 
             Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
 
-            add_ib.setImageBitmap(bitmap);
+            //add_ib.setImageBitmap(bitmap);
 
         } else {
 
