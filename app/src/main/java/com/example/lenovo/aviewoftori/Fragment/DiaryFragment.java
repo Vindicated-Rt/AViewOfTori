@@ -29,7 +29,6 @@ import com.example.lenovo.aviewoftori.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.content.Context.MODE_APPEND;
 import static android.content.Context.MODE_PRIVATE;
 
 /**
@@ -58,6 +57,8 @@ public class DiaryFragment extends Fragment {
     private RelativeLayout diary_layuout;
 
     private String info_password;
+
+    //private Context mContext = getActivity();
 
     public DiaryFragment() {
         // Required empty public constructor
@@ -147,6 +148,8 @@ public class DiaryFragment extends Fragment {
 
     public void bindingAdapter() {
 
+
+
         //获取布局管理者并绑定到控件上上
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
 
@@ -155,7 +158,20 @@ public class DiaryFragment extends Fragment {
         //获取数据源并加载到适配器上
         diaryList = new ArrayList<>();
 
-        diaryAdapter = new DiaryAdapter(diaryList);
+        diaryAdapter = new DiaryAdapter(diaryList,getActivity());
+
+        diaryAdapter.setOnItemClickLisener(new DiaryAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int postion) {
+                Toast.makeText(getContext(),"111111111010",Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent();
+
+                intent.setClass(getActivity(), AddActivity.class);
+
+                startActivity(intent);
+            }
+        });
 
         //将适配器绑定到控件上
         diary_rv.setAdapter(diaryAdapter);
