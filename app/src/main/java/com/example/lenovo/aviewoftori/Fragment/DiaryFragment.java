@@ -8,12 +8,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -22,6 +24,8 @@ import android.widget.Toast;
 
 import com.example.lenovo.aviewoftori.Activity.AddActivity;
 import com.example.lenovo.aviewoftori.Adapter.DiaryAdapter;
+import com.example.lenovo.aviewoftori.Adapter.MemoGridAdapter;
+import com.example.lenovo.aviewoftori.Adapter.MemoListAdapter;
 import com.example.lenovo.aviewoftori.Base.DataBaseHelper;
 import com.example.lenovo.aviewoftori.Other.Diary;
 import com.example.lenovo.aviewoftori.R;
@@ -34,7 +38,7 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DiaryFragment extends Fragment {
+public class DiaryFragment extends Fragment{
 
     private RecyclerView diary_rv;
 
@@ -58,7 +62,17 @@ public class DiaryFragment extends Fragment {
 
     private String info_password;
 
-    //private Context mContext = getActivity();
+    private DataBaseHelper dataBaseHelper;
+
+    private SQLiteDatabase db;
+
+    private SQLiteDatabase dbWriter;
+
+    private Cursor cursor;
+
+    private Intent item;
+
+    private AlertDialog deletedata;
 
     public DiaryFragment() {
         // Required empty public constructor
@@ -70,6 +84,15 @@ public class DiaryFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.diary_fragment, container, false);
+
+        //获取数据库
+        dataBaseHelper = new DataBaseHelper(getContext(), "Store.db", null, 1);
+
+        db = dataBaseHelper.getReadableDatabase();
+
+        cursor = db.query("Diary", null, null, null, null, null, null);
+
+        item = new Intent(getActivity(),AddActivity.class);
 
         diary_rv = (RecyclerView) view.findViewById(R.id.diary_rv);
 
@@ -119,15 +142,6 @@ public class DiaryFragment extends Fragment {
 
     public void addData() {
 
-        //获取数据库
-        DataBaseHelper dataBaseHelper;
-
-        dataBaseHelper = new DataBaseHelper(getContext(), "Store.db", null, 1);
-
-        SQLiteDatabase db = dataBaseHelper.getReadableDatabase();
-
-        Cursor cursor = db.query("Diary", null, null, null, null, null, null);
-
         if (cursor.moveToFirst()) {
             do {
                 //加载数据库资源到数据源中
@@ -148,8 +162,6 @@ public class DiaryFragment extends Fragment {
 
     public void bindingAdapter() {
 
-
-
         //获取布局管理者并绑定到控件上上
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
 
@@ -163,13 +175,28 @@ public class DiaryFragment extends Fragment {
         diaryAdapter.setOnItemClickLisener(new DiaryAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int postion) {
-                Toast.makeText(getContext(),"111111111010",Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent();
+                dataBaseHelper = new DataBaseHelper(getContext(), "Store.db", null, 1);
 
-                intent.setClass(getActivity(), AddActivity.class);
+                db = dataBaseHelper.getReadableDatabase();
 
-                startActivity(intent);
+                cursor = db.query("Diary", null, null, null, null, null, null);
+
+                cursor.moveToPosition(postion);
+
+                item.setClass(getActivity(), AddActivity.class);
+
+                item.putExtra("flag","diary");
+
+                item.putExtra("id",cursor.getInt(cursor.getColumnIndex("id")));
+
+                item.putExtra("content",cursor.getString(cursor.getColumnIndex("content")));
+
+                item.putExtra("time",cursor.getString(cursor.getColumnIndex("time")));
+
+                item.putExtra("image",cursor.getString(cursor.getColumnIndex("image")));
+
+                startActivity(item);
             }
         });
 
@@ -183,19 +210,65 @@ public class DiaryFragment extends Fragment {
         FloatingActionButton diary_fab = (FloatingActionButton) view.findViewById(R.id.diary_fab);
 
         diary_fab.setOnClickListener(new View.OnClickListener() {
-            @Override
+
             public void onClick(View v) {
 
-                Intent intent = new Intent(getActivity(), AddActivity.class);
+                item.putExtra("flag", "0");
 
-                intent.putExtra("flag", "0");
-
-                startActivity(intent);
+                startActivity(item);
 
             }
         });
 
 
+    }
+
+    /*删除dialog*/
+    public void deleteDailog(int position){
+
+        dbWriter = dataBaseHelper.getReadableDatabase();
+
+        deletedata = new AlertDialog.Builder(getActivity()).create();
+
+        View dialogView = LayoutInflater.from(getActivity())
+                .inflate(R.layout.delete_dialog, null);
+
+        deletedata.setTitle("确认删除");
+
+        deletedata.setView(dialogView);
+
+        deletedata.setIcon(R.mipmap.dialog_delete_icon);
+
+        deletedata.setCancelable(false);
+
+        ImageButton deletedata_dialog_ok_btn = (ImageButton) dialogView
+                .findViewById(R.id.dialog_ok_btn);
+
+        ImageButton deletedata_dialog_cancedl_btn = (ImageButton) dialogView
+                .findViewById(R.id.dialog_cancel_btn);
+
+        cursor.moveToPosition(position);
+
+        deletedata_dialog_ok_btn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+
+                dbWriter.delete("Diary", "id=" +cursor.getInt(cursor.getColumnIndex("id")), null);
+
+                deletedata.cancel();
+            }
+        });
+
+        deletedata_dialog_cancedl_btn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+
+                deletedata.cancel();
+
+            }
+        });
+
+        deletedata.show();
     }
 
     public void setLock() {

@@ -13,6 +13,8 @@
     <TextView
         android:id="@+id/add_time_tv"
         android:layout_below="@+id/add_toolbar"
+        android:layout_alignLeft="@+id/add_et"
+        android:layout_alignRight="@+id/add_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

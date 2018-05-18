@@ -47,7 +47,6 @@ public class SettingActivity extends AppCompatActivity {
 
     private AlertDialog setbio;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setting_activity);

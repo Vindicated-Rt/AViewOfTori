@@ -19,11 +19,13 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -46,8 +48,7 @@ import java.util.Date;
  * Created by asus on 2018/4/23.
  */
 
-public class
-AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePickerDialogInterface{
+public class AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePickerDialogInterface {
 
     private Toolbar add_toolbar;
 
@@ -58,6 +59,8 @@ AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePi
     private ImageButton add_album;
 
     private ImageButton add_alarm;
+
+    private TextView add_time_et;
 
     private EditText add_et;
 
@@ -79,6 +82,18 @@ AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePi
 
     public AlarmManager alarmManager;
 
+    private DataBaseHelper dataBaseHelper;
+
+    private String flag;
+
+    private LinearLayout add_alarm_layout;
+
+    private TextView add_alarm_tv;
+
+    private boolean setnewpic;
+
+    private boolean setnewalarm;
+
     //跳转页面标识符
     public static final int TAKE_PHOTO = 1;
 
@@ -93,13 +108,25 @@ AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePi
 
         setContentView(R.layout.add_activity);
 
+        dataBaseHelper = new DataBaseHelper(this, "Store.db", null, 1);
+
+        add_alarm_layout = (LinearLayout) findViewById(R.id.add_alarm_layout);
+
+        add_alarm_tv = (TextView) findViewById(R.id.add_alarm_tv);
+
+        flag = getIntent().getStringExtra("flag");
+
         add_et = (EditText) findViewById(R.id.add_et);
 
         add_show = (ImageView) findViewById(R.id.add_show);
 
-        add_alarm_tv = (TextView) findViewById(R.id.add_alarm_tv);
+        add_time_et = (TextView) findViewById(R.id.add_time_tv);
 
-        add_alarm_layout = (LinearLayout) findViewById(R.id.add_alarm_layout);
+        add_alarm = (ImageButton) findViewById(R.id.add_alarm);
+
+        add_time_et.setText(getTime());
+
+        hidealarm();
 
         add_tool_layout  = (LinearLayout) findViewById(R.id.add_tool_layout);
 
@@ -107,9 +134,11 @@ AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePi
 
         setTitle();
 
-        addAlarm();
+        setInfo();
 
         changeAlarm();
+
+        addAlarm();
 
         addCamera();
 
@@ -117,18 +146,43 @@ AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePi
 
     }
 
-    private void addAlarm() {
+    /*隐藏日记闹钟*/
+    public void hidealarm() {
 
-        add_alarm = (ImageButton) findViewById(R.id.add_alarm);
+        if (flag.equals("diary") || flag.equals("0")) {
+
+            add_alarm.setVisibility(View.GONE);
+
+        }
+    }
+
+    /*根据传值显示文本及图片*/
+    public void setInfo() {
+
+        add_et.setText(getIntent().getStringExtra("content"));
+
+        /*初始化位图对象,以主页面传的值打开对应图片文件*/
+        Bitmap bitmap = BitmapFactory.decodeFile(getIntent().getStringExtra("image"));
+
+        add_show.setImageBitmap(bitmap);
+
+    }
+
+    /*打开闹钟按钮*/
+    private void addAlarm() {
 
         add_alarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                if (flag.equals("memo")){
 
-            timeDatePickerDialog = new TimeDatePickerDialog(AddActivity.this);
+                    setnewalarm = true;
+                }
 
-            timeDatePickerDialog.showDialog();
+                timeDatePickerDialog = new TimeDatePickerDialog(AddActivity.this);
+
+                timeDatePickerDialog.showDialog();
 
 
             }
@@ -136,6 +190,7 @@ AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePi
 
     }
 
+    /*打开图册按钮*/
     private void addAlbum() {
 
         add_album = (ImageButton) findViewById(R.id.add_album);
@@ -144,7 +199,7 @@ AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePi
             @Override
             public void onClick(View v) {
 
-                if (Build.VERSION.SDK_INT >= 23){
+                if (Build.VERSION.SDK_INT >= 23) {
 
                     if (ContextCompat.checkSelfPermission(AddActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
@@ -163,6 +218,7 @@ AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePi
 
     }
 
+    /*打开相机按钮*/
     private void addCamera() {
 
         add_camera = (ImageButton) findViewById(R.id.add_camera);
@@ -190,7 +246,6 @@ AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePi
         });
 
     }
-
 
     /*打开相机*/
     private void openCamera() {
@@ -220,6 +275,12 @@ AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePi
             imageUri = Uri.fromFile(storeImage);
 
         }
+
+        if(flag.equals("memo") || flag.equals("diary")){
+
+            setnewpic = true;
+        }
+
         //启动相机
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 
@@ -231,6 +292,11 @@ AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePi
 
     /*打开图库*/
     private void openAlbum() {
+
+        if(flag.equals("memo") || flag.equals("diary")){
+
+            setnewpic = true;
+        }
 
         Intent intent = new Intent("android.intent.action.GET_CONTENT");
 
@@ -280,6 +346,7 @@ AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePi
 
     }
 
+    /*设置toolbar*/
     public void setTitle() {
 
         add_toolbar = (Toolbar) findViewById(R.id.add_toolbar);
@@ -300,15 +367,24 @@ AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePi
 
         //设置菜单点击事件
         add_toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
+
             public boolean onMenuItemClick(MenuItem item) {
 
                 switch (item.getItemId()) {
 
                     case R.id.add_comfirm:
 
-                        //储存数据
-                        storeData();
+                        if(flag.equals("0") || flag.equals("1")){
+
+                            //储存数据
+                            storeData();
+
+                        }else if(flag.equals("memo") || flag.equals("diary")){
+
+                            /*更新数据*/
+                            UpData();
+
+                        }
 
                         finish();
                 }
@@ -319,7 +395,7 @@ AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePi
 
     }
 
-    @Override
+    /*页面返回值*/
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -372,6 +448,7 @@ AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePi
 
     }
 
+    /*根据版本创建图片文件*/
     private void handleImageOnKitKat(Intent data) {
 
         Uri uri = data.getData();
@@ -410,6 +487,7 @@ AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePi
 
     }
 
+    /*根据老版本创建图片文件*/
     private void handleImageBeforeKitKat(Intent data) {
 
         Uri uri = data.getData();
@@ -420,6 +498,7 @@ AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePi
 
     }
 
+    /*获取图片地址*/
     private String getImxagePath(Uri uri, String selection) {
 
         String path = null;
@@ -441,6 +520,7 @@ AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePi
 
     }
 
+    /*显示图片*/
     private void displayImage(String imagePath) {
 
         if (imagePath != null) {
@@ -457,13 +537,8 @@ AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePi
 
     }
 
+    /*存储数据*/
     public void storeData() {
-
-        DataBaseHelper dataBaseHelper;
-
-        dataBaseHelper = new DataBaseHelper(this, "Store.db", null, 1);
-
-        dataBaseHelper.getReadableDatabase();
 
         SQLiteDatabase db = dataBaseHelper.getReadableDatabase();
 
@@ -471,17 +546,15 @@ AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePi
 
         values.put("content", add_et.getText().toString());
 
-        values.put("time", getTime());
+        values.put("time", add_time_et.getText().toString());
 
         values.put("image", storeImage + "");
 
-
-
-        if (getIntent().getStringExtra("flag").equals("0")) {
+        if (flag.equals("0")) {
 
             db.insert("Diary", null, values);
 
-        } else if (getIntent().getStringExtra("flag").equals("1")) {
+        } else if (flag.equals("1")) {
 
             values.put("alarm",add_alarm_tv.getText().toString());
 
@@ -490,6 +563,45 @@ AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePi
         }
     }
 
+    /*更新数据*/
+    public void UpData(){
+
+        SQLiteDatabase db = dataBaseHelper.getReadableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        int id = getIntent().getIntExtra("id",0);
+
+        String str = Integer.toString(id);
+
+        values.put("content", add_et.getText().toString());
+
+        values.put("time", getTime());
+
+        if(setnewpic){
+
+            values.put("image", storeImage + "");
+
+        }
+
+        if (setnewalarm){
+
+            values.put("alarm",add_alarm_tv.getText().toString());
+
+        }
+
+        if (flag.equals("memo")) {
+
+            db.update("memo",values,"id = ?",new String[]{str});
+
+        } else if (flag.equals("diary")) {
+
+            db.update("diary",values,"id = ?",new String[]{str});
+
+        }
+    }
+
+    /*获得当前时间*/
     public String getTime() {
         //设置日期格式
         SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
@@ -512,7 +624,6 @@ AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePi
         return true;
     }
 
-
     /*点击闹钟时间修改*/
     public void changeAlarm(){
 
@@ -529,7 +640,6 @@ AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePi
     }
 
     /*用接口实现Dialog点击确认的监听器*/
-    @Override
     public void positiveListener() {
 
         alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
@@ -537,6 +647,7 @@ AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePi
 
 
         calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
 
         //将dialog选择的时间赋值给calendar
         calendar.set(Calendar.YEAR,timeDatePickerDialog.getmYear());
@@ -566,7 +677,6 @@ AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePi
         Toast.makeText(getBaseContext(),calendar.getTime()+"",Toast.LENGTH_SHORT).show();
     }
 
-    @Override
     public void negativeListener() {
         int alarm_temp = alarm;
 
@@ -581,33 +691,4 @@ AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePi
         alarmManager.cancel(pi);
 
     }
-
-    //重写该方法显示图标 (不懂)
-//    @Override
-//    protected boolean onPrepareOptionsPanel(View view,Menu menu){
-//
-//        if(menu != null){
-//
-//            if(menu.getClass() == MenuBuilder.class){
-//
-//                try{
-//
-//                    Method m = menu.getClass().getDeclaredMethod("setOptionlIconsVisible",Boolean.TYPE);
-//
-//                    m.setAccessible(true);
-//
-//                    m.invoke(menu,true);
-//
-//                } catch (Exception e) {
-//
-//                    e.printStackTrace();
-//
-//                }
-//            }
-//        }
-//
-//        return super.onPrepareOptionsPanel(view,menu);
-//
-//    }
-
 }
