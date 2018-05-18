@@ -6,7 +6,7 @@
         android:id="@+id/add_comfirm"
         android:icon="@mipmap/addcomfirm"
         android:title=""
-        app:showAsAction="always"
-        />
+        android:visible="true"
+        app:showAsAction="always" />
 
 </menu>

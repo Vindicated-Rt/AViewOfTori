@@ -34,7 +34,6 @@
             android:name=".Activity.AddActivity"
             android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".Activity.AboutUsActivity" />
-        <activity android:name=".Activity.LookActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

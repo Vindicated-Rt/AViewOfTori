@@ -15,7 +15,6 @@ import android.widget.GridView;
 import android.widget.ListView;
 
 import com.example.lenovo.aviewoftori.Activity.AddActivity;
-import com.example.lenovo.aviewoftori.Activity.LookActivity;
 import com.example.lenovo.aviewoftori.Adapter.MemoGridAdapter;
 import com.example.lenovo.aviewoftori.Adapter.MemoListAdapter;
 import com.example.lenovo.aviewoftori.Base.DataBaseHelper;
@@ -37,6 +36,8 @@ public class MemoFragment extends Fragment {
 
     private Cursor cursor;
 
+    private Intent item;
+
     public MemoFragment() {
         // Required empty public constructor
     }
@@ -44,6 +45,8 @@ public class MemoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        item = new Intent(getActivity(),AddActivity.class);
 
         setHasOptionsMenu(true);
 
@@ -89,9 +92,7 @@ public class MemoFragment extends Fragment {
 
                 cursor.moveToPosition(position);
 
-                Intent item = new Intent(getActivity(),LookActivity.class);
-
-                item.putExtra("table","memo");
+                item.putExtra("flag","memo");
 
                 item.putExtra("id",cursor.getInt(cursor.getColumnIndex("id")));
 
@@ -113,9 +114,9 @@ public class MemoFragment extends Fragment {
 
                 cursor.moveToPosition(position);
 
-                Intent item = new Intent(getActivity(),LookActivity.class);
+                Intent item = new Intent(getActivity(),AddActivity.class);
 
-                item.putExtra("table","memo");
+                item.putExtra("flag","memo");
 
                 item.putExtra("id",cursor.getInt(cursor.getColumnIndex("id")));
 
@@ -147,11 +148,9 @@ public class MemoFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getActivity(), AddActivity.class);
+                item.putExtra("flag", "1");
 
-                intent.putExtra("flag", "1");
-
-                startActivity(intent);
+                startActivity(item);
 
             }
         });
