@@ -1,33 +1,22 @@
 package com.example.lenovo.aviewoftori.Activity;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Handler;
-import android.os.Message;
-import android.provider.MediaStore;
+import android.content.SharedPreferences;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.lenovo.aviewoftori.Adapter.FragmentAdapter;
 import com.example.lenovo.aviewoftori.Fragment.DiaryFragment;
@@ -35,17 +24,10 @@ import com.example.lenovo.aviewoftori.Fragment.MemoFragment;
 import com.example.lenovo.aviewoftori.Fragment.ToolFragment;
 import com.example.lenovo.aviewoftori.R;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
-
-    public static final int SET_DIARY = 1;
-
-    public static final int SET_MEMO = 2;
-
-    public static final int SET_TOOL = 3;
 
     private ViewPager home_viewPager;//初始化滑动视图
 
@@ -62,6 +44,18 @@ public class HomeActivity extends AppCompatActivity {
     private FragmentAdapter fragmentAdapter;//初始化fragment适配器
 
     private NavigationView side_view;//初始化侧滑栏布局
+
+    private View head_layout;
+
+    private TextView email_et;
+
+    private TextView bio_et;
+
+    private SharedPreferences setting_info;
+
+    private String email;
+
+    private String bio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +93,12 @@ public class HomeActivity extends AppCompatActivity {
 
         side_view = (NavigationView) findViewById(R.id.home_side_layout);
 
+        head_layout = side_view.inflateHeaderView(R.layout.side_headview);
+
+        email_et = (TextView) head_layout.findViewById(R.id.side_head_email_tv);
+
+        bio_et = (TextView) head_layout.findViewById(R.id.side_head_bio_tv);
+
         /*侧滑栏item点击事件*/
         side_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
@@ -109,6 +109,30 @@ public class HomeActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem item) {
 
                 switch (item.getItemId()) {
+
+                    case R.id.side_item_memo:
+
+                        home_viewPager.setCurrentItem(1);
+
+                        drawerLayout.closeDrawer(Gravity.LEFT);
+
+                        break;
+
+                    case R.id.side_item_diary:
+
+                        home_viewPager.setCurrentItem(0);
+
+                        drawerLayout.closeDrawer(Gravity.LEFT);
+
+                        break;
+
+                    case R.id.side_item_tool:
+
+                        home_viewPager.setCurrentItem(2);
+
+                        drawerLayout.closeDrawer(Gravity.LEFT);
+
+                        break;
 
                     case R.id.side_item_aboutus:
 
@@ -143,14 +167,6 @@ public class HomeActivity extends AppCompatActivity {
         title.add(getString(R.string.tool));
     }
 
-    /*布置toolbar布局*/
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.home_toolbar_menu, menu);
-
-        return true;
-    }
-
     /*设置toolbar*/
     public void setToolbar() {
 
@@ -172,163 +188,21 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    /*toolbar的item点击事件*/
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        Fragment memo_fragment = (Fragment) fragmentAdapter.getCurrentFragment();
-
-        ListView memo_listview = (ListView) memo_fragment.getView().findViewById(R.id.memo_listview);
-
-        GridView memo_gridview = (GridView) memo_fragment.getView().findViewById(R.id.memo_gridview);
-
-        switch (item.getItemId()) {
-
-            case R.id.toolbar_list_btn:
-
-                home_toolbar.getMenu().findItem(R.id.toolbar_list_btn).setVisible(false);
-
-                home_toolbar.getMenu().findItem(R.id.toolbar_gird_btn).setVisible(true);
-
-                memo_listview.setVisibility(View.GONE);
-
-                memo_gridview.setVisibility(View.VISIBLE);
-
-                break;
-
-            case R.id.toolbar_gird_btn:
-
-                home_toolbar.getMenu().findItem(R.id.toolbar_list_btn).setVisible(true);
-
-                home_toolbar.getMenu().findItem(R.id.toolbar_gird_btn).setVisible(false);
-
-                memo_listview.setVisibility(View.VISIBLE);
-
-                memo_gridview.setVisibility(View.GONE);
-
-                break;
-
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    /*以viewpager页卡数控制toolbar状态*/
-    public boolean onPrepareOptionsMenu(Menu menu) {
-
-        Fragment memo_fragment = (Fragment) fragmentAdapter.getCurrentFragment();
-
-        ListView memo_listview = (ListView) memo_fragment.getView().findViewById(R.id.memo_listview);
-
-        switch (home_viewPager.getCurrentItem()) {
-
-            case 0:
-
-                new Thread(new Runnable() {
-
-                    public void run() {
-
-                        Message message = new Message();
-
-                        message.what = SET_DIARY;
-
-                        handler.sendMessage(message);
-
-                    }
-                }).start();
-
-                break;
-
-            case 1:
-
-                new Thread(new Runnable() {
-
-                    public void run() {
-
-                        Message message = new Message();
-
-                        message.what = SET_MEMO;
-
-                        handler.sendMessage(message);
-
-                    }
-                }).start();
-
-                if (memo_listview.getVisibility() == View.VISIBLE) {
-
-                    home_toolbar.getMenu().findItem(R.id.toolbar_list_btn).setVisible(true);
-
-                    home_toolbar.getMenu().findItem(R.id.toolbar_gird_btn).setVisible(false);
-
-                } else {
-
-                    home_toolbar.getMenu().findItem(R.id.toolbar_list_btn).setVisible(false);
-
-                    home_toolbar.getMenu().findItem(R.id.toolbar_gird_btn).setVisible(true);
-                }
-
-                break;
-
-            case 2:
-
-                new Thread(new Runnable() {
-
-                    public void run() {
-
-                        Message message = new Message();
-
-                        message.what = SET_TOOL;
-
-                        handler.sendMessage(message);
-
-                    }
-                }).start();
-
-                break;
-
-        }
-
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    /*线程控制刷新toolbar*/
-    private Handler handler = new Handler() {
-
-        public void handleMessage(Message msg){
-
-            switch (msg.what){
-
-                case SET_DIARY:
-
-                    home_toolbar.getMenu().findItem(R.id.toolbar_list_btn).setVisible(false);
-
-                    home_toolbar.getMenu().findItem(R.id.toolbar_gird_btn).setVisible(false);
-
-                    break;
-
-                case SET_MEMO:
-
-                    break;
-
-                case SET_TOOL:
-
-                    home_toolbar.getMenu().findItem(R.id.toolbar_list_btn).setVisible(false);
-
-                    home_toolbar.getMenu().findItem(R.id.toolbar_gird_btn).setVisible(false);
-                    break;
-
-                default:
-
-                    break;
-            }
-
-        }
-
-    };
-
     protected void onResume() {
 
         super.onResume();
 
         fragmentAdapter.notifyDataSetChanged();
+
+        setting_info = getSharedPreferences("info", MODE_PRIVATE);
+
+        email = setting_info.getString("email","YourEmail@.com");
+
+        bio = setting_info.getString("bio","your bio");
+
+        email_et.setText(email);
+
+        bio_et.setText(bio);
+
     }
 }

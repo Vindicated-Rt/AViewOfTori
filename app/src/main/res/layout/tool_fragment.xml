@@ -5,19 +5,17 @@
     tools:context="com.example.lenovo.aviewoftori.Fragment.ToolFragment">
 
     <ImageView
+        android:id="@+id/tool_iv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@mipmap/tool_background"
         android:alpha="0.2"/>
 
-    <ImageView
-        android:id="@+id/tool_iv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <Button
         android:id="@+id/tool_poster"
+        android:background="@mipmap/tool_btn_background"
         android:text="@string/poster"
+        android:layout_marginLeft="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

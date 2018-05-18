@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/look_add"
+        android:title=""
+        android:icon="@mipmap/icon_ok"
+        android:visible="false"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/look_delete"
+        android:title=""
+        android:icon="@mipmap/icon_delete"
+        android:visible="true"
+        app:showAsAction="always" />
+
+</menu>

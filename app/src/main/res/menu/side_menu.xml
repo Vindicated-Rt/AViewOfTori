@@ -6,7 +6,7 @@
 
         <item
             android:id="@+id/side_lable_one"
-            android:title="@string/memo">
+            android:title="功能">
 
             <menu>
 
@@ -16,9 +16,14 @@
                     android:title="@string/memo"/>
 
                 <item
-                    android:id="@+id/side_item_collect"
-                    android:icon="@mipmap/side_icon_collect"
-                    android:title="@string/collect"/>
+                    android:id="@+id/side_item_diary"
+                    android:icon="@mipmap/side_icon_diary"
+                    android:title="@string/diary"/>
+
+                <item
+                    android:id="@+id/side_item_tool"
+                    android:icon="@mipmap/side_icon_tool"
+                    android:title="@string/tool"/>
 
             </menu>
 
@@ -26,14 +31,9 @@
 
         <item
             android:id="@+id/side_lable_two"
-            android:title="@string/setting">
+            android:title="选项">
 
             <menu>
-
-                <item
-                    android:id="@+id/side_item_office"
-                    android:icon="@mipmap/side_icon_office"
-                    android:title="@string/office"/>
 
                 <item
                     android:id="@+id/side_item_setting"

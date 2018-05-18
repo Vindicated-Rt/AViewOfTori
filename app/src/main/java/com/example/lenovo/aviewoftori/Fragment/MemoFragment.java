@@ -10,18 +10,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
 
 import com.example.lenovo.aviewoftori.Activity.AddActivity;
+import com.example.lenovo.aviewoftori.Activity.LookActivity;
 import com.example.lenovo.aviewoftori.Adapter.MemoGridAdapter;
 import com.example.lenovo.aviewoftori.Adapter.MemoListAdapter;
 import com.example.lenovo.aviewoftori.Base.DataBaseHelper;
 import com.example.lenovo.aviewoftori.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class MemoFragment extends Fragment {
 
     private ListView memo_listView;
@@ -58,6 +57,79 @@ public class MemoFragment extends Fragment {
 
         memo_gridView = (GridView) view.findViewById(R.id.memo_gridview);
 
+        FloatingActionButton memo_fab = (FloatingActionButton) view.findViewById(R.id.memo_fab);
+
+        /*按钮长按改变形式*/
+        memo_fab.setOnLongClickListener(new View.OnLongClickListener() {
+
+            public boolean onLongClick(View v) {
+
+                if(memo_listView.getVisibility()==View.VISIBLE){
+
+                    memo_listView.setVisibility(View.GONE);
+
+                    memo_gridView.setVisibility(View.VISIBLE);
+
+                }else {
+
+                    memo_listView.setVisibility(View.VISIBLE);
+
+                    memo_gridView.setVisibility(View.GONE);
+
+                }
+
+                return true;
+            }
+        });
+
+        /*LisView点击事件*/
+        memo_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                cursor.moveToPosition(position);
+
+                Intent item = new Intent(getActivity(),LookActivity.class);
+
+                item.putExtra("table","memo");
+
+                item.putExtra("id",cursor.getInt(cursor.getColumnIndex("id")));
+
+                item.putExtra("content",cursor.getString(cursor.getColumnIndex("content")));
+
+                item.putExtra("time",cursor.getString(cursor.getColumnIndex("time")));
+
+                item.putExtra("image",cursor.getString(cursor.getColumnIndex("image")));
+
+                startActivity(item);
+
+            }
+        });
+
+        /*GridView点击事件*/
+        memo_gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                cursor.moveToPosition(position);
+
+                Intent item = new Intent(getActivity(),LookActivity.class);
+
+                item.putExtra("table","memo");
+
+                item.putExtra("id",cursor.getInt(cursor.getColumnIndex("id")));
+
+                item.putExtra("content",cursor.getString(cursor.getColumnIndex("content")));
+
+                item.putExtra("time",cursor.getString(cursor.getColumnIndex("time")));
+
+                item.putExtra("image",cursor.getString(cursor.getColumnIndex("image")));
+
+                startActivity(item);
+
+            }
+        });
+
         addData();
 
         toAdd(view);
@@ -69,9 +141,9 @@ public class MemoFragment extends Fragment {
     /*跳转到添加页面*/
     public void toAdd(View view) {
 
-        FloatingActionButton diary_fab = (FloatingActionButton) view.findViewById(R.id.memo_fab);
+        FloatingActionButton memo_fab = (FloatingActionButton) view.findViewById(R.id.memo_fab);
 
-        diary_fab.setOnClickListener(new View.OnClickListener() {
+        memo_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -99,6 +171,5 @@ public class MemoFragment extends Fragment {
 
         memo_gridView.setAdapter(memoGridAdapter);
     }
-
 
 }

@@ -10,13 +10,13 @@ import android.widget.TextView;
 
 public class SeekBarListener implements SeekBar.OnSeekBarChangeListener {
 
-    private SeekBar seekbarR, seekbarG, seekbarB;
+    private SeekBar seekbarR, seekbarG, seekbarB, seekSize;
 
-    private TextView setColor_tv,setColorinfo_et;
+    private TextView setColor_tv,setColorinfo_tv;
 
     /*构造方法*/
-    public SeekBarListener(SeekBar seekbarR, SeekBar seekbarG, SeekBar seekbarB,
-                           TextView setColorinfo_et, TextView setColor_tv) {
+    public SeekBarListener(SeekBar seekbarR, SeekBar seekbarG, SeekBar seekbarB
+            , SeekBar seekSize,TextView setColorinfo_tv, TextView setColor_tv) {
 
         this.seekbarR = seekbarR;
 
@@ -24,7 +24,9 @@ public class SeekBarListener implements SeekBar.OnSeekBarChangeListener {
 
         this.seekbarB = seekbarB;
 
-        this.setColorinfo_et = setColorinfo_et;
+        this.seekSize = seekSize;
+
+        this.setColorinfo_tv = setColorinfo_tv;
 
         this.setColor_tv = setColor_tv;
     }
@@ -38,11 +40,16 @@ public class SeekBarListener implements SeekBar.OnSeekBarChangeListener {
 
         int progress3 = seekbarB.getProgress();
 
+        int progress4 = seekSize.getProgress();
+
         setColor_tv.setTextColor(Color.rgb(progress1, progress2, progress3));
 
-        setColorinfo_et.setBackgroundColor(Color.rgb(progress1, progress2, progress3));
+        setColor_tv.setTextSize(progress4);
 
-        setColorinfo_et.setText(Integer.toHexString(progress1) + Integer.toHexString(progress2) + Integer.toHexString(progress3));
+        setColorinfo_tv.setBackgroundColor(Color.rgb(progress1, progress2, progress3));
+
+        setColorinfo_tv.setText("#" + Integer.toHexString(progress1)
+                + Integer.toHexString(progress2) + Integer.toHexString(progress3));
 
     }
 
@@ -55,11 +62,16 @@ public class SeekBarListener implements SeekBar.OnSeekBarChangeListener {
 
         int progress3 = seekbarB.getProgress();
 
+        int progress4 = seekSize.getProgress();
+
         setColor_tv.setTextColor(Color.rgb(progress1, progress2, progress3));
 
-        setColorinfo_et.setBackgroundColor(Color.rgb(progress1, progress2, progress3));
+        setColor_tv.setTextSize(progress4);
 
-        setColorinfo_et.setText(Integer.toHexString(progress1) + Integer.toHexString(progress2) + Integer.toHexString(progress3));
+        setColorinfo_tv.setBackgroundColor(Color.rgb(progress1, progress2, progress3));
+
+        setColorinfo_tv.setText("#" + Integer.toHexString(progress1)
+                + Integer.toHexString(progress2) + Integer.toHexString(progress3));
 
     }
 
@@ -72,11 +84,16 @@ public class SeekBarListener implements SeekBar.OnSeekBarChangeListener {
 
         int progress3 = seekbarB.getProgress();
 
+        int progress4 = seekSize.getProgress();
+
         setColor_tv.setTextColor(Color.rgb(progress1, progress2, progress3));
 
-        setColorinfo_et.setBackgroundColor(Color.rgb(progress1, progress2, progress3));
+        setColor_tv.setTextSize(progress4);
 
-        setColorinfo_et.setText(Integer.toHexString(progress1) + Integer.toHexString(progress2) + Integer.toHexString(progress3));
+        setColorinfo_tv.setBackgroundColor(Color.rgb(progress1, progress2, progress3));
+
+        setColorinfo_tv.setText("#" + Integer.toHexString(progress1)
+                + Integer.toHexString(progress2) + Integer.toHexString(progress3));
 
     }
 }

@@ -61,7 +61,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
         viewHolder.diaryView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // 点击Item事件
+
             }
         });
 

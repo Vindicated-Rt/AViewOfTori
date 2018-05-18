@@ -2,10 +2,11 @@ package com.example.lenovo.aviewoftori.Activity;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,16 +14,13 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.SlidingDrawer;
 import android.widget.TextView;
@@ -51,16 +49,27 @@ public class PosterActivity extends AppCompatActivity {
 
     private Button poster_setlist_btn;
 
+    private Button poster_setType_Tang;
+
+    private Button poster_setType_Blackboard;
+
+    private Button poster_setType_Papercut;
+
+    private Button poster_setType_Happy;
+
     private SeekBar poster_setcolorR;
 
     private SeekBar poster_setcolorG;
 
     private SeekBar poster_setcolorB;
 
+    private SeekBar poster_setSize;
+
     public SeekBarListener seekBarListener;
 
     private Toolbar poster_toolbar;
 
+    private Typeface Tang,Blackboard,Papercut,Happy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,8 +105,11 @@ public class PosterActivity extends AppCompatActivity {
             }
         });
     }
+
     /*实例化对象*/
     public void posterfindid() {
+
+        type();
 
         poster_tv = (TextView) findViewById(R.id.poster_tv);
 
@@ -113,20 +125,70 @@ public class PosterActivity extends AppCompatActivity {
 
         poster_setlist_btn = (Button) findViewById(R.id.poster_setlist_btn);
 
+        poster_setType_Tang = (Button) findViewById(R.id.type_Tang);
+
+        poster_setType_Tang.setTypeface(Tang);
+
+        poster_setType_Blackboard = (Button) findViewById(R.id.type_Blackboard);
+
+        poster_setType_Blackboard.setTypeface(Blackboard);
+
+        poster_setType_Papercut = (Button) findViewById(R.id.type_Papercut);
+
+        poster_setType_Papercut.setTypeface(Papercut);
+
+        poster_setType_Happy =(Button) findViewById(R.id.type_Happy);
+
+        poster_setType_Happy.setTypeface(Happy);
+
         poster_setcolorR = (SeekBar) findViewById(R.id.poster_setcolorR_sb);
 
         poster_setcolorG = (SeekBar) findViewById(R.id.poster_setcolorG_sb);
 
         poster_setcolorB = (SeekBar) findViewById(R.id.poster_setcolorB_sb);
 
+        poster_setSize = (SeekBar) findViewById(R.id.poster_setSize_sb);
+
+        /*设置字体点击事件*/
+        poster_setType_Tang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                poster_tv.setTypeface(Tang);
+            }
+        });
+
+        poster_setType_Blackboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                poster_tv.setTypeface(Blackboard);
+            }
+        });
+
+        poster_setType_Papercut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                poster_tv.setTypeface(Papercut);
+            }
+        });
+
+        poster_setType_Happy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                poster_tv.setTypeface(Happy);
+            }
+        });
+
+        /*初始化拖动条监听事件*/
         seekBarListener = new SeekBarListener(poster_setcolorR, poster_setcolorG, poster_setcolorB
-                , poster_setcolor_et, poster_tv);
+                , poster_setSize, poster_setcolor_et, poster_tv);
 
         poster_setcolorR.setOnSeekBarChangeListener(seekBarListener);
 
         poster_setcolorG.setOnSeekBarChangeListener(seekBarListener);
 
         poster_setcolorB.setOnSeekBarChangeListener(seekBarListener);
+
+        poster_setSize.setOnSeekBarChangeListener(seekBarListener);
 
         /*设置文本*/
         poster_settext_et.addTextChangedListener(new TextWatcher() {
@@ -149,8 +211,6 @@ public class PosterActivity extends AppCompatActivity {
             }
         });
 
-        poster_tv.setOnTouchListener(moveSetTouch);
-
         /*按行显示*/
         poster_setline_btn.setOnClickListener(new View.OnClickListener() {
 
@@ -166,6 +226,22 @@ public class PosterActivity extends AppCompatActivity {
                 poster_tv.setMaxEms(1);
             }
         });
+
+        poster_tv.setOnTouchListener(moveSetTouch);
+    }
+
+    /*初始化字体*/
+    public void type(){
+
+        AssetManager AM = getAssets();
+
+        Tang = Typeface.createFromAsset(AM, "fonts/tang.ttf");
+
+        Blackboard = Typeface.createFromAsset(AM, "fonts/tang.ttf");
+
+        Papercut = Typeface.createFromAsset(AM, "fonts/papercut.ttf");
+
+        Happy = Typeface.createFromAsset(AM, "fonts/happy.ttf");
     }
 
     /*新建移动控件触摸监听事件*/
@@ -271,7 +347,7 @@ public class PosterActivity extends AppCompatActivity {
     /*布置toolbar布局*/
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.poster_menu, menu);
+        getMenuInflater().inflate(R.menu.poster_toolbar, menu);
 
         return true;
     }
@@ -297,6 +373,7 @@ public class PosterActivity extends AppCompatActivity {
         });
     }
 
+    /*toolbar按钮监听事件*/
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
@@ -359,10 +436,11 @@ public class PosterActivity extends AppCompatActivity {
 
     }
 
+    /*图库返回值*/
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == CHOOSE_PHOTO){
+        if (requestCode == CHOOSE_PHOTO) {
 
             Uri imageUri = data.getData();
 

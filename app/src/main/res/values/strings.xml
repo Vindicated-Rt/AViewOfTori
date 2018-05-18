@@ -7,9 +7,7 @@
     <string name="diary">日记</string>
     <string name="memo">备忘录</string>
     <string name="tool">工具</string>
-    <string name="collect">收藏</string>
     <string name="setting">设置</string>
-    <string name="office">待办</string>
     <string name="AViewOfTori">东篱一隅</string>
     <string name="aboutus">关于</string>
     <string name="aboutustext">关于我们</string>
@@ -17,4 +15,6 @@
     <string name="setting_check_password">添加密码</string>
     <string name="setting_change_password">修改密码</string>
     <string name="poster">海报</string>
+    <string name="set_Email">设置邮箱</string>
+    <string name="set_bio">设置签名</string>
 </resources>

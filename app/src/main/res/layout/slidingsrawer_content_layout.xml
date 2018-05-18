@@ -62,6 +62,22 @@
             android:layout_below="@+id/poster_setcolorG_sb"
             android:layout_toRightOf="@+id/setcolorB" />
 
+        <ImageView
+            android:id="@+id/setSize_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/setcolorB"
+            android:src="@mipmap/setsize"/>
+
+        <SeekBar
+            android:id="@+id/poster_setSize_sb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/setSize_iv"
+            android:layout_alignTop="@+id/setSize_iv"
+            android:layout_below="@+id/poster_setcolorB_sb"
+            android:layout_toRightOf="@+id/setSize_iv"/>
+
 
     </RelativeLayout>
 
@@ -92,6 +108,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/type_Tang"
+            android:layout_weight="1"
+            android:text="唐体"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/type_Blackboard"
+            android:layout_weight="1"
+            android:text="黑板"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/type_Papercut"
+            android:layout_weight="1"
+            android:text="剪纸"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/type_Happy"
+            android:layout_weight="1"
+            android:text="乐体"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </LinearLayout>
