@@ -244,6 +244,8 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
     /*打开图库*/
     private void openAlbum() {
 
+
+
         Intent intent = new Intent("android.intent.action.GET_CONTENT");
 
         intent.setType("image/*");
