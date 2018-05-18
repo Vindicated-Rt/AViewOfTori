@@ -1,5 +1,7 @@
 package com.example.lenovo.aviewoftori.Activity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -24,14 +26,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.lenovo.aviewoftori.Base.DataBaseHelper;
+import com.example.lenovo.aviewoftori.Other.TimeDatePickerDialog;
 import com.example.lenovo.aviewoftori.R;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -39,9 +44,11 @@ import java.util.Date;
  * Created by asus on 2018/4/23.
  */
 
-public class AddActivity extends AppCompatActivity {
+public class AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePickerDialogInterface{
 
     private Toolbar add_toolbar;
+
+    private ImageView add_show;
 
     private ImageButton add_camera;
 
@@ -57,10 +64,16 @@ public class AddActivity extends AppCompatActivity {
 
     private String imagePath = null;
 
+    public TimeDatePickerDialog timeDatePickerDialog;
+
+    public AlarmManager alarmManager;
+
     //跳转页面标识符
     public static final int TAKE_PHOTO = 1;
 
     public static final int CHOOSE_PHOTO = 2;
+
+    private int alarm = 0;
 
     private final String[] singleList = {"相册", "相机"};
 
@@ -69,6 +82,8 @@ public class AddActivity extends AppCompatActivity {
         setContentView(R.layout.add_activity);
 
         add_et = (EditText) findViewById(R.id.add_et);
+
+        add_show = (ImageView) findViewById(R.id.add_show);
 
         setTitle();
 
@@ -88,7 +103,11 @@ public class AddActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(getBaseContext(),"111",Toast.LENGTH_SHORT).show();
+
+            timeDatePickerDialog = new TimeDatePickerDialog(AddActivity.this);
+
+            timeDatePickerDialog.showDialog();
+
 
             }
         });
@@ -292,7 +311,7 @@ public class AddActivity extends AppCompatActivity {
                         //将拍摄图片显示出来
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
 
-                        //add_ib.setImageBitmap(bitmap);
+                        add_show.setImageBitmap(bitmap);
 
                     } catch (FileNotFoundException e) {
 
@@ -406,7 +425,7 @@ public class AddActivity extends AppCompatActivity {
 
             Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
 
-            //add_ib.setImageBitmap(bitmap);
+            add_show.setImageBitmap(bitmap);
 
         } else {
 
@@ -465,6 +484,43 @@ public class AddActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.add_toolbar_menu, menu);
 
         return true;
+    }
+
+    /*用接口实现Dialog点击确认的监听器*/
+    @Override
+    public void positiveListener() {
+
+        alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+
+
+
+        Calendar calendar = Calendar.getInstance();
+
+        //将dialog选择的时间赋值给calendar
+        calendar.set(Calendar.YEAR,timeDatePickerDialog.getmYear());
+
+        calendar.set(Calendar.MONTH,timeDatePickerDialog.getmMonth());
+
+        calendar.set(Calendar.DAY_OF_MONTH,timeDatePickerDialog.getmDay());
+
+        calendar.set(Calendar.HOUR_OF_DAY,timeDatePickerDialog.getmHour());
+
+        calendar.set(Calendar.MINUTE,timeDatePickerDialog.getmMinute());
+
+        //intent发送广播
+        Intent intent = new Intent("com.example.lenovo.aviewoftori.Activity.RING");
+
+        //闹钟到点要执行的动作，动作意图为intent
+        PendingIntent pi = PendingIntent.getBroadcast(AddActivity.this,alarm++,intent,0);
+        //设置定时器：时钟类型，时间，动作
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),pi);
+
+        Toast.makeText(getBaseContext(),calendar.getTime()+"",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void negativeListener() {
+
     }
 
     //重写该方法显示图标 (不懂)
