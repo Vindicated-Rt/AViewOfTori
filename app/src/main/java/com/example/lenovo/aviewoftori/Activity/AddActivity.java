@@ -27,6 +27,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lenovo.aviewoftori.Base.DataBaseHelper;
@@ -58,6 +60,10 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
 
     private EditText add_et;
 
+    private TextView add_alarm_tv;
+
+    private LinearLayout add_alarm_layout;
+
     private Uri imageUri;
 
     private File storeImage;
@@ -85,9 +91,15 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
 
         add_show = (ImageView) findViewById(R.id.add_show);
 
+        add_alarm_tv = (TextView) findViewById(R.id.add_alarm_tv);
+
+        add_alarm_layout = (LinearLayout) findViewById(R.id.add_alarm_layout);
+
         setTitle();
 
         addAlarm();
+
+        changeAlarm();
 
         addCamera();
 
@@ -453,11 +465,15 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
 
         values.put("image", storeImage + "");
 
+
+
         if (getIntent().getStringExtra("flag").equals("0")) {
 
             db.insert("Diary", null, values);
 
         } else if (getIntent().getStringExtra("flag").equals("1")) {
+
+            values.put("alarm",add_alarm_tv.getText().toString());
 
             db.insert("Memo", null, values);
 
@@ -486,6 +502,22 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
         return true;
     }
 
+
+    /*点击闹钟时间修改*/
+    public void changeAlarm(){
+
+        add_alarm_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                timeDatePickerDialog = new TimeDatePickerDialog(AddActivity.this);
+
+                timeDatePickerDialog.showDialog();
+            }
+        });
+
+    }
+
     /*用接口实现Dialog点击确认的监听器*/
     @Override
     public void positiveListener() {
@@ -506,6 +538,10 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
         calendar.set(Calendar.HOUR_OF_DAY,timeDatePickerDialog.getmHour());
 
         calendar.set(Calendar.MINUTE,timeDatePickerDialog.getmMinute());
+
+        add_alarm_tv.setText(calendar.getTime()+"");
+
+        add_alarm_layout.setVisibility(View.VISIBLE);
 
         //intent发送广播
         Intent intent = new Intent("com.example.lenovo.aviewoftori.Activity.RING");

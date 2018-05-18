@@ -1,17 +1,14 @@
 package com.example.lenovo.aviewoftori.Adapter;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.lenovo.aviewoftori.Other.Diary;
@@ -25,9 +22,29 @@ import java.util.List;
 
 public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> {
 
+    private Context mCotext;
     private List<Diary>diaryList;
+    private OnItemClickListener itemClickListener;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public interface OnItemClickListener {
+        public void onItemClick(View view, int postion);
+    }
+
+    public void setOnItemClickLisener(OnItemClickListener lisener){
+        this.itemClickListener = lisener;
+    }
+
+    public DiaryAdapter( List<Diary> list,Context context){
+
+        mCotext = context;
+
+        this.diaryList = list;
+
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        private OnItemClickListener onItemClickListener;
 
         View diaryView;
 
@@ -37,7 +54,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
         private ImageView diary_iv_image;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(View itemView,OnItemClickListener listener) {
             super(itemView);
 
             diary_tv_content = (TextView) itemView.findViewById(R.id.diary_tv_content);
@@ -48,6 +65,15 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
             diaryView = itemView;
 
+            onItemClickListener = listener;
+
+            diaryView.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+           onItemClickListener.onItemClick(v,getPosition());
         }
     }
     @Override
@@ -55,22 +81,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_diary_layout,parent,false);
 
-        final ViewHolder viewHolder = new ViewHolder(view);
-
-        //点击事件
-        viewHolder.diaryView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        viewHolder.diary_iv_image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //点击图片事件
-            }
-        });
+        final ViewHolder viewHolder = new ViewHolder(view,itemClickListener);
 
         return viewHolder;
     }
@@ -140,9 +151,5 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
         return diaryList.size();
     }
 
-    public DiaryAdapter( List<Diary> list){
 
-        this.diaryList = list;
-
-    }
 }

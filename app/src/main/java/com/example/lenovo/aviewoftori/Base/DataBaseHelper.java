@@ -22,7 +22,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             + "id integer primary key autoincrement, "
             + "content text, "
             + "time text, "
-            + "image text)";
+            + "image text, "
+            + "alarm text)";
 
     private Context mContext;
 
@@ -49,5 +50,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+        db.execSQL("drop table if exists Diary");
+
+        db.execSQL("drop table if exists Memo");
+
+        onCreate(db);
     }
 }

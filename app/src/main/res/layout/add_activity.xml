@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/add_toolbar"
@@ -11,54 +10,92 @@
 
     </android.support.v7.widget.Toolbar>
 
+    <TextView
+        android:id="@+id/add_time_tv"
+        android:layout_below="@+id/add_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/add_alarm_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/add_time_tv"
+        android:visibility="invisible"
+        >
+
+        <ImageView
+            android:src="@mipmap/add_alarm_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"/>
+        <TextView
+            android:id="@+id/add_alarm_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/main_color"
+            android:hint="闹钟定时"/>
+    </LinearLayout>
+
     <EditText
         android:id="@+id/add_et"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:hint="记录今天"
         android:gravity="top"
-        android:layout_margin="10dp"/>
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/add_alarm_layout"/>
 
     <ImageView
         android:id="@+id/add_show"
         android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:maxHeight="250dp"
+        android:maxWidth="250dp"
+        android:adjustViewBounds="true"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/linearLayout"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="@color/down_color_diary"
         android:gravity="center_horizontal"
-        android:background="@color/down_color_diary">
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout">
 
         <ImageButton
-            android:background="@null"
             android:id="@+id/add_camera"
-            android:src="@mipmap/add_camera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:background="@null"
+            android:src="@mipmap/add_camera" />
 
         <ImageButton
             android:id="@+id/add_album"
-            android:background="@null"
-            android:src="@mipmap/add_album"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:background="@null"
+            android:src="@mipmap/add_album" />
 
         <ImageButton
             android:id="@+id/add_alarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@null"
-            android:src="@mipmap/add_alarm"
-            android:layout_weight="1"/>
-
-
+            android:src="@mipmap/add_alarm" />
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>
