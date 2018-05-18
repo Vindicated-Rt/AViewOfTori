@@ -20,6 +20,12 @@
         android:gravity="top"
         android:layout_margin="10dp"/>
 
+    <ImageView
+        android:id="@+id/add_show"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,21 +40,24 @@
             android:id="@+id/add_camera"
             android:src="@mipmap/add_camera"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
 
         <ImageButton
             android:id="@+id/add_album"
             android:background="@null"
             android:src="@mipmap/add_album"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
 
         <ImageButton
             android:id="@+id/add_alarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:src="@mipmap/add_alarm" />
+            android:src="@mipmap/add_alarm"
+            android:layout_weight="1"/>
 
 
     </LinearLayout>

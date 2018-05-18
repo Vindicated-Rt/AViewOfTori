@@ -47,7 +47,18 @@
         </provider>
 
         <activity android:name=".Activity.SettingActivity" />
-        <activity android:name=".Activity.PosterActivity"></activity>
+        <activity android:name=".Activity.PosterActivity" />
+        <activity android:name=".Activity.RingActivity" />
+
+        <receiver android:name=".Other.RingReceived"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.example.lenovo.aviewoftori.Activity.RING" />
+            </intent-filter>
+        </receiver>
+
+
     </application>
 
 </manifest>
