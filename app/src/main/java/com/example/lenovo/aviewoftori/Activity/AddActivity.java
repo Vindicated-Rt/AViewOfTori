@@ -46,7 +46,8 @@ import java.util.Date;
  * Created by asus on 2018/4/23.
  */
 
-public class AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePickerDialogInterface{
+public class
+AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePickerDialogInterface{
 
     private Toolbar add_toolbar;
 
@@ -63,6 +64,10 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
     private TextView add_alarm_tv;
 
     private LinearLayout add_alarm_layout;
+
+    private LinearLayout add_tool_layout;
+
+    private Calendar calendar;
 
     private Uri imageUri;
 
@@ -85,6 +90,7 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.add_activity);
 
         add_et = (EditText) findViewById(R.id.add_et);
@@ -94,6 +100,10 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
         add_alarm_tv = (TextView) findViewById(R.id.add_alarm_tv);
 
         add_alarm_layout = (LinearLayout) findViewById(R.id.add_alarm_layout);
+
+        add_tool_layout  = (LinearLayout) findViewById(R.id.add_tool_layout);
+
+        add_tool_layout.getBackground().setAlpha(99);
 
         setTitle();
 
@@ -526,7 +536,7 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
 
 
 
-        Calendar calendar = Calendar.getInstance();
+        calendar = Calendar.getInstance();
 
         //将dialog选择的时间赋值给calendar
         calendar.set(Calendar.YEAR,timeDatePickerDialog.getmYear());
@@ -546,6 +556,8 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
         //intent发送广播
         Intent intent = new Intent("com.example.lenovo.aviewoftori.Activity.RING");
 
+        intent.setAction(timeDatePickerDialog.getmYear()+"年"+timeDatePickerDialog.getmMonth()+"月"+timeDatePickerDialog.getmDay()+"日"+timeDatePickerDialog.getmHour()+"时"+timeDatePickerDialog.getmMinute()+"分");
+
         //闹钟到点要执行的动作，动作意图为intent
         PendingIntent pi = PendingIntent.getBroadcast(AddActivity.this,alarm++,intent,0);
         //设置定时器：时钟类型，时间，动作
@@ -556,6 +568,17 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
 
     @Override
     public void negativeListener() {
+        int alarm_temp = alarm;
+
+        //intent发送广播
+        Intent intent = new Intent("com.example.lenovo.aviewoftori.Activity.RING");
+
+        intent.setAction(timeDatePickerDialog.getmYear()+"年"+timeDatePickerDialog.getmMonth()+"月"+timeDatePickerDialog.getmDay()+"日"+timeDatePickerDialog.getmHour()+"时"+timeDatePickerDialog.getmMinute()+"分");
+
+        //闹钟到点要执行的动作，动作意图为intent
+        PendingIntent pi = PendingIntent.getBroadcast(AddActivity.this,alarm_temp,intent,0);
+        //设置定时器：时钟类型，时间，动作
+        alarmManager.cancel(pi);
 
     }
 

@@ -11,12 +11,74 @@
         android:background="@mipmap/tool_background"
         android:alpha="0.2"/>
 
-    <Button
-        android:id="@+id/tool_poster"
-        android:background="@mipmap/tool_btn_background"
-        android:text="@string/poster"
-        android:layout_marginLeft="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <FrameLayout
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="55dp">
+
+        <Button
+            android:id="@+id/tool_poster"
+            android:text="@string/poster"
+            android:textSize="28dp"
+            android:layout_marginTop="20dp"
+            android:textColor="#737373"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/tool_bt_blackground_2"
+            android:layout_gravity="center"
+            />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp">
+
+        <Button
+            android:id="@+id/tool_other_1"
+            android:textSize="25dp"
+            android:textColor="#737373"
+            android:layout_margin="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/tool_bt_blackground_2"
+            android:layout_gravity="center"
+            />
+    </FrameLayout>
+
+
+
+
+    <FrameLayout
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginLeft="200dp"
+        android:layout_marginBottom="100dp"
+        android:layout_gravity="bottom">
+
+        <Button
+            android:id="@+id/tool_other_2"
+            android:textSize="25dp"
+            android:textColor="#737373"
+            android:layout_margin="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/tool_bt_blackground_2"
+            android:layout_gravity="center"
+            />
+    </FrameLayout>
+
+
 
 </FrameLayout>

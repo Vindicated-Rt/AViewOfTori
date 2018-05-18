@@ -41,38 +41,54 @@
             android:hint="闹钟定时"/>
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/add_et"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="记录今天"
-        android:gravity="top"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/add_alarm_layout"/>
+        android:layout_below="@+id/add_alarm_layout">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="20dp">
+        <EditText
+            android:id="@+id/add_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="记录今天"
+            android:gravity="top"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp" />
 
-    <ImageView
-        android:id="@+id/add_show"
-        android:layout_gravity="center_horizontal"
-        android:maxHeight="250dp"
-        android:maxWidth="250dp"
-        android:adjustViewBounds="true"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/linearLayout"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content" />
+        <ImageView
+            android:id="@+id/add_show"
+            android:layout_gravity="center_horizontal"
+            android:maxHeight="250dp"
+            android:maxWidth="250dp"
+            android:adjustViewBounds="true"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="20dp"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+        </LinearLayout>
+    </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/down_color_diary"
+        android:background="@color/white"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
-        android:id="@+id/linearLayout">
+        android:id="@+id/add_tool_layout">
 
         <ImageButton
             android:id="@+id/add_camera"
@@ -80,7 +96,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@null"
-            android:src="@mipmap/add_camera" />
+            android:src="@mipmap/add_camera"
+            android:layout_marginBottom="15dp"/>
 
         <ImageButton
             android:id="@+id/add_album"
@@ -88,7 +105,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@null"
-            android:src="@mipmap/add_album" />
+            android:src="@mipmap/add_album"
+            android:layout_marginBottom="15dp"/>
 
         <ImageButton
             android:id="@+id/add_alarm"
@@ -96,6 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@null"
-            android:src="@mipmap/add_alarm" />
+            android:src="@mipmap/add_alarm"
+            android:layout_marginBottom="15dp"/>
     </LinearLayout>
 </RelativeLayout>
