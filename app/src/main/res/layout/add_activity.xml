@@ -7,7 +7,6 @@
         android:id="@+id/add_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
     </android.support.v7.widget.Toolbar>
 
     <TextView
@@ -17,6 +16,31 @@
         android:layout_alignRight="@+id/add_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/add_alarm_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/add_time_tv"
+        android:visibility="invisible"
+        >
+
+        <ImageView
+            android:src="@mipmap/add_alarm_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"/>
+        <TextView
+            android:id="@+id/add_alarm_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/main_color"
+            android:hint="闹钟定时"/>
+    </LinearLayout>
 
     <EditText
         android:id="@+id/add_et"
@@ -77,3 +101,5 @@
             android:src="@mipmap/add_alarm" />
     </LinearLayout>
 </RelativeLayout>
+
+

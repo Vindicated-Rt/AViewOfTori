@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,7 +28,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
     private OnItemClickListener itemClickListener;
 
     public interface OnItemClickListener {
-        public void onItemClick(View view, int postion);
+        void onItemClick(View view, int postion);
     }
 
     public void setOnItemClickLisener(OnItemClickListener lisener){

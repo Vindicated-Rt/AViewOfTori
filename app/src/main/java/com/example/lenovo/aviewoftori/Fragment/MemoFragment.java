@@ -7,11 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.example.lenovo.aviewoftori.Activity.AddActivity;
@@ -34,9 +36,13 @@ public class MemoFragment extends Fragment {
 
     private SQLiteDatabase dbReader;
 
+    private SQLiteDatabase dbWriter;
+
     private Cursor cursor;
 
     private Intent item;
+
+    private AlertDialog deletedata;
 
     public MemoFragment() {
         // Required empty public constructor
@@ -107,6 +113,17 @@ public class MemoFragment extends Fragment {
             }
         });
 
+        /*长按删除*/
+        memo_listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                deleteDailog(position);
+
+                return true;
+            }
+        });
+
         /*GridView点击事件*/
         memo_gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -128,6 +145,17 @@ public class MemoFragment extends Fragment {
 
                 startActivity(item);
 
+            }
+        });
+
+        /*长按删除*/
+        memo_gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                deleteDailog(position);
+
+                return true;
             }
         });
 
@@ -171,6 +199,64 @@ public class MemoFragment extends Fragment {
         memo_listView.setAdapter(memoListAdapter);
 
         memo_gridView.setAdapter(memoGridAdapter);
+    }
+
+    /*删除dialog*/
+    public void deleteDailog(int position){
+
+        dbWriter = dataBaseHelper.getReadableDatabase();
+
+        deletedata = new AlertDialog.Builder(getActivity()).create();
+
+        View dialogView = LayoutInflater.from(getActivity())
+                .inflate(R.layout.delete_dialog, null);
+
+        deletedata.setTitle("确认删除");
+
+        deletedata.setView(dialogView);
+
+        deletedata.setIcon(R.mipmap.dialog_delete_icon);
+
+        deletedata.setCancelable(false);
+
+        ImageButton deletedata_dialog_ok_btn = (ImageButton) dialogView
+                .findViewById(R.id.dialog_ok_btn);
+
+        ImageButton deletedata_dialog_cancedl_btn = (ImageButton) dialogView
+                .findViewById(R.id.dialog_cancel_btn);
+
+        cursor.moveToPosition(position);
+
+        deletedata_dialog_ok_btn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+
+                dbWriter.delete("Memo", "id=" +cursor.getInt(cursor.getColumnIndex("id")), null);
+
+                cursor = dbReader.query("Memo", null, null, null, null, null, "id desc");
+
+                memoListAdapter = new MemoListAdapter(getContext(), cursor);
+
+                memoGridAdapter = new MemoGridAdapter(getContext(), cursor);
+
+                memo_listView.setAdapter(memoListAdapter);
+
+                memo_gridView.setAdapter(memoGridAdapter);
+
+                deletedata.cancel();
+            }
+        });
+
+        deletedata_dialog_cancedl_btn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+
+                deletedata.cancel();
+
+            }
+        });
+
+        deletedata.show();
     }
 
 }

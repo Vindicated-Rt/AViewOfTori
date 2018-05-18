@@ -19,6 +19,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -28,6 +29,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,6 +78,14 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
 
     private String flag;
 
+    private LinearLayout add_alarm_layout;
+
+    private TextView add_alarm_tv;
+
+    private boolean setnewpic;
+
+    private boolean setnewalarm;
+
     //跳转页面标识符
     public static final int TAKE_PHOTO = 1;
 
@@ -89,9 +99,11 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_activity);
 
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
         dataBaseHelper = new DataBaseHelper(this, "Store.db", null, 1);
+
+        add_alarm_layout = (LinearLayout) findViewById(R.id.add_alarm_layout);
+
+        add_alarm_tv = (TextView) findViewById(R.id.add_alarm_tv);
 
         flag = getIntent().getStringExtra("flag");
 
@@ -101,11 +113,17 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
 
         add_time_et = (TextView) findViewById(R.id.add_time_tv);
 
+        add_alarm = (ImageButton) findViewById(R.id.add_alarm);
+
         add_time_et.setText(getTime());
+
+        hidealarm();
 
         setTitle();
 
         setInfo();
+
+        changeAlarm();
 
         addAlarm();
 
@@ -113,6 +131,16 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
 
         addAlbum();
 
+    }
+
+    /*隐藏日记闹钟*/
+    public void hidealarm() {
+
+        if (flag.equals("diary") || flag.equals("0")) {
+
+            add_alarm.setVisibility(View.GONE);
+
+        }
     }
 
     /*根据传值显示文本及图片*/
@@ -130,12 +158,14 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
     /*打开闹钟按钮*/
     private void addAlarm() {
 
-        add_alarm = (ImageButton) findViewById(R.id.add_alarm);
-
         add_alarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                if (flag.equals("memo")){
+
+                    setnewalarm = true;
+                }
 
                 timeDatePickerDialog = new TimeDatePickerDialog(AddActivity.this);
 
@@ -232,6 +262,12 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
             imageUri = Uri.fromFile(storeImage);
 
         }
+
+        if(flag.equals("memo") || flag.equals("diary")){
+
+            setnewpic = true;
+        }
+
         //启动相机
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 
@@ -244,7 +280,10 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
     /*打开图库*/
     private void openAlbum() {
 
+        if(flag.equals("memo") || flag.equals("diary")){
 
+            setnewpic = true;
+        }
 
         Intent intent = new Intent("android.intent.action.GET_CONTENT");
 
@@ -504,6 +543,8 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
 
         } else if (flag.equals("1")) {
 
+            values.put("alarm",add_alarm_tv.getText().toString());
+
             db.insert("Memo", null, values);
 
         }
@@ -523,6 +564,18 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
         values.put("content", add_et.getText().toString());
 
         values.put("time", getTime());
+
+        if(setnewpic){
+
+            values.put("image", storeImage + "");
+
+        }
+
+        if (setnewalarm){
+
+            values.put("alarm",add_alarm_tv.getText().toString());
+
+        }
 
         if (flag.equals("memo")) {
 
@@ -558,34 +611,52 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
         return true;
     }
 
+    /*点击闹钟时间修改*/
+    public void changeAlarm(){
+
+        add_alarm_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                timeDatePickerDialog = new TimeDatePickerDialog(AddActivity.this);
+
+                timeDatePickerDialog.showDialog();
+            }
+        });
+
+    }
+
     /*用接口实现Dialog点击确认的监听器*/
     public void positiveListener() {
 
-        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
+        alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
 
         Calendar calendar = Calendar.getInstance();
 
         //将dialog选择的时间赋值给calendar
-        calendar.set(Calendar.YEAR, timeDatePickerDialog.getmYear());
+        calendar.set(Calendar.YEAR,timeDatePickerDialog.getmYear());
 
-        calendar.set(Calendar.MONTH, timeDatePickerDialog.getmMonth());
+        calendar.set(Calendar.MONTH,timeDatePickerDialog.getmMonth());
 
-        calendar.set(Calendar.DAY_OF_MONTH, timeDatePickerDialog.getmDay());
+        calendar.set(Calendar.DAY_OF_MONTH,timeDatePickerDialog.getmDay());
 
-        calendar.set(Calendar.HOUR_OF_DAY, timeDatePickerDialog.getmHour());
+        calendar.set(Calendar.HOUR_OF_DAY,timeDatePickerDialog.getmHour());
 
-        calendar.set(Calendar.MINUTE, timeDatePickerDialog.getmMinute());
+        calendar.set(Calendar.MINUTE,timeDatePickerDialog.getmMinute());
+
+        add_alarm_tv.setText(calendar.getTime()+"");
+
+        add_alarm_layout.setVisibility(View.VISIBLE);
 
         //intent发送广播
         Intent intent = new Intent("com.example.lenovo.aviewoftori.Activity.RING");
 
         //闹钟到点要执行的动作，动作意图为intent
-        PendingIntent pi = PendingIntent.getBroadcast(AddActivity.this, alarm++, intent, 0);
+        PendingIntent pi = PendingIntent.getBroadcast(AddActivity.this,alarm++,intent,0);
         //设置定时器：时钟类型，时间，动作
-        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),pi);
 
-        Toast.makeText(getBaseContext(), calendar.getTime() + "", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(),calendar.getTime()+"",Toast.LENGTH_SHORT).show();
     }
 
     public void negativeListener() {
