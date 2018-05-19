@@ -207,7 +207,7 @@ public class MemoFragment extends Fragment {
     /*删除dialog*/
     public void deleteDailog(int position){
 
-        dbWriter = dataBaseHelper.getReadableDatabase();
+        dbWriter = dataBaseHelper.getWritableDatabase();
 
         deletedata = new AlertDialog.Builder(getActivity()).create();
 

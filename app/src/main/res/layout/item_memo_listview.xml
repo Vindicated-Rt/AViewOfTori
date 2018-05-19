@@ -11,16 +11,19 @@
         android:layout_height="70dp"
         android:layout_gravity="center"
         android:layout_centerVertical="true"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:id="@+id/memo_listview_item_content_tv"
         android:singleLine="true"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:layout_toLeftOf="@+id/memo_listview_item_iv"
+        android:layout_toStartOf="@+id/memo_listview_item_iv" />
 
     <TextView
         android:id="@+id/memo_listview_item_time_tv"

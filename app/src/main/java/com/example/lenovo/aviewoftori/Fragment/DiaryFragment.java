@@ -35,7 +35,7 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DiaryFragment extends Fragment{
+public class DiaryFragment extends Fragment {
 
     private RecyclerView diary_rv;
 
@@ -89,7 +89,7 @@ public class DiaryFragment extends Fragment{
 
         cursor = db.query("Diary", null, null, null, null, null, null);
 
-        item = new Intent(getActivity(),AddActivity.class);
+        item = new Intent(getActivity(), AddActivity.class);
 
         diary_rv = (RecyclerView) view.findViewById(R.id.diary_rv);
 
@@ -137,6 +137,7 @@ public class DiaryFragment extends Fragment{
         return view;
     }
 
+    //加载数据库资源到数据源中
     public void addData() {
 
         if (cursor.moveToFirst()) {
@@ -148,7 +149,7 @@ public class DiaryFragment extends Fragment{
 
                 image = cursor.getString(cursor.getColumnIndex("image"));
 
-                diaryList.add(0, new Diary(content, time, image));
+                diaryList.add(0,new Diary(content, time, image));
 
             } while (cursor.moveToNext());
         }
@@ -157,6 +158,7 @@ public class DiaryFragment extends Fragment{
 
     }
 
+    /*设置适配器*/
     public void bindingAdapter() {
         //设置item固定大小
         diary_rv.setHasFixedSize(true);
@@ -169,7 +171,7 @@ public class DiaryFragment extends Fragment{
         //获取数据源并加载到适配器上
         diaryList = new ArrayList<>();
 
-        diaryAdapter = new DiaryAdapter(diaryList,getActivity());
+        diaryAdapter = new DiaryAdapter(diaryList, getActivity());
 
         diaryAdapter.setOnItemClickLisener(new DiaryAdapter.OnItemClickListener() {
             @Override
@@ -179,33 +181,32 @@ public class DiaryFragment extends Fragment{
 
                 db = dataBaseHelper.getReadableDatabase();
 
-                cursor = db.query("Diary", null, null, null, null, null, null);
+                cursor = db.query("Diary", null, null, null, null, null, "id desc");
 
                 cursor.moveToPosition(postion);
 
                 item.setClass(getActivity(), AddActivity.class);
 
-                item.putExtra("flag","diary");
+                item.putExtra("flag", "diary");
 
-                item.putExtra("id",cursor.getInt(cursor.getColumnIndex("id")));
+                item.putExtra("id", cursor.getInt(cursor.getColumnIndex("id")));
 
-                item.putExtra("content",cursor.getString(cursor.getColumnIndex("content")));
+                item.putExtra("content", cursor.getString(cursor.getColumnIndex("content")));
 
-                item.putExtra("time",cursor.getString(cursor.getColumnIndex("time")));
+                item.putExtra("time", cursor.getString(cursor.getColumnIndex("time")));
 
-                item.putExtra("image",cursor.getString(cursor.getColumnIndex("image")));
+                item.putExtra("image", cursor.getString(cursor.getColumnIndex("image")));
 
                 startActivity(item);
             }
         });
 
-        diaryAdapter.setOnItemLongClickListener(new DiaryAdapter.OnItemLongClickListener(){
+        diaryAdapter.setOnItemLongClickListener(new DiaryAdapter.OnItemLongClickListener() {
 
-
-            @Override
             public boolean onItemLongClick(View view, int postion) {
 
-                Toast.makeText(getContext(),"sssssssssssss",Toast.LENGTH_SHORT).show();
+                deleteDailog(postion);
+
                 return true;
             }
         });
@@ -215,6 +216,7 @@ public class DiaryFragment extends Fragment{
 
     }
 
+    /*跳转到添加页面*/
     public void toAdd(View view) {
 
         FloatingActionButton diary_fab = (FloatingActionButton) view.findViewById(R.id.diary_fab);
@@ -234,9 +236,11 @@ public class DiaryFragment extends Fragment{
     }
 
     /*删除dialog*/
-    public void deleteDailog(int position){
+    public void deleteDailog(int position) {
 
-        dbWriter = dataBaseHelper.getReadableDatabase();
+        dbWriter = dataBaseHelper.getWritableDatabase();
+
+        cursor = dbWriter.query("Diary", null, null, null, null, null, "id desc");
 
         deletedata = new AlertDialog.Builder(getActivity()).create();
 
@@ -263,7 +267,17 @@ public class DiaryFragment extends Fragment{
 
             public void onClick(View v) {
 
-                dbWriter.delete("Diary", "id=" +cursor.getInt(cursor.getColumnIndex("id")), null);
+                dbWriter.delete("Diary", "id=" + cursor.getInt(cursor.getColumnIndex("id")), null);
+
+                cursor = dbWriter.query("Diary", null, null, null, null, null, null);
+
+                diaryList = new ArrayList<>();
+
+                bindingAdapter();
+
+                addData();
+
+                //diary_rv.setAdapter(diaryAdapter);
 
                 deletedata.cancel();
             }
@@ -281,6 +295,7 @@ public class DiaryFragment extends Fragment{
         deletedata.show();
     }
 
+    /*设置密码*/
     public void setLock() {
 
         SharedPreferences setting_info = getContext().getSharedPreferences("info", MODE_PRIVATE);
@@ -302,7 +317,8 @@ public class DiaryFragment extends Fragment{
         }
     }
 
-    public void getPassword(){
+    /*从数据库获取密码*/
+    public void getPassword() {
 
         SharedPreferences setting_info = getContext().getSharedPreferences("info", MODE_PRIVATE);
 
