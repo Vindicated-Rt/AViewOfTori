@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,13 +25,26 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
     private Context mCotext;
     private List<Diary>diaryList;
     private OnItemClickListener itemClickListener;
+    private OnItemLongClickListener itemLongClickListener;
 
     public interface OnItemClickListener {
+
         void onItemClick(View view, int postion);
+
+    }
+
+    public interface OnItemLongClickListener{
+
+        boolean onItemLongClick(View view, int postion);
     }
 
     public void setOnItemClickLisener(OnItemClickListener lisener){
         this.itemClickListener = lisener;
+    }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener longLisener){
+        this.itemLongClickListener = longLisener;
+
     }
 
     public DiaryAdapter( List<Diary> list,Context context){
@@ -43,9 +55,11 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener {
 
         private OnItemClickListener onItemClickListener;
+
+        private OnItemLongClickListener onItemLongClickListener;
 
         View diaryView;
 
@@ -55,7 +69,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
         private ImageView diary_iv_image;
 
-        public ViewHolder(View itemView,OnItemClickListener listener) {
+        public ViewHolder(View itemView,OnItemClickListener listener,OnItemLongClickListener longListener) {
             super(itemView);
 
             diary_tv_content = (TextView) itemView.findViewById(R.id.diary_tv_content);
@@ -68,13 +82,22 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
             onItemClickListener = listener;
 
+            onItemLongClickListener = longListener;
+
             diaryView.setOnClickListener(this);
+
+            diaryView.setOnLongClickListener(this);
 
         }
 
         @Override
         public void onClick(View v) {
-           onItemClickListener.onItemClick(v,getPosition());
+            onItemClickListener.onItemClick(v,getPosition());
+
+        }
+
+        public boolean onLongClick(View v){
+            return onItemLongClickListener != null && onItemLongClickListener.onItemLongClick(v,getPosition());
         }
     }
     @Override
@@ -82,7 +105,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_diary_layout,parent,false);
 
-        final ViewHolder viewHolder = new ViewHolder(view,itemClickListener);
+        final ViewHolder viewHolder = new ViewHolder(view,itemClickListener,itemLongClickListener);
 
         return viewHolder;
     }
@@ -98,7 +121,6 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
         holder.diary_tv_time.setText(diary.getTime());
 
         holder.diary_iv_image.setImageBitmap(getImageThumbanil(diary.getImage(),150,150));
-
 
     }
 

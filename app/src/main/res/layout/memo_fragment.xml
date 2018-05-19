@@ -27,9 +27,11 @@
             android:id="@+id/memo_gridview"
             android:visibility="gone"
             android:numColumns="2"
-            android:horizontalSpacing="10dp"
+            android:horizontalSpacing="8dp"
+            android:verticalSpacing="8dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
         </GridView>
 
     </LinearLayout>

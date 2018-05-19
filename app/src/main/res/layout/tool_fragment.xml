@@ -20,17 +20,17 @@
         <Button
             android:id="@+id/tool_poster"
             android:text="@string/poster"
-            android:textSize="28dp"
-            android:layout_marginTop="20dp"
+            android:textSize="20dp"
+            android:layout_marginTop="15dp"
             android:textColor="#737373"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/tool_bt_blackground_2"
+            android:src="@mipmap/tool_bt_blackground_4"
             android:layout_gravity="center"
-            />
+            android:alpha="0.6"/>
     </FrameLayout>
 
     <FrameLayout
@@ -49,9 +49,9 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/tool_bt_blackground_2"
+            android:src="@mipmap/tool_bt_blackground_4"
             android:layout_gravity="center"
-            />
+            android:alpha="0.8"/>
     </FrameLayout>
 
 
@@ -74,9 +74,9 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/tool_bt_blackground_2"
+            android:src="@mipmap/tool_bt_blackground_4"
             android:layout_gravity="center"
-            />
+            android:alpha="0.4"/>
     </FrameLayout>
 
 

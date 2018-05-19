@@ -15,7 +15,6 @@ import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -24,8 +23,6 @@ import android.widget.Toast;
 
 import com.example.lenovo.aviewoftori.Activity.AddActivity;
 import com.example.lenovo.aviewoftori.Adapter.DiaryAdapter;
-import com.example.lenovo.aviewoftori.Adapter.MemoGridAdapter;
-import com.example.lenovo.aviewoftori.Adapter.MemoListAdapter;
 import com.example.lenovo.aviewoftori.Base.DataBaseHelper;
 import com.example.lenovo.aviewoftori.Other.Diary;
 import com.example.lenovo.aviewoftori.R;
@@ -161,6 +158,8 @@ public class DiaryFragment extends Fragment{
     }
 
     public void bindingAdapter() {
+        //设置item固定大小
+        diary_rv.setHasFixedSize(true);
 
         //获取布局管理者并绑定到控件上上
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -197,6 +196,17 @@ public class DiaryFragment extends Fragment{
                 item.putExtra("image",cursor.getString(cursor.getColumnIndex("image")));
 
                 startActivity(item);
+            }
+        });
+
+        diaryAdapter.setOnItemLongClickListener(new DiaryAdapter.OnItemLongClickListener(){
+
+
+            @Override
+            public boolean onItemLongClick(View view, int postion) {
+
+                Toast.makeText(getContext(),"sssssssssssss",Toast.LENGTH_SHORT).show();
+                return true;
             }
         });
 

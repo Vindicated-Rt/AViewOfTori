@@ -137,6 +137,8 @@ public class SettingActivity extends AppCompatActivity {
 
                 dialogsetemail();
 
+                Toast.makeText(getBaseContext(),"设置成功",Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -146,6 +148,8 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 dialogsetbio();
+
+                Toast.makeText(getBaseContext(),"设置成功",Toast.LENGTH_SHORT).show();
 
             }
         });

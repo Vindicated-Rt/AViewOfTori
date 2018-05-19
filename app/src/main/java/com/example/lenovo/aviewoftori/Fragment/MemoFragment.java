@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.lenovo.aviewoftori.Activity.AddActivity;
 import com.example.lenovo.aviewoftori.Adapter.MemoGridAdapter;
@@ -43,6 +44,8 @@ public class MemoFragment extends Fragment {
     private Intent item;
 
     private AlertDialog deletedata;
+
+    private TextView memo_gridview_item_content_tv;
 
     public MemoFragment() {
         // Required empty public constructor

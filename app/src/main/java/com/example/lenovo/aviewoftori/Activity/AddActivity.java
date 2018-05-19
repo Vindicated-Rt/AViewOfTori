@@ -19,13 +19,11 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -63,10 +61,6 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
     private TextView add_time_et;
 
     private EditText add_et;
-
-    private TextView add_alarm_tv;
-
-    private LinearLayout add_alarm_layout;
 
     private LinearLayout add_tool_layout;
 

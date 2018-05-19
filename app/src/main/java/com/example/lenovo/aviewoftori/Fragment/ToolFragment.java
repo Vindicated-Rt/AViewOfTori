@@ -46,9 +46,11 @@ public class ToolFragment extends Fragment{
 
         toolfindid();
 
+
         return v;
 
     }
+
 
     public void toolfindid(){
 

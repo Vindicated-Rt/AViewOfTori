@@ -43,6 +43,10 @@ public class MemoGridAdapter extends BaseAdapter {
 
         TextView gv_tv =(TextView) gridview_layout.findViewById(R.id.memo_gridview_item_content_tv);
 
+        gridview_layout.getBackground().setAlpha(99);
+
+        gv_tv.getBackground().setAlpha(99);
+
         cursor.moveToPosition(position);
 
         String content = cursor.getString(cursor.getColumnIndex("content"));

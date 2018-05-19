@@ -29,7 +29,7 @@
         <activity
             android:name=".Activity.HomeActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
+             />
         <activity
             android:name=".Activity.AddActivity"
             android:windowSoftInputMode="stateVisible|adjustResize"/>
