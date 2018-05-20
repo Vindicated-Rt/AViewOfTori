@@ -14,16 +14,14 @@
         android:layout_height="match_parent"
         android:gravity="center">
 
-        <Button
+        <ImageButton
             android:id="@+id/guide_btn_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="17dp"
-            android:background="@color/white"
-            android:text="@string/guide_start"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textColor="@color/white"
+            android:background="@mipmap/guide_start"
+            android:layout_marginBottom="17dp"/>
     </LinearLayout>
 
 </RelativeLayout>
