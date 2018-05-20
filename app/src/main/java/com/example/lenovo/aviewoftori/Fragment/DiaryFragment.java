@@ -277,8 +277,6 @@ public class DiaryFragment extends Fragment {
 
                 addData();
 
-                //diary_rv.setAdapter(diaryAdapter);
-
                 deletedata.cancel();
             }
         });

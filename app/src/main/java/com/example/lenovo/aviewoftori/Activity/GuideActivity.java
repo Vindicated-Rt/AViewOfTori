@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.example.lenovo.aviewoftori.Adapter.GuideAdapter;
@@ -24,7 +24,7 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
 
     private ViewPager guide_vp;
 
-    private Button guide_btn_start;
+    private ImageButton guide_btn_start;
 
     private ImageView[] dots;
 
@@ -46,7 +46,7 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void start(){
 
-        guide_btn_start = (Button) viewList.get(2).findViewById(R.id.guide_btn_start);
+        guide_btn_start = (ImageButton) viewList.get(2).findViewById(R.id.guide_btn_start);
 
         //guide_btn_start.setAlpha(1/2);
 
