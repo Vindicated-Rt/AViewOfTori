@@ -24,20 +24,13 @@ public class RingActivity extends AppCompatActivity {
 
         //播放铃声
         mediaPlayer = new MediaPlayer();
-        mediaPlayer = MediaPlayer.create(this,R.raw.one);
+        mediaPlayer = MediaPlayer.create(this, R.raw.one);
         mediaPlayer.start();
     }
 
-    public  void stop(View view){
+    public void stop(View view) {
         mediaPlayer.stop();
         finish();
     }
 
-//    protected void onDestroy(){
-//        super.onDestroy();
-//        if(mediaPlayer != null){
-//            mediaPlayer.stop();;
-//            mediaPlayer.release();
-//        }
-//    }
 }

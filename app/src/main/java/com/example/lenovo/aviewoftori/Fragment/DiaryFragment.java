@@ -149,7 +149,7 @@ public class DiaryFragment extends Fragment {
 
                 image = cursor.getString(cursor.getColumnIndex("image"));
 
-                diaryList.add(0,new Diary(content, time, image));
+                diaryList.add(0, new Diary(content, time, image));
 
             } while (cursor.moveToNext());
         }

@@ -10,12 +10,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.Layout;
 import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.lenovo.aviewoftori.Adapter.FragmentAdapter;
@@ -196,9 +193,9 @@ public class HomeActivity extends AppCompatActivity {
 
         setting_info = getSharedPreferences("info", MODE_PRIVATE);
 
-        email = setting_info.getString("email","YourEmail@.com");
+        email = setting_info.getString("email", "YourEmail@.com");
 
-        bio = setting_info.getString("bio","your bio");
+        bio = setting_info.getString("bio", "your bio");
 
         email_et.setText(email);
 

@@ -6,32 +6,33 @@
 
     <ImageView
         android:id="@+id/side_head"
-        android:layout_marginTop="20dp"
-        android:src="@mipmap/side_head"
-        android:layout_marginLeft="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:src="@mipmap/side_head" />
 
     <TextView
         android:id="@+id/side_head_email_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="YourEmail@.com"
-        android:textSize="23dp"
         android:layout_below="@+id/side_head"
         android:layout_marginLeft="10dp"
-        android:textColor="@color/main_color"/>
+        android:text="@string/Headview_email"
+        android:textColor="@color/main_color"
+        android:textSize="23dp" />
 
     <TextView
         android:id="@+id/side_head_bio_tv"
-        android:text="your bio"
-        android:textSize="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/side_head_email_tv"
         android:layout_alignLeft="@+id/side_head_email_tv"
         android:layout_alignStart="@+id/side_head_email_tv"
-        android:textColor="@color/main_color"/>
+        android:layout_below="@+id/side_head_email_tv"
+        android:text="@string/Headview_bio"
+        android:textColor="@color/main_color"
+        android:textSize="20dp" />
+
 </RelativeLayout>

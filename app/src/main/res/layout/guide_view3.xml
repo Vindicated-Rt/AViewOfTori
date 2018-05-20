@@ -19,11 +19,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="@string/guide_start"
-            android:textSize="20sp"
-            android:textColor="@color/black"
+            android:layout_marginBottom="17dp"
             android:background="@color/white"
-            android:layout_marginBottom="17dp"/>
+            android:text="@string/guide_start"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
     </LinearLayout>
 
 </RelativeLayout>

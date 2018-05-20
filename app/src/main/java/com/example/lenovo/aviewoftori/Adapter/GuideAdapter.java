@@ -12,9 +12,9 @@ import java.util.List;
 
 public class GuideAdapter extends PagerAdapter {
 
-    private List<View>viewList;
+    private List<View> viewList;
 
-    public GuideAdapter(List<View>viewList){
+    public GuideAdapter(List<View> viewList) {
 
         this.viewList = viewList;
 
@@ -36,7 +36,7 @@ public class GuideAdapter extends PagerAdapter {
     }
 
     /*实例化*/
-    public Object instantiateItem(ViewGroup container,int position){
+    public Object instantiateItem(ViewGroup container, int position) {
 
         container.addView(viewList.get(position));//将view添加到ViewGroup中
 
@@ -44,12 +44,11 @@ public class GuideAdapter extends PagerAdapter {
 
     }
 
-    public void destroyItem(ViewGroup container,int position,Object object){
+    public void destroyItem(ViewGroup container, int position, Object object) {
 
         container.removeView(viewList.get(position));//销毁页卡
 
     }
-
 
 
 }

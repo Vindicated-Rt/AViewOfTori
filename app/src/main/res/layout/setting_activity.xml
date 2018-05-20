@@ -22,67 +22,72 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="@string/setting_check_password"
-            android:textSize="20dp"
+            android:layout_marginLeft="20dp"
             android:elevation="2dp"
-            android:layout_marginLeft="20dp"/>
+            android:text="@string/setting_check_password"
+            android:textSize="20dp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@color/main_color"
-            android:alpha="0.2"/>
+            android:alpha="0.2"
+            android:background="@color/main_color" />
+
         <TextView
             android:id="@+id/setting_lock_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:elevation="2dp"
             android:text="@string/setting_change_password"
             android:textColor="@color/black"
-            android:textSize="20dp"
-            android:elevation="2dp"/>
+            android:textSize="20dp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@color/main_color"
-            android:alpha="0.2"/>
+            android:alpha="0.2"
+            android:background="@color/main_color" />
+
         <TextView
             android:id="@+id/setting_email_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:elevation="2dp"
             android:text="@string/set_Email"
             android:textColor="@color/black"
-            android:textSize="20dp"
-            android:elevation="2dp"/>
+            android:textSize="20dp" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@color/main_color"
-            android:alpha="0.2"/>
+            android:alpha="0.2"
+            android:background="@color/main_color" />
+
         <TextView
             android:id="@+id/setting_bio_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:elevation="2dp"
             android:text="@string/set_bio"
             android:textColor="@color/black"
-            android:textSize="20dp"
-            android:elevation="2dp"/>
+            android:textSize="20dp" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@color/main_color"
-            android:alpha="0.2"/>
+            android:alpha="0.2"
+            android:background="@color/main_color" />
 
     </LinearLayout>
 

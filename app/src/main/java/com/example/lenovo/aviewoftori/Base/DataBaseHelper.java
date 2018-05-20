@@ -43,7 +43,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         db.execSQL(CREATE_MEMO);
 
-        Toast.makeText(mContext,"create succeeded",Toast.LENGTH_SHORT);
+        Toast.makeText(mContext, "create succeeded", Toast.LENGTH_SHORT);
 
     }
 

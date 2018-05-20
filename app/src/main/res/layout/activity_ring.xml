@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -10,22 +9,22 @@
         android:id="@+id/ring_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="做事啦！！！！"
-        android:textSize="30dp"
+        android:layout_above="@+id/ring_ib"
         android:layout_gravity="center"
         android:gravity="center"
+        android:text="@string/GoToWork"
         android:textColor="@color/main_color"
-        android:layout_above="@+id/ring_ib"/>
+        android:textSize="30dp" />
 
     <ImageButton
         android:id="@+id/ring_ib"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="stop"
-        android:layout_centerHorizontal="true"
-        android:text="停止"
-        android:background="@mipmap/ring_stop"
-        android:layout_margin="120dp"
         android:layout_alignParentBottom="true"
-       />
+        android:layout_centerHorizontal="true"
+        android:layout_margin="120dp"
+        android:background="@mipmap/ring_stop"
+        android:onClick="stop"
+        android:text="停止" />
+
 </RelativeLayout>

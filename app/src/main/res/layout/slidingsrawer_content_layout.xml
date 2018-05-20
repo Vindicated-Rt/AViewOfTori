@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:hint="设置颜色"
+        android:hint="@string/poster_setcolor"
         android:textSize="30dp" />
 
     <RelativeLayout
@@ -67,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/setcolorB"
-            android:src="@mipmap/setsize"/>
+            android:src="@mipmap/setsize" />
 
         <SeekBar
             android:id="@+id/poster_setSize_sb"
@@ -76,7 +76,7 @@
             android:layout_alignBottom="@+id/setSize_iv"
             android:layout_alignTop="@+id/setSize_iv"
             android:layout_below="@+id/poster_setcolorB_sb"
-            android:layout_toRightOf="@+id/setSize_iv"/>
+            android:layout_toRightOf="@+id/setSize_iv" />
 
 
     </RelativeLayout>
@@ -85,28 +85,28 @@
         android:id="@+id/poster_setText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="设置文本"
+        android:hint="@string/poster_setContent"
         android:singleLine="true"
         android:textSize="30dp" />
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/poster_setline_btn"
-            android:layout_weight="1"
-            android:text="按行显示"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/poster_setline" />
 
         <Button
             android:id="@+id/poster_setlist_btn"
-            android:layout_weight="1"
-            android:text="按列显示"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/poster_setlist" />
 
     </LinearLayout>
 
@@ -116,31 +116,31 @@
 
         <Button
             android:id="@+id/type_Tang"
-            android:layout_weight="1"
-            android:text="唐体"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/Tang" />
 
         <Button
             android:id="@+id/type_Blackboard"
-            android:layout_weight="1"
-            android:text="黑板"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/Blackboard" />
 
         <Button
             android:id="@+id/type_Papercut"
-            android:layout_weight="1"
-            android:text="剪纸"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/Papercut" />
 
         <Button
             android:id="@+id/type_Happy"
-            android:layout_weight="1"
-            android:text="乐体"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/Happy" />
     </LinearLayout>
 
 </LinearLayout>

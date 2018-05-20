@@ -4,9 +4,9 @@
 
     <item
         android:id="@+id/poster_toolbar_setpic"
-        android:title=""
         android:icon="@mipmap/add_album"
+        android:title=""
         android:visible="true"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
 
 </menu>

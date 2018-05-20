@@ -2,30 +2,31 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="160dp"
-    android:maxHeight="160dp"
+    android:background="@color/white"
     android:elevation="5dp"
-    android:background="@color/white">
+    android:maxHeight="160dp"
+    android:minHeight="160dp">
 
     <ImageView
         android:id="@+id/memo_gridview_item_iv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <TextView
         android:id="@+id/memo_gridview_item_content_tv"
-        android:singleLine="true"
-        android:layout_gravity="bottom"
-        android:background="@color/main_color"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:textColor="@color/white"
-        android:gravity="center"/>
+        android:layout_gravity="bottom"
+        android:background="@color/main_color"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="@color/white" />
+
     <TextView
         android:id="@+id/memo_gridview_item_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white" />
 
 </FrameLayout>

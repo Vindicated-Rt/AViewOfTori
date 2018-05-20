@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.example.lenovo.aviewoftori.R;
 
 /*备忘录表格适配器*/
@@ -24,7 +25,7 @@ public class MemoGridAdapter extends BaseAdapter {
     private Cursor cursor;
 
     /*构造方法*/
-    public MemoGridAdapter(Context context, Cursor cursor){
+    public MemoGridAdapter(Context context, Cursor cursor) {
 
         this.context = context;
 
@@ -37,11 +38,11 @@ public class MemoGridAdapter extends BaseAdapter {
 
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        gridview_layout = (FrameLayout) inflater.inflate(R.layout.item_memo_gridview,null);
+        gridview_layout = (FrameLayout) inflater.inflate(R.layout.item_memo_gridview, null);
 
         ImageView gv_iv = (ImageView) gridview_layout.findViewById(R.id.memo_gridview_item_iv);
 
-        TextView gv_tv =(TextView) gridview_layout.findViewById(R.id.memo_gridview_item_content_tv);
+        TextView gv_tv = (TextView) gridview_layout.findViewById(R.id.memo_gridview_item_content_tv);
 
         gridview_layout.getBackground().setAlpha(99);
 
@@ -53,7 +54,7 @@ public class MemoGridAdapter extends BaseAdapter {
 
         String url = cursor.getString(cursor.getColumnIndex("image"));
 
-        gv_iv.setImageBitmap(getImageThumbanil(url,150,150));
+        gv_iv.setImageBitmap(getImageThumbanil(url, 150, 150));
 
         gv_tv.setText(content);
 

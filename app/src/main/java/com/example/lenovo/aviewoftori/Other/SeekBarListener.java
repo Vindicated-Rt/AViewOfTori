@@ -12,11 +12,11 @@ public class SeekBarListener implements SeekBar.OnSeekBarChangeListener {
 
     private SeekBar seekbarR, seekbarG, seekbarB, seekSize;
 
-    private TextView setColor_tv,setColorinfo_tv;
+    private TextView setColor_tv, setColorinfo_tv;
 
     /*构造方法*/
     public SeekBarListener(SeekBar seekbarR, SeekBar seekbarG, SeekBar seekbarB
-            , SeekBar seekSize,TextView setColorinfo_tv, TextView setColor_tv) {
+            , SeekBar seekSize, TextView setColorinfo_tv, TextView setColor_tv) {
 
         this.seekbarR = seekbarR;
 

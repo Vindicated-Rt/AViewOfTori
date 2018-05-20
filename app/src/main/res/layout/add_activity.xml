@@ -12,111 +12,114 @@
 
     <TextView
         android:id="@+id/add_time_tv"
-        android:layout_below="@+id/add_toolbar"
-        android:layout_alignLeft="@+id/add_et"
-        android:layout_alignRight="@+id/add_et"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/add_toolbar" />
 
     <LinearLayout
         android:id="@+id/add_alarm_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_below="@+id/add_time_tv"
-        android:visibility="invisible"
-        >
+        android:orientation="horizontal"
+        android:visibility="invisible">
 
         <ImageView
-            android:src="@mipmap/add_alarm_show"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"/>
+            android:src="@mipmap/add_alarm_show" />
+
         <TextView
             android:id="@+id/add_alarm_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
-            android:textColor="@color/main_color"
-            android:hint="闹钟定时"/>
+            android:hint="闹钟定时"
+            android:textColor="@color/main_color" />
+
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/add_alarm_layout">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="20dp">
-        <EditText
-            android:id="@+id/add_et"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="记录今天"
-            android:gravity="top"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp" />
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/add_show"
-            android:layout_gravity="center_horizontal"
-            android:maxHeight="250dp"
-            android:maxWidth="250dp"
-            android:adjustViewBounds="true"
-            android:layout_centerHorizontal="true"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginBottom="20dp"/>
+            <EditText
+                android:id="@+id/add_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="top"
+                android:hint="@string/RecordToday" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp" />
+            <ImageView
+                android:id="@+id/add_show"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:adjustViewBounds="true"
+                android:maxHeight="250dp"
+                android:maxWidth="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
         </LinearLayout>
+
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/add_tool_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="5dp"
-        android:layout_alignParentBottom="true"
         android:background="@color/white"
         android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:id="@+id/add_tool_layout">
+        android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/add_camera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
             android:layout_weight="1"
             android:background="@null"
-            android:src="@mipmap/add_camera"
-            android:layout_marginBottom="15dp"/>
+            android:src="@mipmap/add_camera" />
 
         <ImageButton
             android:id="@+id/add_album"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
             android:layout_weight="1"
             android:background="@null"
-            android:src="@mipmap/add_album"
-            android:layout_marginBottom="15dp"/>
+            android:src="@mipmap/add_album" />
 
         <ImageButton
             android:id="@+id/add_alarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
             android:layout_weight="1"
             android:background="@null"
-            android:src="@mipmap/add_alarm"
-            android:layout_marginBottom="15dp"/>
+            android:src="@mipmap/add_alarm" />
     </LinearLayout>
+
 </RelativeLayout>

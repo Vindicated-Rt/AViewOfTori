@@ -18,7 +18,7 @@ import java.util.List;
 
 public class GuideActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
 
-    private List<View>viewList;
+    private List<View> viewList;
 
     private GuideAdapter guideAdapter;
 
@@ -28,7 +28,7 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
 
     private ImageView[] dots;
 
-    private int[] ids = {R.id.guide_iv_1,R.id.guide_iv_2,R.id.guide_iv_3};
+    private int[] ids = {R.id.guide_iv_1, R.id.guide_iv_2, R.id.guide_iv_3};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
 
     /*跳转主页面*/
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public void start(){
+    public void start() {
 
         guide_btn_start = (Button) viewList.get(2).findViewById(R.id.guide_btn_start);
 
@@ -54,7 +54,7 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(GuideActivity.this,HomeActivity.class);
+                Intent intent = new Intent(GuideActivity.this, HomeActivity.class);
 
                 startActivity(intent);
 
@@ -65,13 +65,13 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
 
     }
 
-    public void initview(){
+    public void initview() {
          /*将layout转为view对象，并将对象添加到List<View>中，作为适配器数据源*/
-        View view1 = View.inflate(this,R.layout.guide_view1,null);
+        View view1 = View.inflate(this, R.layout.guide_view1, null);
 
-        View view2 = View.inflate(this,R.layout.guide_view2,null);
+        View view2 = View.inflate(this, R.layout.guide_view2, null);
 
-        View view3 = View.inflate(this,R.layout.guide_view3,null);
+        View view3 = View.inflate(this, R.layout.guide_view3, null);
 
         viewList = new ArrayList<View>();
 
@@ -92,11 +92,11 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
         guide_vp.addOnPageChangeListener(this);
     }
 
-    public void initdots(){
+    public void initdots() {
 
         dots = new ImageView[viewList.size()];
 
-        for(int i = 0;i < viewList.size();i++){
+        for (int i = 0; i < viewList.size(); i++) {
 
             dots[i] = (ImageView) findViewById(ids[i]);
 
@@ -113,12 +113,12 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
     @Override
     public void onPageSelected(int position) {
 
-        for(int i = 0;i < viewList.size();i++){
+        for (int i = 0; i < viewList.size(); i++) {
 
-            if(position == i){
+            if (position == i) {
 
                 dots[i].setImageResource(R.mipmap.guidecirclelight);
-            }else{
+            } else {
                 dots[i].setImageResource(R.mipmap.guidecircledark);
             }
 

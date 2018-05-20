@@ -12,7 +12,7 @@ public class Diary {
 
     private String image;
 
-    public Diary(String content,String time,String image){
+    public Diary(String content, String time, String image) {
 
         this.content = content;
 
@@ -22,19 +22,19 @@ public class Diary {
 
     }
 
-    public String getContent(){
+    public String getContent() {
 
         return content;
 
     }
 
-    public String getTime(){
+    public String getTime() {
 
         return time;
 
     }
 
-    public String getImage(){
+    public String getImage() {
 
         return image;
 

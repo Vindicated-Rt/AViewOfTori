@@ -11,7 +11,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.example.lenovo.aviewoftori.R;
 
@@ -23,12 +22,11 @@ import java.util.List;
  */
 
 
-
-public class TimeDatePickerDialog  {
+public class TimeDatePickerDialog {
 
     private Context mContext;
 
-    private int mYear,mMonth,mDay, mHour,mMinute;
+    private int mYear, mMonth, mDay, mHour, mMinute;
 
     private TimePicker timedate_tp;
 
@@ -38,7 +36,7 @@ public class TimeDatePickerDialog  {
 
     private TimeDatePickerDialogInterface timeDatePickerDialogInterface;
 
-    public TimeDatePickerDialog( Context context) {
+    public TimeDatePickerDialog(Context context) {
 
         super();
 
@@ -46,11 +44,11 @@ public class TimeDatePickerDialog  {
 
         timeDatePickerDialogInterface = (TimeDatePickerDialogInterface) context;
 
-        }
+    }
 
 
     /*显示时间*/
-    public void showDialog(){
+    public void showDialog() {
 
         View view = initTimeDataPicker();
 
@@ -63,13 +61,13 @@ public class TimeDatePickerDialog  {
     }
 
     /*初始化picker*/
-    private View initTimeDataPicker(){
+    private View initTimeDataPicker() {
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.timedatepicker_dialog_layout,null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.timedatepicker_dialog_layout, null);
 
-        timedate_dp = (DatePicker)view.findViewById(R.id.timedate_dp);
+        timedate_dp = (DatePicker) view.findViewById(R.id.timedate_dp);
 
-        timedate_tp = (TimePicker)view.findViewById(R.id.timedate_tp);
+        timedate_tp = (TimePicker) view.findViewById(R.id.timedate_tp);
 
         timedate_tp.setIs24HourView(true);
 
@@ -82,11 +80,11 @@ public class TimeDatePickerDialog  {
     }
 
     /*创建dialog*/
-    private void initDialog(View view){
+    private void initDialog(View view) {
 
         alertDialogBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog,int which) {
+            public void onClick(DialogInterface dialog, int which) {
 
                 dialog.dismiss();
 
@@ -100,7 +98,7 @@ public class TimeDatePickerDialog  {
             }
         });
 
-        alertDialogBuilder.setNegativeButton("取消",new DialogInterface.OnClickListener(){
+        alertDialogBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
@@ -139,7 +137,7 @@ public class TimeDatePickerDialog  {
 
         List<NumberPicker> npList = findNumberPicker(fl);
 
-        for(NumberPicker np : npList){
+        for (NumberPicker np : npList) {
 
             resizeNumberPicker(np);
 
@@ -151,7 +149,7 @@ public class TimeDatePickerDialog  {
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(120, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-        params.setMargins(10,0,10,0);
+        params.setMargins(10, 0, 10, 0);
 
         np.setLayoutParams(params);
 
@@ -160,25 +158,25 @@ public class TimeDatePickerDialog  {
 
     private List<NumberPicker> findNumberPicker(ViewGroup viewGroup) {
 
-        List<NumberPicker>npList = new ArrayList<NumberPicker>();
+        List<NumberPicker> npList = new ArrayList<NumberPicker>();
 
         View child = null;
 
-        if(viewGroup != null){
+        if (viewGroup != null) {
 
-            for(int i = 0;i < viewGroup.getChildCount();i++){
+            for (int i = 0; i < viewGroup.getChildCount(); i++) {
 
                 child = viewGroup.getChildAt(i);
 
-                if(child instanceof NumberPicker) {
+                if (child instanceof NumberPicker) {
 
                     npList.add((NumberPicker) child);
 
-                }else if(child instanceof LinearLayout){
+                } else if (child instanceof LinearLayout) {
 
                     List<NumberPicker> result = findNumberPicker((ViewGroup) child);
 
-                    if(result.size() > 0){
+                    if (result.size() > 0) {
 
                         return result;
 
@@ -215,7 +213,7 @@ public class TimeDatePickerDialog  {
     }
 
     //接口
-    public interface TimeDatePickerDialogInterface{
+    public interface TimeDatePickerDialogInterface {
 
         public void positiveListener();
 

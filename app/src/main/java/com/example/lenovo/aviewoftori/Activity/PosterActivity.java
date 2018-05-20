@@ -69,7 +69,7 @@ public class PosterActivity extends AppCompatActivity {
 
     private Toolbar poster_toolbar;
 
-    private Typeface Tang,Blackboard,Papercut,Happy;
+    private Typeface Tang, Blackboard, Papercut, Happy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,7 +137,7 @@ public class PosterActivity extends AppCompatActivity {
 
         poster_setType_Papercut.setTypeface(Papercut);
 
-        poster_setType_Happy =(Button) findViewById(R.id.type_Happy);
+        poster_setType_Happy = (Button) findViewById(R.id.type_Happy);
 
         poster_setType_Happy.setTypeface(Happy);
 
@@ -231,7 +231,7 @@ public class PosterActivity extends AppCompatActivity {
     }
 
     /*初始化字体*/
-    public void type(){
+    public void type() {
 
         AssetManager AM = getAssets();
 

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group
-        android:checkableBehavior="single">
+    <group android:checkableBehavior="single">
 
         <item
             android:id="@+id/side_lable_one"
@@ -13,17 +12,17 @@
                 <item
                     android:id="@+id/side_item_memo"
                     android:icon="@mipmap/side_icon_memo"
-                    android:title="@string/memo"/>
+                    android:title="@string/memo" />
 
                 <item
                     android:id="@+id/side_item_diary"
                     android:icon="@mipmap/side_icon_diary"
-                    android:title="@string/diary"/>
+                    android:title="@string/diary" />
 
                 <item
                     android:id="@+id/side_item_tool"
                     android:icon="@mipmap/side_icon_tool"
-                    android:title="@string/tool"/>
+                    android:title="@string/tool" />
 
             </menu>
 
@@ -38,12 +37,12 @@
                 <item
                     android:id="@+id/side_item_setting"
                     android:icon="@mipmap/side_icon_setting"
-                    android:title="@string/setting"/>
+                    android:title="@string/setting" />
 
                 <item
                     android:id="@+id/side_item_aboutus"
                     android:icon="@mipmap/side_icon_aboutus"
-                    android:title="@string/aboutus"/>
+                    android:title="@string/aboutus" />
 
             </menu>
 

@@ -16,30 +16,30 @@
         android:id="@+id/guide_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/guide_iv_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/guidecirclelight"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:src="@mipmap/guidecirclelight" />
 
         <ImageView
             android:id="@+id/guide_iv_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/guidecircledark"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:src="@mipmap/guidecircledark" />
 
         <ImageView
             android:id="@+id/guide_iv_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/guidecircledark"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:src="@mipmap/guidecircledark" />
 
     </LinearLayout>
 

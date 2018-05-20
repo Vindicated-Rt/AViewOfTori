@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">AViewOfTori</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="guide_start">开始</string>
     <string name="diary">日记</string>
@@ -11,10 +11,28 @@
     <string name="AViewOfTori">东篱一隅</string>
     <string name="aboutus">关于</string>
     <string name="aboutustext">关于我们</string>
+    <string name="poem_content">东篱一隅\n浮华不向门前惹\n孤枝便宜檐角遮\n避隐东篱成一隅\n管他冬夏与春秋</string>
     <string name="password">请输入密码</string>
     <string name="setting_check_password">添加密码</string>
     <string name="setting_change_password">修改密码</string>
     <string name="poster">海报</string>
     <string name="set_Email">设置邮箱</string>
     <string name="set_bio">设置签名</string>
+    <string name="RecordToday">记录今天</string>
+    <string name="GoToWork">做事啦！！！！</string>
+    <string name="poster_settext">设置文本</string>
+    <string name="InputContent">请输入内容</string>
+    <string name="Headview_email">YourEmail@.com</string>
+    <string name="Headview_bio">your bio</string>
+    <string name="poster_setcolor">设置颜色</string>
+    <string name="poster_setContent">设置文本</string>
+    <string name="poster_setline">按行显示</string>
+    <string name="poster_setlist">按列显示</string>
+    <string name="Tang">唐体</string>
+    <string name="Blackboard">黑板</string>
+    <string name="Papercut">剪纸</string>
+    <string name="Happy">乐体</string>
+    <string name="data">——日期——</string>
+    <string name="time">——时间——</string>
+    <string name="thinks">特别鸣谢\n豆芽子的艺术指导\nBobChen的技术指导</string>
 </resources>

@@ -12,10 +12,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.example.lenovo.aviewoftori.R;
 
 /*备忘录list适配器*/
-public class MemoListAdapter extends BaseAdapter{
+public class MemoListAdapter extends BaseAdapter {
 
     private Context context;
 
@@ -24,7 +25,7 @@ public class MemoListAdapter extends BaseAdapter{
     private Cursor cursor;
 
     /*构造方法*/
-    public MemoListAdapter(Context context, Cursor cursor){
+    public MemoListAdapter(Context context, Cursor cursor) {
 
         this.context = context;
 
@@ -37,7 +38,7 @@ public class MemoListAdapter extends BaseAdapter{
 
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        listview_layout = (RelativeLayout) inflater.inflate(R.layout.item_memo_listview,null);
+        listview_layout = (RelativeLayout) inflater.inflate(R.layout.item_memo_listview, null);
 
         ImageView lv_iv_pic = (ImageView) listview_layout.findViewById(R.id.memo_listview_item_iv);
 
@@ -53,7 +54,7 @@ public class MemoListAdapter extends BaseAdapter{
 
         String url = cursor.getString(cursor.getColumnIndex("image"));
 
-        lv_iv_pic.setImageBitmap(getImageThumbanil(url,150,150));
+        lv_iv_pic.setImageBitmap(getImageThumbanil(url, 150, 150));
 
         lv_tv_text.setText(content);
 

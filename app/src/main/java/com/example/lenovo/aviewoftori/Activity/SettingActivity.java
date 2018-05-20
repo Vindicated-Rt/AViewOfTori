@@ -88,11 +88,11 @@ public class SettingActivity extends AppCompatActivity {
 
                 String info_password = setting_info.getString("password", "def");
 
-                if(info_password.equals("def")){
+                if (info_password.equals("def")) {
 
-                    Toast.makeText(SettingActivity.this,"没有初始化密码",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SettingActivity.this, "没有初始化密码", Toast.LENGTH_SHORT).show();
 
-                }else {
+                } else {
 
                     dialogcheckold();
 
@@ -110,13 +110,13 @@ public class SettingActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
 
-                    if(info_password.equals("def")){
+                    if (info_password.equals("def")) {
 
                         dialogsetnew();
 
                     }
 
-                    if(!info_password.equals("def")){
+                    if (!info_password.equals("def")) {
 
                         editor.putBoolean("lock", true).commit();
 
@@ -137,7 +137,7 @@ public class SettingActivity extends AppCompatActivity {
 
                 dialogsetemail();
 
-                Toast.makeText(getBaseContext(),"设置成功",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "设置成功", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -149,7 +149,7 @@ public class SettingActivity extends AppCompatActivity {
 
                 dialogsetbio();
 
-                Toast.makeText(getBaseContext(),"设置成功",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "设置成功", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -199,7 +199,7 @@ public class SettingActivity extends AppCompatActivity {
                     passwore_switch.setChecked(true);
 
                     Toast.makeText(SettingActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
-                    
+
                 }
             }
         });
@@ -209,7 +209,7 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 passwore_switch.setChecked(true);
-                
+
                 checkPassword.dismiss();
 
             }
@@ -255,11 +255,11 @@ public class SettingActivity extends AppCompatActivity {
 
                     checkoldPassword.cancel();
 
-                } else if ("".equals(dialog_et.getText().toString())){
+                } else if ("".equals(dialog_et.getText().toString())) {
 
                     Toast.makeText(SettingActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
 
-                }else {
+                } else {
 
                     Toast.makeText(SettingActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
 
@@ -278,9 +278,9 @@ public class SettingActivity extends AppCompatActivity {
 
         checkoldPassword.show();
     }
-    
+
     /*设置新密码dialog*/
-    private void dialogsetnew(){
+    private void dialogsetnew() {
 
         setnewPassword = new AlertDialog.Builder(SettingActivity.this).create();
 
@@ -312,7 +312,7 @@ public class SettingActivity extends AppCompatActivity {
 
                 if (!"".equals(password)) {
 
-                    editor.putString("password",password).commit();
+                    editor.putString("password", password).commit();
 
                     setnewPassword.cancel();
 
@@ -333,11 +333,11 @@ public class SettingActivity extends AppCompatActivity {
         });
 
         setnewPassword.show();
-        
+
     }
 
     /*设置邮箱dialog*/
-    private void dialogsetemail(){
+    private void dialogsetemail() {
 
         setemail = new AlertDialog.Builder(SettingActivity.this).create();
 
@@ -377,13 +377,13 @@ public class SettingActivity extends AppCompatActivity {
 
                 if (!"".equals(email)) {
 
-                    if(m.matches()){
+                    if (m.matches()) {
 
-                        editor.putString("email",email).commit();
+                        editor.putString("email", email).commit();
 
                         setemail.cancel();
 
-                    }else {
+                    } else {
 
                         Toast.makeText(SettingActivity.this, "邮箱有误", Toast.LENGTH_SHORT).show();
                     }
@@ -411,7 +411,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     /*设置邮箱dialog*/
-    private void dialogsetbio(){
+    private void dialogsetbio() {
 
         setbio = new AlertDialog.Builder(SettingActivity.this).create();
 
@@ -443,7 +443,7 @@ public class SettingActivity extends AppCompatActivity {
 
                 if (!"".equals(bio)) {
 
-                    editor.putString("bio",bio).commit();
+                    editor.putString("bio", bio).commit();
 
                     setbio.cancel();
 

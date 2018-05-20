@@ -23,7 +23,7 @@ import java.util.List;
 public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> {
 
     private Context mCotext;
-    private List<Diary>diaryList;
+    private List<Diary> diaryList;
     private OnItemClickListener itemClickListener;
     private OnItemLongClickListener itemLongClickListener;
 
@@ -33,21 +33,21 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
     }
 
-    public interface OnItemLongClickListener{
+    public interface OnItemLongClickListener {
 
         boolean onItemLongClick(View view, int postion);
     }
 
-    public void setOnItemClickLisener(OnItemClickListener lisener){
+    public void setOnItemClickLisener(OnItemClickListener lisener) {
         this.itemClickListener = lisener;
     }
 
-    public void setOnItemLongClickListener(OnItemLongClickListener longLisener){
+    public void setOnItemLongClickListener(OnItemLongClickListener longLisener) {
         this.itemLongClickListener = longLisener;
 
     }
 
-    public DiaryAdapter( List<Diary> list,Context context){
+    public DiaryAdapter(List<Diary> list, Context context) {
 
         mCotext = context;
 
@@ -55,7 +55,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         private OnItemClickListener onItemClickListener;
 
@@ -69,7 +69,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
         private ImageView diary_iv_image;
 
-        public ViewHolder(View itemView,OnItemClickListener listener,OnItemLongClickListener longListener) {
+        public ViewHolder(View itemView, OnItemClickListener listener, OnItemLongClickListener longListener) {
             super(itemView);
 
             diary_tv_content = (TextView) itemView.findViewById(R.id.diary_tv_content);
@@ -92,20 +92,21 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
         @Override
         public void onClick(View v) {
-            onItemClickListener.onItemClick(v,getPosition());
+            onItemClickListener.onItemClick(v, getPosition());
 
         }
 
-        public boolean onLongClick(View v){
-            return onItemLongClickListener != null && onItemLongClickListener.onItemLongClick(v,getPosition());
+        public boolean onLongClick(View v) {
+            return onItemLongClickListener != null && onItemLongClickListener.onItemLongClick(v, getPosition());
         }
     }
+
     @Override
     public DiaryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_diary_layout,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_diary_layout, parent, false);
 
-        final ViewHolder viewHolder = new ViewHolder(view,itemClickListener,itemLongClickListener);
+        final ViewHolder viewHolder = new ViewHolder(view, itemClickListener, itemLongClickListener);
 
         return viewHolder;
     }
@@ -120,12 +121,12 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
         holder.diary_tv_time.setText(diary.getTime());
 
-        holder.diary_iv_image.setImageBitmap(getImageThumbanil(diary.getImage(),150,150));
+        holder.diary_iv_image.setImageBitmap(getImageThumbanil(diary.getImage(), 150, 150));
 
     }
 
     //获取缩略图
-    private Bitmap getImageThumbanil(String uri,int  width,int height) {
+    private Bitmap getImageThumbanil(String uri, int width, int height) {
 
         Bitmap bitmap = null;
 
@@ -133,7 +134,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
         options.inJustDecodeBounds = true;
 
-        bitmap = BitmapFactory.decodeFile(uri,options);
+        bitmap = BitmapFactory.decodeFile(uri, options);
 
         options.inJustDecodeBounds = false;
 
@@ -143,17 +144,17 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
         int ratio = 1;
 
-        if(beWidth <beHeight){
+        if (beWidth < beHeight) {
 
             ratio = beWidth;
 
-        }else{
+        } else {
 
             ratio = beHeight;
 
         }
 
-        if(ratio <= 0){
+        if (ratio <= 0) {
 
             ratio = 1;
 
@@ -161,9 +162,9 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
         options.inSampleSize = ratio;
 
-        bitmap = BitmapFactory.decodeFile(uri,options);
+        bitmap = BitmapFactory.decodeFile(uri, options);
 
-        bitmap = ThumbnailUtils.extractThumbnail(bitmap,width,height,ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
+        bitmap = ThumbnailUtils.extractThumbnail(bitmap, width, height, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
 
         return bitmap;
     }

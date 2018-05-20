@@ -1,8 +1,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.lenovo.aviewoftori.Fragment.DiaryFragment">
 
     <LinearLayout
@@ -12,9 +12,8 @@
         android:orientation="horizontal"
         android:visibility="visible">
 
-        <include
-            layout="@layout/diary_lock">
-        </include>
+        <include layout="@layout/diary_lock" />
+
     </LinearLayout>
 
     <RelativeLayout
@@ -26,20 +25,20 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@mipmap/diary_background"
-            android:alpha="0.2"/>
+            android:alpha="0.2"
+            android:background="@mipmap/diary_background" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/diary_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
             android:layout_margin="25dp"
+            android:backgroundTint="@color/white"
             android:src="@mipmap/dairyadd"
             app:borderWidth="3dp"
-            android:backgroundTint="@color/white"
-            app:fabSize="normal"/>
+            app:fabSize="normal" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/diary_rv"

@@ -18,7 +18,7 @@ import java.util.Random;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ToolFragment extends Fragment{
+public class ToolFragment extends Fragment {
 
     private Button poster_btn;
 
@@ -28,9 +28,9 @@ public class ToolFragment extends Fragment{
 
     private View v;
 
-    String poetry[] = {"忽如一夜春风来，千树万树梨花开","千里冰封，万里雪飘","今我来思，雨雪霏霏","吹灯窗更明，月照一天雪",
-            "入扇萦离匣，点素皎残机","孤舟蓑笠翁，独钓寒江雪","千里黄云白日曛，北风吹雁雪纷纷","微风摇庭树，细雪下帘隙",
-    "别有根芽，不是人间富贵花","天光乍破遇，暮雪白头老"};
+    String poetry[] = {"忽如一夜春风来，千树万树梨花开", "千里冰封，万里雪飘", "今我来思，雨雪霏霏", "吹灯窗更明，月照一天雪",
+            "入扇萦离匣，点素皎残机", "孤舟蓑笠翁，独钓寒江雪", "千里黄云白日曛，北风吹雁雪纷纷", "微风摇庭树，细雪下帘隙",
+            "别有根芽，不是人间富贵花", "天光乍破遇，暮雪白头老"};
 
     public ToolFragment() {
         // Required empty public constructor
@@ -52,7 +52,7 @@ public class ToolFragment extends Fragment{
     }
 
 
-    public void toolfindid(){
+    public void toolfindid() {
 
         tool_other_1 = (Button) v.findViewById(R.id.tool_other_1);
 
@@ -93,12 +93,12 @@ public class ToolFragment extends Fragment{
     }
 
 
-    public void fun(){
+    public void fun() {
 
         Random random = new Random();
 
         int r = random.nextInt(9);
 
-        Toast.makeText(getContext(),poetry[r],Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), poetry[r], Toast.LENGTH_SHORT).show();
     }
 }

@@ -55,7 +55,7 @@ public class MemoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        item = new Intent(getActivity(),AddActivity.class);
+        item = new Intent(getActivity(), AddActivity.class);
 
         setHasOptionsMenu(true);
 
@@ -76,13 +76,13 @@ public class MemoFragment extends Fragment {
 
             public boolean onLongClick(View v) {
 
-                if(memo_listView.getVisibility()==View.VISIBLE){
+                if (memo_listView.getVisibility() == View.VISIBLE) {
 
                     memo_listView.setVisibility(View.GONE);
 
                     memo_gridView.setVisibility(View.VISIBLE);
 
-                }else {
+                } else {
 
                     memo_listView.setVisibility(View.VISIBLE);
 
@@ -101,15 +101,15 @@ public class MemoFragment extends Fragment {
 
                 cursor.moveToPosition(position);
 
-                item.putExtra("flag","memo");
+                item.putExtra("flag", "memo");
 
-                item.putExtra("id",cursor.getInt(cursor.getColumnIndex("id")));
+                item.putExtra("id", cursor.getInt(cursor.getColumnIndex("id")));
 
-                item.putExtra("content",cursor.getString(cursor.getColumnIndex("content")));
+                item.putExtra("content", cursor.getString(cursor.getColumnIndex("content")));
 
-                item.putExtra("time",cursor.getString(cursor.getColumnIndex("time")));
+                item.putExtra("time", cursor.getString(cursor.getColumnIndex("time")));
 
-                item.putExtra("image",cursor.getString(cursor.getColumnIndex("image")));
+                item.putExtra("image", cursor.getString(cursor.getColumnIndex("image")));
 
                 startActivity(item);
 
@@ -134,17 +134,17 @@ public class MemoFragment extends Fragment {
 
                 cursor.moveToPosition(position);
 
-                Intent item = new Intent(getActivity(),AddActivity.class);
+                Intent item = new Intent(getActivity(), AddActivity.class);
 
-                item.putExtra("flag","memo");
+                item.putExtra("flag", "memo");
 
-                item.putExtra("id",cursor.getInt(cursor.getColumnIndex("id")));
+                item.putExtra("id", cursor.getInt(cursor.getColumnIndex("id")));
 
-                item.putExtra("content",cursor.getString(cursor.getColumnIndex("content")));
+                item.putExtra("content", cursor.getString(cursor.getColumnIndex("content")));
 
-                item.putExtra("time",cursor.getString(cursor.getColumnIndex("time")));
+                item.putExtra("time", cursor.getString(cursor.getColumnIndex("time")));
 
-                item.putExtra("image",cursor.getString(cursor.getColumnIndex("image")));
+                item.putExtra("image", cursor.getString(cursor.getColumnIndex("image")));
 
                 startActivity(item);
 
@@ -205,7 +205,7 @@ public class MemoFragment extends Fragment {
     }
 
     /*删除dialog*/
-    public void deleteDailog(int position){
+    public void deleteDailog(int position) {
 
         dbWriter = dataBaseHelper.getWritableDatabase();
 
@@ -234,7 +234,7 @@ public class MemoFragment extends Fragment {
 
             public void onClick(View v) {
 
-                dbWriter.delete("Memo", "id=" +cursor.getInt(cursor.getColumnIndex("id")), null);
+                dbWriter.delete("Memo", "id=" + cursor.getInt(cursor.getColumnIndex("id")), null);
 
                 cursor = dbReader.query("Memo", null, null, null, null, null, "id desc");
 

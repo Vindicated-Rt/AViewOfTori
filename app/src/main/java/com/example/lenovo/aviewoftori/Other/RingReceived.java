@@ -13,10 +13,10 @@ import com.example.lenovo.aviewoftori.Activity.RingActivity;
 public class RingReceived extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        if("com.example.lenovo.aviewoftori.Activity.RING".equals(intent.getAction())){
+        if ("com.example.lenovo.aviewoftori.Activity.RING".equals(intent.getAction())) {
 
             //接收广播，跳转铃声页面
-            Intent i = new Intent(context,RingActivity.class);
+            Intent i = new Intent(context, RingActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(i);
         }

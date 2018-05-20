@@ -2,14 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.lenovo.aviewoftori.Fragment.ToolFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.example.lenovo.aviewoftori.Fragment.ToolFragment">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/poster_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </android.support.v7.widget.Toolbar>
+        android:layout_height="wrap_content" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -22,10 +21,10 @@
 
         <TextView
             android:id="@+id/poster_tv"
-            android:text="设置文本"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/poster_settext" />
 
         <SlidingDrawer
             android:id="@+id/poster_sd"
@@ -46,12 +45,10 @@
                 android:id="@+id/poster_sd_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:orientation="vertical">
 
-                <include
-                    layout="@layout/slidingsrawer_content_layout">
-                </include>
+                <include layout="@layout/slidingsrawer_content_layout"></include>
 
             </LinearLayout>
 

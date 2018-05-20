@@ -1,13 +1,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/memo_background"
-        android:alpha="0.2"/>
+        android:alpha="0.2"
+        android:background="@mipmap/memo_background" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,36 +16,33 @@
 
         <ListView
             android:id="@+id/memo_listview"
-            android:visibility="visible"
-            android:dividerHeight="1dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp">
-        </ListView>
+            android:layout_margin="10dp"
+            android:dividerHeight="1dp"
+            android:visibility="visible" />
 
         <GridView
             android:id="@+id/memo_gridview"
-            android:visibility="gone"
-            android:numColumns="2"
-            android:horizontalSpacing="8dp"
-            android:verticalSpacing="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp">
-        </GridView>
+            android:layout_margin="10dp"
+            android:horizontalSpacing="8dp"
+            android:numColumns="2"
+            android:verticalSpacing="8dp"
+            android:visibility="gone" />
 
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/memo_fab"
-        app:fabSize="normal"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="25dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="25dp"
+        android:backgroundTint="@color/white"
         android:src="@mipmap/dairyadd"
         app:borderWidth="3dp"
-        android:backgroundTint="@color/white"/>
-
+        app:fabSize="normal" />
 
 </FrameLayout>

@@ -28,13 +28,13 @@ public class LaunchAcitivity extends AppCompatActivity {
     }
 
     /*设置动画*/
-    public void initImage(){
+    public void initImage() {
 
         launch_iv = (ImageView) findViewById(R.id.launch_iv);
 
         launch_iv.setImageResource(R.mipmap.launch_img);
 
-        ScaleAnimation scaleAnimation = new ScaleAnimation(1.4f,1.0f,1.4f,1.0f, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+        ScaleAnimation scaleAnimation = new ScaleAnimation(1.4f, 1.0f, 1.4f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 
         scaleAnimation.setDuration(1000);
 
@@ -63,23 +63,23 @@ public class LaunchAcitivity extends AppCompatActivity {
     }
 
     /*判断进入哪个页面*/
-    public void init(){
+    public void init() {
 
-        SharedPreferences sharedPreferences = getSharedPreferences("times",MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("times", MODE_PRIVATE);
 
-        isFirstIn = sharedPreferences.getBoolean("FirstIn",false);
+        isFirstIn = sharedPreferences.getBoolean("FirstIn", false);
 
-        if(isFirstIn){
+        if (isFirstIn) {
 
             goHome();
 
-        }else{
+        } else {
 
             goGuide();
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
-            editor.putBoolean("FirstIn",true);
+            editor.putBoolean("FirstIn", true);
 
             editor.commit();
 
@@ -88,9 +88,9 @@ public class LaunchAcitivity extends AppCompatActivity {
     }
 
 
-    public void goHome(){
+    public void goHome() {
 
-        Intent intent = new Intent(LaunchAcitivity.this,HomeActivity.class);
+        Intent intent = new Intent(LaunchAcitivity.this, HomeActivity.class);
 
         startActivity(intent);
 
@@ -98,9 +98,9 @@ public class LaunchAcitivity extends AppCompatActivity {
 
     }
 
-    public void goGuide(){
+    public void goGuide() {
 
-        Intent intent = new Intent(LaunchAcitivity.this,GuideActivity.class);
+        Intent intent = new Intent(LaunchAcitivity.this, GuideActivity.class);
 
         startActivity(intent);
 
