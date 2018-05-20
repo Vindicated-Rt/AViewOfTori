@@ -22,9 +22,9 @@
             android:background="@mipmap/launch_img" />
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/poem_content"
@@ -39,45 +39,45 @@
 
             <TextView
                 android:id="@+id/developer"
-                android:gravity="center"
-                android:layout_marginTop="40dp"
-                android:textColor="@color/black"
-                android:textSize="25dp"
-                android:text="开发者"
-                android:lineSpacingExtra="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:gravity="center"
+                android:lineSpacingExtra="10dp"
+                android:text="开发者"
+                android:textColor="@color/black"
+                android:textSize="25dp" />
 
             <TextView
                 android:id="@+id/html_Vindicated_Rt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Vindicated-Rt"
                 android:gravity="center"
+                android:text="Vindicated-Rt"
                 android:textColor="@color/black"
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/html_Vni0427"
-                android:layout_marginTop="10dp"
-                android:text="Vni0427"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:textSize="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Vni0427"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/Thinks"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                android:gravity="center"
-                android:text="@string/thinks"
-                android:lineSpacingExtra="10dp"
-                android:layout_marginTop="40dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:gravity="center"
+                android:lineSpacingExtra="10dp"
+                android:text="@string/thinks"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
 
         </LinearLayout>
 

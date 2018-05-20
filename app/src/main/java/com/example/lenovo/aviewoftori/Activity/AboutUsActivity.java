@@ -59,7 +59,7 @@ public class AboutUsActivity extends AppCompatActivity {
     }
 
     /*设置字体*/
-    public void settype(){
+    public void settype() {
 
         AssetManager AM = getAssets();
 
@@ -70,7 +70,7 @@ public class AboutUsActivity extends AppCompatActivity {
     }
 
     /*初始化网站*/
-    public void sethtml(){
+    public void sethtml() {
 
         String html1 = "<a href='https://vindicated-rt.github.io/'>Vindicated-Rt</a>";
 
