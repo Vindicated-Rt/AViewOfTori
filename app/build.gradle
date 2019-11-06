@@ -4,8 +4,9 @@ android {
     compileSdkVersion 25
     buildToolsVersion "27.0.3"
     defaultConfig {
-        applicationId "com.example.lenovo.aviewoftori"
+        applicationId "com.mystery.aviewoftori"
         minSdkVersion 9
+        //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.lenovo.aviewoftori">
+    package="com.mystery.aviewoftori">
 
     <uses-permission android:name="android.permission.CAMERA" />
 
@@ -18,8 +18,8 @@
         android:roundIcon="@mipmap/main_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".Activity.GuideActivity" />
-        <activity android:name=".Activity.LaunchActivity">
+        <activity android:name="com.mystery.aviewoftori.Activity.GuideActivity" />
+        <activity android:name="com.mystery.aviewoftori.Activity.LaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,17 +27,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity.HomeActivity"
+            android:name="com.mystery.aviewoftori.Activity.HomeActivity"
             android:launchMode="singleTask"
              />
         <activity
-            android:name=".Activity.AddActivity"
+            android:name="com.mystery.aviewoftori.Activity.AddActivity"
             android:windowSoftInputMode="stateVisible|adjustResize"/>
-        <activity android:name=".Activity.AboutUsActivity" />
+        <activity android:name="com.mystery.aviewoftori.Activity.AboutUsActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.example.lenovo.aviewoftori.fileprovider"
+            android:authorities="com.mystery.aviewoftori.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -45,11 +45,11 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".Activity.SettingActivity" />
-        <activity android:name=".Activity.PosterActivity" />
-        <activity android:name=".Activity.RingActivity" />
+        <activity android:name="com.mystery.aviewoftori.Activity.SettingActivity" />
+        <activity android:name="com.mystery.aviewoftori.Activity.PosterActivity" />
+        <activity android:name="com.mystery.aviewoftori.Activity.RingActivity" />
 
-        <receiver android:name=".Other.RingReceived"
+        <receiver android:name="com.mystery.aviewoftori.Other.RingReceived"
             android:exported="true"
             android:enabled="true">
             <intent-filter>

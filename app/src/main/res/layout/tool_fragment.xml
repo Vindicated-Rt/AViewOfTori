@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.lenovo.aviewoftori.Fragment.ToolFragment">
+    tools:context="com.mystery.aviewoftori.Fragment.ToolFragment">
 
     <ImageView
         android:id="@+id/tool_iv"
