@@ -44,7 +44,7 @@ public class ToolFragment extends Fragment {
 
         v = inflater.inflate(R.layout.tool_fragment, container, false);
 
-        toolfindid();
+        toolFindId();
 
 
         return v;
@@ -52,7 +52,7 @@ public class ToolFragment extends Fragment {
     }
 
 
-    public void toolfindid() {
+    public void toolFindId() {
 
         tool_other_1 = (Button) v.findViewById(R.id.tool_other_1);
 

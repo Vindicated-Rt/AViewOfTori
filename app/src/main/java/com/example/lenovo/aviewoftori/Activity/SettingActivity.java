@@ -1,5 +1,6 @@
 package com.example.lenovo.aviewoftori.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -18,48 +19,49 @@ import com.example.lenovo.aviewoftori.R;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+@SuppressLint("InflateParams")
 public class SettingActivity extends AppCompatActivity {
 
     private Toolbar setting_toolbar;
 
-    private Switch passwore_switch;
+    private Switch passWord_switch;
 
     private SharedPreferences setting_info;
 
     private SharedPreferences.Editor editor;
 
-    private TextView setpassword_tv;
+    private TextView setPassWord_tv;
 
-    private TextView setemail_tv;
+    private TextView setEmail_tv;
 
-    private TextView setbio_tv;
+    private TextView setBio_tv;
 
     private EditText dialog_et;
 
-    private AlertDialog checkoldPassword;
+    private AlertDialog checkOldPassWord;
 
     private AlertDialog checkPassword;
 
-    private AlertDialog setnewPassword;
+    private AlertDialog setNewPassword;
 
-    private AlertDialog setemail;
+    private AlertDialog setEmail;
 
-    private AlertDialog setbio;
+    private AlertDialog setBio;
 
+    @SuppressLint("NewApi")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setting_activity);
 
-        passwore_switch = (Switch) findViewById(R.id.setting_lock_sw);
+        passWord_switch = (Switch) findViewById(R.id.setting_lock_sw);
 
         setting_toolbar = (Toolbar) findViewById(R.id.setting_toolbar);
 
-        setpassword_tv = (TextView) findViewById(R.id.setting_lock_tv);
+        setPassWord_tv = (TextView) findViewById(R.id.setting_lock_tv);
 
-        setemail_tv = (TextView) findViewById(R.id.setting_email_tv);
+        setEmail_tv = (TextView) findViewById(R.id.setting_email_tv);
 
-        setbio_tv = (TextView) findViewById(R.id.setting_bio_tv);
+        setBio_tv = (TextView) findViewById(R.id.setting_bio_tv);
 
         setSupportActionBar(setting_toolbar);
 
@@ -80,7 +82,7 @@ public class SettingActivity extends AppCompatActivity {
         });
 
         /*设置密码监听事件*/
-        setpassword_tv.setOnClickListener(new View.OnClickListener() {
+        setPassWord_tv.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
 
@@ -100,19 +102,20 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        setSwitvh();
+        setSwitch();
 
         /*开关设置监听事件*/
-        passwore_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        passWord_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             String info_password = setting_info.getString("password", "def");
 
+            @SuppressLint("ApplySharedPref")
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
 
                     if (info_password.equals("def")) {
 
-                        dialogsetnew();
+                        dialogSetNew();
 
                     }
 
@@ -131,11 +134,11 @@ public class SettingActivity extends AppCompatActivity {
         });
 
         /*设置邮箱监听事件*/
-        setemail_tv.setOnClickListener(new View.OnClickListener() {
+        setEmail_tv.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
 
-                dialogsetemail();
+                dialogSetEmail();
 
                 Toast.makeText(getBaseContext(), "设置成功", Toast.LENGTH_SHORT).show();
 
@@ -143,11 +146,11 @@ public class SettingActivity extends AppCompatActivity {
         });
 
         /*设置签名*/
-        setbio_tv.setOnClickListener(new View.OnClickListener() {
+        setBio_tv.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
 
-                dialogsetbio();
+                dialogSetBio();
 
                 Toast.makeText(getBaseContext(), "设置成功", Toast.LENGTH_SHORT).show();
 
@@ -171,16 +174,16 @@ public class SettingActivity extends AppCompatActivity {
 
         checkPassword.setCancelable(false);
 
-        ImageButton setlock_dialog_ok_btn = (ImageButton) dialogView
+        ImageButton setLock_dialog_ok_btn = (ImageButton) dialogView
                 .findViewById(R.id.dialog_ok_btn);
 
-        ImageButton setlock_dialog_cancedl_btn = (ImageButton) dialogView
+        ImageButton setLock_dialog_cancel_btn = (ImageButton) dialogView
                 .findViewById(R.id.dialog_cancel_btn);
 
         dialog_et = (EditText) dialogView.findViewById(R.id.dialog_et);
 
         /*确认监听事件*/
-        setlock_dialog_ok_btn.setOnClickListener(new View.OnClickListener() {
+        setLock_dialog_ok_btn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
 
@@ -196,7 +199,7 @@ public class SettingActivity extends AppCompatActivity {
 
                 } else {
 
-                    passwore_switch.setChecked(true);
+                    passWord_switch.setChecked(true);
 
                     Toast.makeText(SettingActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
 
@@ -204,11 +207,11 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        setlock_dialog_cancedl_btn.setOnClickListener(new View.OnClickListener() {
+        setLock_dialog_cancel_btn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
 
-                passwore_switch.setChecked(true);
+                passWord_switch.setChecked(true);
 
                 checkPassword.dismiss();
 
@@ -221,23 +224,23 @@ public class SettingActivity extends AppCompatActivity {
     /*检查旧密码的dialog*/
     private void dialogcheckold() {
 
-        checkoldPassword = new AlertDialog.Builder(SettingActivity.this).create();
+        checkOldPassWord = new AlertDialog.Builder(SettingActivity.this).create();
 
         View dialogView = LayoutInflater.from(SettingActivity.this)
                 .inflate(R.layout.set_dialog_layuout, null);
 
-        checkoldPassword.setTitle("输入旧密码");
+        checkOldPassWord.setTitle("输入旧密码");
 
-        checkoldPassword.setView(dialogView);
+        checkOldPassWord.setView(dialogView);
 
-        checkoldPassword.setIcon(R.mipmap.dialog_setlock_icon);
+        checkOldPassWord.setIcon(R.mipmap.dialog_setlock_icon);
 
-        checkoldPassword.setCancelable(false);
+        checkOldPassWord.setCancelable(false);
 
         ImageButton setlock_dialog_ok_btn = (ImageButton) dialogView
                 .findViewById(R.id.dialog_ok_btn);
 
-        ImageButton setlock_dialog_cancedl_btn = (ImageButton) dialogView
+        ImageButton setLock_dialog_cancel_btn = (ImageButton) dialogView
                 .findViewById(R.id.dialog_cancel_btn);
 
         dialog_et = (EditText) dialogView.findViewById(R.id.dialog_et);
@@ -251,9 +254,9 @@ public class SettingActivity extends AppCompatActivity {
 
                 if (!"".equals(dialog_et.getText().toString()) && info_password.equals(dialog_et.getText().toString())) {
 
-                    dialogsetnew();
+                    dialogSetNew();
 
-                    checkoldPassword.cancel();
+                    checkOldPassWord.cancel();
 
                 } else if ("".equals(dialog_et.getText().toString())) {
 
@@ -267,44 +270,44 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        setlock_dialog_cancedl_btn.setOnClickListener(new View.OnClickListener() {
+        setLock_dialog_cancel_btn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
 
-                checkoldPassword.cancel();
+                checkOldPassWord.cancel();
 
             }
         });
 
-        checkoldPassword.show();
+        checkOldPassWord.show();
     }
 
     /*设置新密码dialog*/
-    private void dialogsetnew() {
+    private void dialogSetNew() {
 
-        setnewPassword = new AlertDialog.Builder(SettingActivity.this).create();
+        setNewPassword = new AlertDialog.Builder(SettingActivity.this).create();
 
         View dialogView = LayoutInflater.from(SettingActivity.this)
                 .inflate(R.layout.set_dialog_layuout, null);
 
-        setnewPassword.setTitle("输入新密码");
+        setNewPassword.setTitle("输入新密码");
 
-        setnewPassword.setView(dialogView);
+        setNewPassword.setView(dialogView);
 
-        setnewPassword.setIcon(R.mipmap.dialog_setlock_icon);
+        setNewPassword.setIcon(R.mipmap.dialog_setlock_icon);
 
-        setnewPassword.setCancelable(false);
+        setNewPassword.setCancelable(false);
 
-        ImageButton setlock_dialog_ok_btn = (ImageButton) dialogView
+        ImageButton setLock_dialog_ok_btn = (ImageButton) dialogView
                 .findViewById(R.id.dialog_ok_btn);
 
-        ImageButton setlock_dialog_cancedl_btn = (ImageButton) dialogView
+        ImageButton setLock_dialog_cancel_btn = (ImageButton) dialogView
                 .findViewById(R.id.dialog_cancel_btn);
 
         dialog_et = (EditText) dialogView.findViewById(R.id.dialog_et);
 
         /*确认监听事件*/
-        setlock_dialog_ok_btn.setOnClickListener(new View.OnClickListener() {
+        setLock_dialog_ok_btn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
 
@@ -314,7 +317,7 @@ public class SettingActivity extends AppCompatActivity {
 
                     editor.putString("password", password).commit();
 
-                    setnewPassword.cancel();
+                    setNewPassword.cancel();
 
                 } else {
 
@@ -323,45 +326,45 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        setlock_dialog_cancedl_btn.setOnClickListener(new View.OnClickListener() {
+        setLock_dialog_cancel_btn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
 
-                setnewPassword.cancel();
+                setNewPassword.cancel();
 
             }
         });
 
-        setnewPassword.show();
+        setNewPassword.show();
 
     }
 
     /*设置邮箱dialog*/
-    private void dialogsetemail() {
+    private void dialogSetEmail() {
 
-        setemail = new AlertDialog.Builder(SettingActivity.this).create();
+        setEmail = new AlertDialog.Builder(SettingActivity.this).create();
 
         View dialogView = LayoutInflater.from(SettingActivity.this)
                 .inflate(R.layout.set_dialog_layuout, null);
 
-        setemail.setTitle("输入邮箱");
+        setEmail.setTitle("输入邮箱");
 
-        setemail.setView(dialogView);
+        setEmail.setView(dialogView);
 
-        setemail.setIcon(R.mipmap.dialog_setemail_icon);
+        setEmail.setIcon(R.mipmap.dialog_setemail_icon);
 
-        setemail.setCancelable(false);
+        setEmail.setCancelable(false);
 
-        ImageButton setemail_dialog_ok_btn = (ImageButton) dialogView
+        ImageButton setEmail_dialog_ok_btn = (ImageButton) dialogView
                 .findViewById(R.id.dialog_ok_btn);
 
-        ImageButton setemail_dialog_cancedl_btn = (ImageButton) dialogView
+        ImageButton setEmail_dialog_cancel_btn = (ImageButton) dialogView
                 .findViewById(R.id.dialog_cancel_btn);
 
         dialog_et = (EditText) dialogView.findViewById(R.id.dialog_et);
 
         /*确认按钮*/
-        setemail_dialog_ok_btn.setOnClickListener(new View.OnClickListener() {
+        setEmail_dialog_ok_btn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
 
@@ -381,7 +384,7 @@ public class SettingActivity extends AppCompatActivity {
 
                         editor.putString("email", email).commit();
 
-                        setemail.cancel();
+                        setEmail.cancel();
 
                     } else {
 
@@ -397,45 +400,45 @@ public class SettingActivity extends AppCompatActivity {
         });
 
         /*取消按钮*/
-        setemail_dialog_cancedl_btn.setOnClickListener(new View.OnClickListener() {
+        setEmail_dialog_cancel_btn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
 
-                setemail.cancel();
+                setEmail.cancel();
 
             }
         });
 
-        setemail.show();
+        setEmail.show();
 
     }
 
     /*设置邮箱dialog*/
-    private void dialogsetbio() {
+    private void dialogSetBio() {
 
-        setbio = new AlertDialog.Builder(SettingActivity.this).create();
+        setBio = new AlertDialog.Builder(SettingActivity.this).create();
 
         View dialogView = LayoutInflater.from(SettingActivity.this)
                 .inflate(R.layout.set_dialog_layuout, null);
 
-        setbio.setTitle("输入签名");
+        setBio.setTitle("输入签名");
 
-        setbio.setView(dialogView);
+        setBio.setView(dialogView);
 
-        setbio.setIcon(R.mipmap.dialog_setbio_icon);
+        setBio.setIcon(R.mipmap.dialog_setbio_icon);
 
-        setbio.setCancelable(false);
+        setBio.setCancelable(false);
 
-        ImageButton setebio_dialog_ok_btn = (ImageButton) dialogView
+        ImageButton setBio_dialog_ok_btn = (ImageButton) dialogView
                 .findViewById(R.id.dialog_ok_btn);
 
-        ImageButton setebio_dialog_cancedl_btn = (ImageButton) dialogView
+        ImageButton setBio_dialog_cancel_btn = (ImageButton) dialogView
                 .findViewById(R.id.dialog_cancel_btn);
 
         dialog_et = (EditText) dialogView.findViewById(R.id.dialog_et);
 
         /*确认按钮*/
-        setebio_dialog_ok_btn.setOnClickListener(new View.OnClickListener() {
+        setBio_dialog_ok_btn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
 
@@ -445,7 +448,7 @@ public class SettingActivity extends AppCompatActivity {
 
                     editor.putString("bio", bio).commit();
 
-                    setbio.cancel();
+                    setBio.cancel();
 
                 } else {
 
@@ -456,31 +459,31 @@ public class SettingActivity extends AppCompatActivity {
         });
 
         /*取消按钮*/
-        setebio_dialog_cancedl_btn.setOnClickListener(new View.OnClickListener() {
+        setBio_dialog_cancel_btn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
 
-                setbio.cancel();
+                setBio.cancel();
 
             }
         });
 
-        setbio.show();
+        setBio.show();
 
     }
 
     /*设置开关*/
-    public void setSwitvh() {
+    public void setSwitch() {
 
         boolean chek = setting_info.getBoolean("lock", false);
 
         if (chek) {
 
-            passwore_switch.setChecked(true);
+            passWord_switch.setChecked(true);
 
         } else {
 
-            passwore_switch.setChecked(false);
+            passWord_switch.setChecked(false);
 
         }
     }

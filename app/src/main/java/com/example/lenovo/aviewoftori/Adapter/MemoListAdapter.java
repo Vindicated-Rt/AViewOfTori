@@ -1,5 +1,6 @@
 package com.example.lenovo.aviewoftori.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -20,7 +21,7 @@ public class MemoListAdapter extends BaseAdapter {
 
     private Context context;
 
-    private RelativeLayout listview_layout;
+    private RelativeLayout listView_layout;
 
     private Cursor cursor;
 
@@ -34,17 +35,18 @@ public class MemoListAdapter extends BaseAdapter {
     }
 
     /*布局设置方法*/
+    @SuppressLint({"ViewHolder", "InflateParams"})
     public View getView(int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        listview_layout = (RelativeLayout) inflater.inflate(R.layout.item_memo_listview, null);
+        listView_layout = (RelativeLayout) inflater.inflate(R.layout.item_memo_listview, null);
 
-        ImageView lv_iv_pic = (ImageView) listview_layout.findViewById(R.id.memo_listview_item_iv);
+        ImageView lv_iv_pic = (ImageView) listView_layout.findViewById(R.id.memo_listview_item_iv);
 
-        TextView lv_tv_text = (TextView) listview_layout.findViewById(R.id.memo_listview_item_content_tv);
+        TextView lv_tv_text = (TextView) listView_layout.findViewById(R.id.memo_listview_item_content_tv);
 
-        TextView lv_tv_time = (TextView) listview_layout.findViewById(R.id.memo_listview_item_time_tv);
+        TextView lv_tv_time = (TextView) listView_layout.findViewById(R.id.memo_listview_item_time_tv);
 
         cursor.moveToPosition(position);
 
@@ -54,25 +56,25 @@ public class MemoListAdapter extends BaseAdapter {
 
         String url = cursor.getString(cursor.getColumnIndex("image"));
 
-        lv_iv_pic.setImageBitmap(getImageThumbanil(url, 150, 150));
+        lv_iv_pic.setImageBitmap(getImageThumbnail(url, 150, 150));
 
         lv_tv_text.setText(content);
 
         lv_tv_time.setText(time);
 
-        return listview_layout;
+        return listView_layout;
     }
 
     /*获取图片缩略图方法*/
-    public Bitmap getImageThumbanil(String uri, int width, int height) {
+    private Bitmap getImageThumbnail(String uri, int width, int height) {
 
-        Bitmap bitmap = null;       //初始化图片
+        Bitmap bitmap;       //初始化图片
 
         BitmapFactory.Options options = new BitmapFactory.Options();   //实例化图片解码
 
         options.inJustDecodeBounds = true;
 
-        bitmap = BitmapFactory.decodeFile(uri, options);     //寻找图片地址
+        BitmapFactory.decodeFile(uri, options);     //寻找图片地址
 
         options.inJustDecodeBounds = false;     //是否设置按比例缩放
 
@@ -81,7 +83,7 @@ public class MemoListAdapter extends BaseAdapter {
 
         int beHeight = options.outHeight / height;
 
-        int ratio = 1;
+        int ratio;
 
         if (beWidth < beHeight) {
 

@@ -1,5 +1,6 @@
 package com.example.lenovo.aviewoftori.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
@@ -39,29 +40,29 @@ public class PosterActivity extends AppCompatActivity {
 
     private TextView poster_tv;
 
-    private TextView poster_setcolor_et;
+    private TextView poster_setColor_et;
 
     private ImageView poster_iv;
 
-    private EditText poster_settext_et;
+    private EditText poster_setText_et;
 
-    private Button poster_setline_btn;
+    private Button poster_setLine_btn;
 
-    private Button poster_setlist_btn;
+    private Button poster_setList_btn;
 
     private Button poster_setType_Tang;
 
     private Button poster_setType_Blackboard;
 
-    private Button poster_setType_Papercut;
+    private Button poster_setType_PaperCut;
 
     private Button poster_setType_Happy;
 
-    private SeekBar poster_setcolorR;
+    private SeekBar poster_setColorR;
 
-    private SeekBar poster_setcolorG;
+    private SeekBar poster_setColorG;
 
-    private SeekBar poster_setcolorB;
+    private SeekBar poster_setColorB;
 
     private SeekBar poster_setSize;
 
@@ -69,7 +70,7 @@ public class PosterActivity extends AppCompatActivity {
 
     private Toolbar poster_toolbar;
 
-    private Typeface Tang, Blackboard, Papercut, Happy;
+    private Typeface Tang, Blackboard, PaperCut, Happy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +81,7 @@ public class PosterActivity extends AppCompatActivity {
 
         poster_sd = (SlidingDrawer) findViewById(R.id.poster_sd);
 
-        posterfindid();
+        posterFindId();
 
         setToolbar();
 
@@ -107,7 +108,8 @@ public class PosterActivity extends AppCompatActivity {
     }
 
     /*实例化对象*/
-    public void posterfindid() {
+    @SuppressLint("ClickableViewAccessibility")
+    public void posterFindId() {
 
         type();
 
@@ -115,15 +117,15 @@ public class PosterActivity extends AppCompatActivity {
 
         poster_toolbar = (Toolbar) findViewById(R.id.poster_toolbar);
 
-        poster_settext_et = (EditText) findViewById(R.id.poster_setText);
+        poster_setText_et = (EditText) findViewById(R.id.poster_setText);
 
-        poster_setcolor_et = (TextView) findViewById(R.id.poster_setcolor);
+        poster_setColor_et = (TextView) findViewById(R.id.poster_setcolor);
 
         poster_iv = (ImageView) findViewById(R.id.poster_iv);
 
-        poster_setline_btn = (Button) findViewById(R.id.poster_setline_btn);
+        poster_setLine_btn = (Button) findViewById(R.id.poster_setline_btn);
 
-        poster_setlist_btn = (Button) findViewById(R.id.poster_setlist_btn);
+        poster_setList_btn = (Button) findViewById(R.id.poster_setlist_btn);
 
         poster_setType_Tang = (Button) findViewById(R.id.type_Tang);
 
@@ -133,19 +135,19 @@ public class PosterActivity extends AppCompatActivity {
 
         poster_setType_Blackboard.setTypeface(Blackboard);
 
-        poster_setType_Papercut = (Button) findViewById(R.id.type_Papercut);
+        poster_setType_PaperCut = (Button) findViewById(R.id.type_Papercut);
 
-        poster_setType_Papercut.setTypeface(Papercut);
+        poster_setType_PaperCut.setTypeface(PaperCut);
 
         poster_setType_Happy = (Button) findViewById(R.id.type_Happy);
 
         poster_setType_Happy.setTypeface(Happy);
 
-        poster_setcolorR = (SeekBar) findViewById(R.id.poster_setcolorR_sb);
+        poster_setColorR = (SeekBar) findViewById(R.id.poster_setcolorR_sb);
 
-        poster_setcolorG = (SeekBar) findViewById(R.id.poster_setcolorG_sb);
+        poster_setColorG = (SeekBar) findViewById(R.id.poster_setcolorG_sb);
 
-        poster_setcolorB = (SeekBar) findViewById(R.id.poster_setcolorB_sb);
+        poster_setColorB = (SeekBar) findViewById(R.id.poster_setcolorB_sb);
 
         poster_setSize = (SeekBar) findViewById(R.id.poster_setSize_sb);
 
@@ -164,10 +166,10 @@ public class PosterActivity extends AppCompatActivity {
             }
         });
 
-        poster_setType_Papercut.setOnClickListener(new View.OnClickListener() {
+        poster_setType_PaperCut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                poster_tv.setTypeface(Papercut);
+                poster_tv.setTypeface(PaperCut);
             }
         });
 
@@ -179,19 +181,19 @@ public class PosterActivity extends AppCompatActivity {
         });
 
         /*初始化拖动条监听事件*/
-        seekBarListener = new SeekBarListener(poster_setcolorR, poster_setcolorG, poster_setcolorB
-                , poster_setSize, poster_setcolor_et, poster_tv);
+        seekBarListener = new SeekBarListener(poster_setColorR, poster_setColorG, poster_setColorB
+                , poster_setSize, poster_setColor_et, poster_tv);
 
-        poster_setcolorR.setOnSeekBarChangeListener(seekBarListener);
+        poster_setColorR.setOnSeekBarChangeListener(seekBarListener);
 
-        poster_setcolorG.setOnSeekBarChangeListener(seekBarListener);
+        poster_setColorG.setOnSeekBarChangeListener(seekBarListener);
 
-        poster_setcolorB.setOnSeekBarChangeListener(seekBarListener);
+        poster_setColorB.setOnSeekBarChangeListener(seekBarListener);
 
         poster_setSize.setOnSeekBarChangeListener(seekBarListener);
 
         /*设置文本*/
-        poster_settext_et.addTextChangedListener(new TextWatcher() {
+        poster_setText_et.addTextChangedListener(new TextWatcher() {
 
             /*文本改变前*/
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -206,13 +208,13 @@ public class PosterActivity extends AppCompatActivity {
             /*文本改变后*/
             public void afterTextChanged(Editable s) {
 
-                poster_tv.setText(poster_settext_et.getText());
+                poster_tv.setText(poster_setText_et.getText());
 
             }
         });
 
         /*按行显示*/
-        poster_setline_btn.setOnClickListener(new View.OnClickListener() {
+        poster_setLine_btn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
                 poster_tv.setMaxEms(10);
@@ -220,7 +222,7 @@ public class PosterActivity extends AppCompatActivity {
         });
 
         /*按列显示*/
-        poster_setlist_btn.setOnClickListener(new View.OnClickListener() {
+        poster_setList_btn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
                 poster_tv.setMaxEms(1);
@@ -239,7 +241,7 @@ public class PosterActivity extends AppCompatActivity {
 
         Blackboard = Typeface.createFromAsset(AM, "fonts/tang.ttf");
 
-        Papercut = Typeface.createFromAsset(AM, "fonts/papercut.ttf");
+        PaperCut = Typeface.createFromAsset(AM, "fonts/papercut.ttf");
 
         Happy = Typeface.createFromAsset(AM, "fonts/happy.ttf");
     }
@@ -249,6 +251,7 @@ public class PosterActivity extends AppCompatActivity {
 
         int lastX, lastY;
 
+        @SuppressLint("ClickableViewAccessibility")
         public boolean onTouch(View v, MotionEvent event) {
 
             int ea = event.getAction();

@@ -1,6 +1,7 @@
 package com.example.lenovo.aviewoftori.Fragment;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -55,7 +56,7 @@ public class DiaryFragment extends Fragment {
 
     private LinearLayout diary_check_layout;
 
-    private RelativeLayout diary_layuout;
+    private RelativeLayout diary_layout;
 
     private String info_password;
 
@@ -69,7 +70,7 @@ public class DiaryFragment extends Fragment {
 
     private Intent item;
 
-    private AlertDialog deletedata;
+    private AlertDialog deleteData;
 
     public DiaryFragment() {
         // Required empty public constructor
@@ -95,7 +96,7 @@ public class DiaryFragment extends Fragment {
 
         diary_check_layout = (LinearLayout) view.findViewById(R.id.diary_lock);
 
-        diary_layuout = (RelativeLayout) view.findViewById(R.id.diary_content);
+        diary_layout = (RelativeLayout) view.findViewById(R.id.diary_content);
 
         diary_check_et = (EditText) view.findViewById(R.id.diary_lock_et);
 
@@ -112,7 +113,7 @@ public class DiaryFragment extends Fragment {
 
                     diary_check_layout.setVisibility(View.GONE);
 
-                    diary_layuout.setVisibility(View.VISIBLE);
+                    diary_layout.setVisibility(View.VISIBLE);
 
                     Toast.makeText(getActivity(), "welcome!", Toast.LENGTH_SHORT).show();
 
@@ -173,7 +174,7 @@ public class DiaryFragment extends Fragment {
 
         diaryAdapter = new DiaryAdapter(diaryList, getActivity());
 
-        diaryAdapter.setOnItemClickLisener(new DiaryAdapter.OnItemClickListener() {
+        diaryAdapter.setOnItemClickListener(new DiaryAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int postion) {
 
@@ -242,18 +243,18 @@ public class DiaryFragment extends Fragment {
 
         cursor = dbWriter.query("Diary", null, null, null, null, null, "id desc");
 
-        deletedata = new AlertDialog.Builder(getActivity()).create();
+        deleteData = new AlertDialog.Builder(getActivity()).create();
 
-        View dialogView = LayoutInflater.from(getActivity())
+        @SuppressLint("InflateParams") View dialogView = LayoutInflater.from(getActivity())
                 .inflate(R.layout.delete_dialog, null);
 
-        deletedata.setTitle("确认删除");
+        deleteData.setTitle("确认删除");
 
-        deletedata.setView(dialogView);
+        deleteData.setView(dialogView);
 
-        deletedata.setIcon(R.mipmap.dialog_delete_icon);
+        deleteData.setIcon(R.mipmap.dialog_delete_icon);
 
-        deletedata.setCancelable(false);
+        deleteData.setCancelable(false);
 
         ImageButton deletedata_dialog_ok_btn = (ImageButton) dialogView
                 .findViewById(R.id.dialog_ok_btn);
@@ -277,7 +278,7 @@ public class DiaryFragment extends Fragment {
 
                 addData();
 
-                deletedata.cancel();
+                deleteData.cancel();
             }
         });
 
@@ -285,12 +286,12 @@ public class DiaryFragment extends Fragment {
 
             public void onClick(View v) {
 
-                deletedata.cancel();
+                deleteData.cancel();
 
             }
         });
 
-        deletedata.show();
+        deleteData.show();
     }
 
     /*设置密码*/
@@ -300,17 +301,17 @@ public class DiaryFragment extends Fragment {
 
         boolean info_lock = setting_info.getBoolean("lock", false);
 
-        if (info_lock == true) {
+        if (info_lock) {
 
             diary_check_layout.setVisibility(View.VISIBLE);
 
-            diary_layuout.setVisibility(View.GONE);
+            diary_layout.setVisibility(View.GONE);
 
         } else {
 
             diary_check_layout.setVisibility(View.GONE);
 
-            diary_layuout.setVisibility(View.VISIBLE);
+            diary_layout.setVisibility(View.VISIBLE);
 
         }
     }

@@ -22,34 +22,34 @@ import java.util.List;
 
 public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> {
 
-    private Context mCotext;
+    private Context mContext;
     private List<Diary> diaryList;
     private OnItemClickListener itemClickListener;
     private OnItemLongClickListener itemLongClickListener;
 
     public interface OnItemClickListener {
 
-        void onItemClick(View view, int postion);
+        void onItemClick(View view, int position);
 
     }
 
     public interface OnItemLongClickListener {
 
-        boolean onItemLongClick(View view, int postion);
+        boolean onItemLongClick(View view, int position);
     }
 
-    public void setOnItemClickLisener(OnItemClickListener lisener) {
-        this.itemClickListener = lisener;
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.itemClickListener = listener;
     }
 
-    public void setOnItemLongClickListener(OnItemLongClickListener longLisener) {
-        this.itemLongClickListener = longLisener;
+    public void setOnItemLongClickListener(OnItemLongClickListener longListener) {
+        this.itemLongClickListener = longListener;
 
     }
 
     public DiaryAdapter(List<Diary> list, Context context) {
 
-        mCotext = context;
+        mContext = context;
 
         this.diaryList = list;
 
@@ -69,7 +69,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
         private ImageView diary_iv_image;
 
-        public ViewHolder(View itemView, OnItemClickListener listener, OnItemLongClickListener longListener) {
+        ViewHolder(View itemView, OnItemClickListener listener, OnItemLongClickListener longListener) {
             super(itemView);
 
             diary_tv_content = (TextView) itemView.findViewById(R.id.diary_tv_content);
@@ -106,9 +106,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_diary_layout, parent, false);
 
-        final ViewHolder viewHolder = new ViewHolder(view, itemClickListener, itemLongClickListener);
-
-        return viewHolder;
+        return new ViewHolder(view, itemClickListener, itemLongClickListener);
     }
 
     @Override
@@ -121,28 +119,28 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
         holder.diary_tv_time.setText(diary.getTime());
 
-        holder.diary_iv_image.setImageBitmap(getImageThumbanil(diary.getImage(), 150, 150));
+        holder.diary_iv_image.setImageBitmap(getImageThumbnail(diary.getImage(), 150));
 
     }
 
     //获取缩略图
-    private Bitmap getImageThumbanil(String uri, int width, int height) {
+    private Bitmap getImageThumbnail(String uri, int height) {
 
-        Bitmap bitmap = null;
+        Bitmap bitmap;
 
         BitmapFactory.Options options = new BitmapFactory.Options();
 
         options.inJustDecodeBounds = true;
 
-        bitmap = BitmapFactory.decodeFile(uri, options);
+        BitmapFactory.decodeFile(uri, options);
 
         options.inJustDecodeBounds = false;
 
-        int beWidth = options.outWidth / width;
+        int beWidth = options.outWidth / 150;
 
         int beHeight = options.outHeight / height;
 
-        int ratio = 1;
+        int ratio;
 
         if (beWidth < beHeight) {
 
@@ -164,7 +162,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
         bitmap = BitmapFactory.decodeFile(uri, options);
 
-        bitmap = ThumbnailUtils.extractThumbnail(bitmap, width, height, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
+        bitmap = ThumbnailUtils.extractThumbnail(bitmap, 150, height, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
 
         return bitmap;
     }

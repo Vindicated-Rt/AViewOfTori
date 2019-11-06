@@ -13,9 +13,9 @@ public class FragmentAdapter extends FragmentStatePagerAdapter implements ViewPa
 
     private List<Fragment> fragments;
 
-    private List<String> tiltle;
+    private List<String> title;
 
-    private Fragment pagerFrament;
+    private Fragment pagerFragment;
 
     /*构造方法*/
     public FragmentAdapter(FragmentManager fm, List<Fragment> fragments, List<String> tiltle) {
@@ -24,14 +24,14 @@ public class FragmentAdapter extends FragmentStatePagerAdapter implements ViewPa
 
         this.fragments = fragments;
 
-        this.tiltle = tiltle;
+        this.title = tiltle;
 
     }
 
     /*标题栏数据位置*/
     public CharSequence getPageTitle(int position) {
 
-        return tiltle.get(position);
+        return title.get(position);
 
     }
 
@@ -59,13 +59,13 @@ public class FragmentAdapter extends FragmentStatePagerAdapter implements ViewPa
 
     /*设置当前Fragment方法*/
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
-        pagerFrament = (Fragment) object;
+        pagerFragment = (Fragment) object;
         super.setPrimaryItem(container, position, object);
     }
 
     /*获取当前Fragment方法*/
     public Fragment getCurrentFragment() {
-        return pagerFrament;
+        return pagerFragment;
     }
 
 

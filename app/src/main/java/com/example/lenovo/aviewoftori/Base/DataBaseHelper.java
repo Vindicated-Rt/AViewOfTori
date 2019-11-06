@@ -1,5 +1,6 @@
 package com.example.lenovo.aviewoftori.Base;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -12,13 +13,13 @@ import android.widget.Toast;
 public class DataBaseHelper extends SQLiteOpenHelper {
 
     /*数据库固定语句*/
-    public static final String CREATE_DIARY = "create table Diary ("
+    private static final String CREATE_DIARY = "create table Diary ("
             + "id integer primary key autoincrement, "
             + "content text, "
             + "time text, "
             + "image text)";
 
-    public static final String CREATE_MEMO = "create table Memo ("
+    private static final String CREATE_MEMO = "create table Memo ("
             + "id integer primary key autoincrement, "
             + "content text, "
             + "time text, "
@@ -36,6 +37,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     /*执行建表语句*/
+    @SuppressLint("ShowToast")
     @Override
     public void onCreate(SQLiteDatabase db) {
 

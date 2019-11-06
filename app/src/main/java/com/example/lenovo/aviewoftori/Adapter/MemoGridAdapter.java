@@ -1,5 +1,6 @@
 package com.example.lenovo.aviewoftori.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -14,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.lenovo.aviewoftori.R;
-
+@SuppressLint("ViewHolder")
 /*备忘录表格适配器*/
 public class MemoGridAdapter extends BaseAdapter {
 
@@ -34,6 +35,7 @@ public class MemoGridAdapter extends BaseAdapter {
     }
 
     /*布局设置方法*/
+    @SuppressLint("InflateParams")
     public View getView(int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -54,7 +56,7 @@ public class MemoGridAdapter extends BaseAdapter {
 
         String url = cursor.getString(cursor.getColumnIndex("image"));
 
-        gv_iv.setImageBitmap(getImageThumbanil(url, 150, 150));
+        gv_iv.setImageBitmap(getImageThumbnail(url, 150, 150));
 
         gv_tv.setText(content);
 
@@ -62,15 +64,15 @@ public class MemoGridAdapter extends BaseAdapter {
     }
 
     /*获取图片缩略图方法*/
-    public Bitmap getImageThumbanil(String uri, int width, int height) {
+    private Bitmap getImageThumbnail(String uri, int width, int height) {
 
-        Bitmap bitmap = null;       //初始化图片
+        Bitmap bitmap;       //初始化图片
 
         BitmapFactory.Options options = new BitmapFactory.Options();   //实例化图片解码
 
         options.inJustDecodeBounds = true;
 
-        bitmap = BitmapFactory.decodeFile(uri, options);     //寻找图片地址
+        BitmapFactory.decodeFile(uri, options);     //寻找图片地址
 
         options.inJustDecodeBounds = false;     //是否设置按比例缩放
 
@@ -79,7 +81,7 @@ public class MemoGridAdapter extends BaseAdapter {
 
         int beHeight = options.outHeight / height;
 
-        int ratio = 1;
+        int ratio;
 
         if (beWidth < beHeight) {
 

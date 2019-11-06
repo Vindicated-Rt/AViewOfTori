@@ -1,5 +1,6 @@
 package com.example.lenovo.aviewoftori.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.NavigationView;
@@ -24,11 +25,12 @@ import com.example.lenovo.aviewoftori.R;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressLint("RtlHardcoded")
 public class HomeActivity extends AppCompatActivity {
 
     private ViewPager home_viewPager;//初始化滑动视图
 
-    private PagerTabStrip home_pagertitle; //初始化标题栏
+    private PagerTabStrip home_pagerTitle; //初始化标题栏
 
     private Toolbar home_toolbar;//初始化工具栏
 
@@ -59,11 +61,11 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
 
-        fragments = new ArrayList<Fragment>();
+        fragments = new ArrayList<>();
 
-        title = new ArrayList<String>();
+        title = new ArrayList<>();
 
-        homefindid();
+        homeFindId();
 
         setToolbar();
 
@@ -78,15 +80,15 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     /*实例化对象*/
-    public void homefindid() {
+    public void homeFindId() {
 
         home_viewPager = (ViewPager) findViewById(R.id.home_viewpager);
 
-        home_pagertitle = (PagerTabStrip) findViewById(R.id.home_viewpager_title);
+        home_pagerTitle = (PagerTabStrip) findViewById(R.id.home_viewpager_title);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.home_drawerlayout);
 
-        home_pagertitle.setTabIndicatorColor(getResources().getColor(R.color.main_color));
+        home_pagerTitle.setTabIndicatorColor(getResources().getColor(R.color.main_color));
 
         side_view = (NavigationView) findViewById(R.id.home_side_layout);
 

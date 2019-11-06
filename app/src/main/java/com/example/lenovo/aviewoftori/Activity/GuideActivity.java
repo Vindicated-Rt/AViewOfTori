@@ -20,8 +20,6 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
 
     private List<View> viewList;
 
-    private GuideAdapter guideAdapter;
-
     private ViewPager guide_vp;
 
     private ImageButton guide_btn_start;
@@ -35,7 +33,7 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
         super.onCreate(savedInstanceState);
         setContentView(R.layout.guide_activity);
 
-        initview();
+        initView();
 
         initdots();
 
@@ -65,7 +63,7 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
 
     }
 
-    public void initview() {
+    public void initView() {
          /*将layout转为view对象，并将对象添加到List<View>中，作为适配器数据源*/
         View view1 = View.inflate(this, R.layout.guide_view1, null);
 
@@ -73,7 +71,7 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
 
         View view3 = View.inflate(this, R.layout.guide_view3, null);
 
-        viewList = new ArrayList<View>();
+        viewList = new ArrayList<>();
 
         viewList.add(view1);
 
@@ -82,7 +80,7 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
         viewList.add(view3);
 
         /*适配器加载数据源*/
-        guideAdapter = new GuideAdapter(viewList);
+        GuideAdapter guideAdapter = new GuideAdapter(viewList);
 
         /*控件绑定适配器*/
         guide_vp = (ViewPager) findViewById(R.id.guide_vp);

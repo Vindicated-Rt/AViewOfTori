@@ -1,5 +1,6 @@
 package com.example.lenovo.aviewoftori.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 
 import com.example.lenovo.aviewoftori.R;
 
+import java.util.Objects;
+
 public class AboutUsActivity extends AppCompatActivity {
 
     private TextView poem;
@@ -20,10 +23,7 @@ public class AboutUsActivity extends AppCompatActivity {
 
     private TextView html_Vni0427;
 
-    private Toolbar aboutus_toolbar;
-
-    private Typeface Tea;
-
+    @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,17 +35,17 @@ public class AboutUsActivity extends AppCompatActivity {
 
         html_Vni0427 = (TextView) findViewById(R.id.html_Vni0427);
 
-        aboutus_toolbar = (Toolbar) findViewById(R.id.aboutus_toolbar);
+        Toolbar aboutUs_toolbar = (Toolbar) findViewById(R.id.aboutus_toolbar);
 
-        setSupportActionBar(aboutus_toolbar);
+        setSupportActionBar(aboutUs_toolbar);
 
-        getSupportActionBar().setTitle(getString(R.string.aboutus));
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.aboutus));
 
         /*设置返回图标*/
-        aboutus_toolbar.setNavigationIcon(R.mipmap.back);
+        aboutUs_toolbar.setNavigationIcon(R.mipmap.back);
 
         /*导航图标监听事件*/
-        aboutus_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        aboutUs_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
 
@@ -53,24 +53,24 @@ public class AboutUsActivity extends AppCompatActivity {
             }
         });
 
-        settype();
+        setType();
 
-        sethtml();
+        sethHtml();
     }
 
     /*设置字体*/
-    public void settype() {
+    public void setType() {
 
         AssetManager AM = getAssets();
 
-        Tea = Typeface.createFromAsset(AM, "fonts/tea.ttf");
+        Typeface tea = Typeface.createFromAsset(AM, "fonts/tea.ttf");
 
-        poem.setTypeface(Tea);
+        poem.setTypeface(tea);
 
     }
 
     /*初始化网站*/
-    public void sethtml() {
+    public void sethHtml() {
 
         String html1 = "<a href='https://vindicated-rt.github.io/'>Vindicated-Rt</a>";
 

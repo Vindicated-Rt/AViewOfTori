@@ -1,7 +1,10 @@
 package com.example.lenovo.aviewoftori.Other;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,16 +24,16 @@ import java.util.List;
  * Created by asus on 2018/5/14.
  */
 
-
+@TargetApi(Build.VERSION_CODES.M)
 public class TimeDatePickerDialog {
 
     private Context mContext;
 
     private int mYear, mMonth, mDay, mHour, mMinute;
 
-    private TimePicker timedate_tp;
+    private TimePicker timeDate_tp;
 
-    private DatePicker timedate_dp;
+    private DatePicker timeDate_dp;
 
     private AlertDialog.Builder alertDialogBuilder;
 
@@ -63,17 +66,17 @@ public class TimeDatePickerDialog {
     /*初始化picker*/
     private View initTimeDataPicker() {
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.timedatepicker_dialog_layout, null);
+        @SuppressLint("InflateParams") View view = LayoutInflater.from(mContext).inflate(R.layout.timedatepicker_dialog_layout, null);
 
-        timedate_dp = (DatePicker) view.findViewById(R.id.timedate_dp);
+        timeDate_dp = (DatePicker) view.findViewById(R.id.timedate_dp);
 
-        timedate_tp = (TimePicker) view.findViewById(R.id.timedate_tp);
+        timeDate_tp = (TimePicker) view.findViewById(R.id.timedate_tp);
 
-        timedate_tp.setIs24HourView(true);
+        timeDate_tp.setIs24HourView(true);
 
-        resizePikcer(timedate_tp);
+        resizePikcer(timeDate_tp);
 
-        resizePikcer(timedate_dp);
+        resizePikcer(timeDate_dp);
 
         return view;
 
@@ -114,21 +117,22 @@ public class TimeDatePickerDialog {
 
 
     //接受选择的值
+
     private void getTimePickerValue() {
 
-        mHour = timedate_tp.getHour();
+        mHour = timeDate_tp.getHour();
 
-        mMinute = timedate_tp.getMinute();
+        mMinute = timeDate_tp.getMinute();
 
     }
 
     private void getDatePickerValue() {
 
-        mYear = timedate_dp.getYear();
+        mYear = timeDate_dp.getYear();
 
-        mMonth = timedate_dp.getMonth();
+        mMonth = timeDate_dp.getMonth();
 
-        mDay = timedate_dp.getDayOfMonth();
+        mDay = timeDate_dp.getDayOfMonth();
 
     }
 
@@ -144,7 +148,7 @@ public class TimeDatePickerDialog {
         }
     }
 
-    /*调整numberpicker的大小*/
+    /*调整number picker的大小*/
     private void resizeNumberPicker(NumberPicker np) {
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(120, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -158,9 +162,9 @@ public class TimeDatePickerDialog {
 
     private List<NumberPicker> findNumberPicker(ViewGroup viewGroup) {
 
-        List<NumberPicker> npList = new ArrayList<NumberPicker>();
+        List<NumberPicker> npList = new ArrayList<>();
 
-        View child = null;
+        View child;
 
         if (viewGroup != null) {
 
@@ -192,32 +196,32 @@ public class TimeDatePickerDialog {
     }
 
     //返回选择的时间值
-    public int getmDay() {
+    public int getDay() {
         return mDay;
     }
 
-    public int getmMonth() {
+    public int getMonth() {
         return mMonth;
     }
 
-    public int getmYear() {
+    public int getYear() {
         return mYear;
     }
 
-    public int getmMinute() {
+    public int getMinute() {
         return mMinute;
     }
 
-    public int getmHour() {
+    public int getHour() {
         return mHour;
     }
 
     //接口
     public interface TimeDatePickerDialogInterface {
 
-        public void positiveListener();
+        void positiveListener();
 
-        public void negativeListener();
+        void negativeListener();
 
     }
 

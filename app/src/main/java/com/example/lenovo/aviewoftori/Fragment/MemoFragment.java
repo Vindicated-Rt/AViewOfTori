@@ -43,9 +43,9 @@ public class MemoFragment extends Fragment {
 
     private Intent item;
 
-    private AlertDialog deletedata;
+    private AlertDialog deleteData;
 
-    private TextView memo_gridview_item_content_tv;
+    private TextView memo_gridView_item_content_tv;
 
     public MemoFragment() {
         // Required empty public constructor
@@ -121,7 +121,7 @@ public class MemoFragment extends Fragment {
 
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                deleteDailog(position);
+                deleteDialog(position);
 
                 return true;
             }
@@ -156,7 +156,7 @@ public class MemoFragment extends Fragment {
 
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                deleteDailog(position);
+                deleteDialog(position);
 
                 return true;
             }
@@ -205,32 +205,32 @@ public class MemoFragment extends Fragment {
     }
 
     /*删除dialog*/
-    public void deleteDailog(int position) {
+    public void deleteDialog(int position) {
 
         dbWriter = dataBaseHelper.getWritableDatabase();
 
-        deletedata = new AlertDialog.Builder(getActivity()).create();
+        deleteData = new AlertDialog.Builder(getActivity()).create();
 
         View dialogView = LayoutInflater.from(getActivity())
                 .inflate(R.layout.delete_dialog, null);
 
-        deletedata.setTitle("确认删除");
+        deleteData.setTitle("确认删除");
 
-        deletedata.setView(dialogView);
+        deleteData.setView(dialogView);
 
-        deletedata.setIcon(R.mipmap.dialog_delete_icon);
+        deleteData.setIcon(R.mipmap.dialog_delete_icon);
 
-        deletedata.setCancelable(false);
+        deleteData.setCancelable(false);
 
-        ImageButton deletedata_dialog_ok_btn = (ImageButton) dialogView
+        ImageButton deleteData_dialog_ok_btn = (ImageButton) dialogView
                 .findViewById(R.id.dialog_ok_btn);
 
-        ImageButton deletedata_dialog_cancedl_btn = (ImageButton) dialogView
+        ImageButton deleteData_dialog_cancel_btn = (ImageButton) dialogView
                 .findViewById(R.id.dialog_cancel_btn);
 
         cursor.moveToPosition(position);
 
-        deletedata_dialog_ok_btn.setOnClickListener(new View.OnClickListener() {
+        deleteData_dialog_ok_btn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
 
@@ -246,20 +246,20 @@ public class MemoFragment extends Fragment {
 
                 memo_gridView.setAdapter(memoGridAdapter);
 
-                deletedata.cancel();
+                deleteData.cancel();
             }
         });
 
-        deletedata_dialog_cancedl_btn.setOnClickListener(new View.OnClickListener() {
+        deleteData_dialog_cancel_btn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
 
-                deletedata.cancel();
+                deleteData.cancel();
 
             }
         });
 
-        deletedata.show();
+        deleteData.show();
     }
 
 }

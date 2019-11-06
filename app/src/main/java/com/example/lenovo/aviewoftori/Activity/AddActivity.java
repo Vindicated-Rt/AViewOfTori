@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
@@ -45,26 +46,16 @@ import java.util.Date;
 /**
  * Created by asus on 2018/4/23.
  */
-
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class AddActivity extends AppCompatActivity implements TimeDatePickerDialog.TimeDatePickerDialogInterface {
 
-    private Toolbar add_toolbar;
-
     private ImageView add_show;
-
-    private ImageButton add_camera;
-
-    private ImageButton add_album;
 
     private ImageButton add_alarm;
 
     private TextView add_time_et;
 
     private EditText add_et;
-
-    private LinearLayout add_tool_layout;
-
-    private Calendar calendar;
 
     private Uri imageUri;
 
@@ -95,8 +86,6 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
 
     private int alarm = 0;
 
-    private final String[] singleList = {"相册", "相机"};
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -120,9 +109,9 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
 
         add_time_et.setText(getTime());
 
-        hidealarm();
+        hideAlarm();
 
-        add_tool_layout = (LinearLayout) findViewById(R.id.add_tool_layout);
+        LinearLayout add_tool_layout = (LinearLayout) findViewById(R.id.add_tool_layout);
 
         add_tool_layout.getBackground().setAlpha(99);
 
@@ -141,7 +130,7 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
     }
 
     /*隐藏日记闹钟*/
-    public void hidealarm() {
+    public void hideAlarm() {
 
         if (flag.equals("diary") || flag.equals("0")) {
 
@@ -186,7 +175,7 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
     /*打开图册按钮*/
     private void addAlbum() {
 
-        add_album = (ImageButton) findViewById(R.id.add_album);
+        ImageButton add_album = (ImageButton) findViewById(R.id.add_album);
 
         add_album.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,7 +201,7 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
     /*打开相机按钮*/
     private void addCamera() {
 
-        add_camera = (ImageButton) findViewById(R.id.add_camera);
+        ImageButton add_camera = (ImageButton) findViewById(R.id.add_camera);
 
         add_camera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -339,7 +328,7 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
     /*设置toolbar*/
     public void setTitle() {
 
-        add_toolbar = (Toolbar) findViewById(R.id.add_toolbar);
+        Toolbar add_toolbar = (Toolbar) findViewById(R.id.add_toolbar);
 
         setSupportActionBar(add_toolbar);
 
@@ -592,6 +581,7 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
     }
 
     /*获得当前时间*/
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public String getTime() {
         //设置日期格式
         SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
@@ -600,9 +590,8 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
         Date now = new Date();
 
         //将时间转化为字符串
-        String time = format.format(now);
 
-        return time;
+        return format.format(now);
 
     }
 
@@ -634,29 +623,27 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
 
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-
-        calendar = Calendar.getInstance();
         Calendar calendar = Calendar.getInstance();
 
         //将dialog选择的时间赋值给calendar
-        calendar.set(Calendar.YEAR, timeDatePickerDialog.getmYear());
+        calendar.set(Calendar.YEAR, timeDatePickerDialog.getYear());
 
-        calendar.set(Calendar.MONTH, timeDatePickerDialog.getmMonth());
+        calendar.set(Calendar.MONTH, timeDatePickerDialog.getMonth());
 
-        calendar.set(Calendar.DAY_OF_MONTH, timeDatePickerDialog.getmDay());
+        calendar.set(Calendar.DAY_OF_MONTH, timeDatePickerDialog.getDay());
 
-        calendar.set(Calendar.HOUR_OF_DAY, timeDatePickerDialog.getmHour());
+        calendar.set(Calendar.HOUR_OF_DAY, timeDatePickerDialog.getHour());
 
-        calendar.set(Calendar.MINUTE, timeDatePickerDialog.getmMinute());
+        calendar.set(Calendar.MINUTE, timeDatePickerDialog.getMinute());
 
-        add_alarm_tv.setText(calendar.getTime() + "");
+        add_alarm_tv.setText(String.format("%s", calendar.getTime()));
 
         add_alarm_layout.setVisibility(View.VISIBLE);
 
         //intent发送广播
         Intent intent = new Intent("com.example.lenovo.aviewoftori.Activity.RING");
 
-        intent.setAction(timeDatePickerDialog.getmYear() + "年" + timeDatePickerDialog.getmMonth() + "月" + timeDatePickerDialog.getmDay() + "日" + timeDatePickerDialog.getmHour() + "时" + timeDatePickerDialog.getmMinute() + "分");
+        intent.setAction(timeDatePickerDialog.getYear() + "年" + timeDatePickerDialog.getMonth() + "月" + timeDatePickerDialog.getDay() + "日" + timeDatePickerDialog.getHour() + "时" + timeDatePickerDialog.getMinute() + "分");
 
         //闹钟到点要执行的动作，动作意图为intent
         PendingIntent pi = PendingIntent.getBroadcast(AddActivity.this, alarm++, intent, 0);
@@ -672,7 +659,7 @@ public class AddActivity extends AppCompatActivity implements TimeDatePickerDial
         //intent发送广播
         Intent intent = new Intent("com.example.lenovo.aviewoftori.Activity.RING");
 
-        intent.setAction(timeDatePickerDialog.getmYear() + "年" + timeDatePickerDialog.getmMonth() + "月" + timeDatePickerDialog.getmDay() + "日" + timeDatePickerDialog.getmHour() + "时" + timeDatePickerDialog.getmMinute() + "分");
+        intent.setAction(timeDatePickerDialog.getYear() + "年" + timeDatePickerDialog.getMonth() + "月" + timeDatePickerDialog.getDay() + "日" + timeDatePickerDialog.getHour() + "时" + timeDatePickerDialog.getMinute() + "分");
 
         //闹钟到点要执行的动作，动作意图为intent
         PendingIntent pi = PendingIntent.getBroadcast(AddActivity.this, alarm_temp, intent, 0);

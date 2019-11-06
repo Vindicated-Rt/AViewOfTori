@@ -11,7 +11,7 @@ import android.widget.ImageView;
 
 import com.example.lenovo.aviewoftori.R;
 
-public class LaunchAcitivity extends AppCompatActivity {
+public class LaunchActivity extends AppCompatActivity {
 
     private ImageView launch_iv;
 
@@ -81,7 +81,7 @@ public class LaunchAcitivity extends AppCompatActivity {
 
             editor.putBoolean("FirstIn", true);
 
-            editor.commit();
+            editor.apply();
 
         }
 
@@ -90,7 +90,7 @@ public class LaunchAcitivity extends AppCompatActivity {
 
     public void goHome() {
 
-        Intent intent = new Intent(LaunchAcitivity.this, HomeActivity.class);
+        Intent intent = new Intent(LaunchActivity.this, HomeActivity.class);
 
         startActivity(intent);
 
@@ -100,7 +100,7 @@ public class LaunchAcitivity extends AppCompatActivity {
 
     public void goGuide() {
 
-        Intent intent = new Intent(LaunchAcitivity.this, GuideActivity.class);
+        Intent intent = new Intent(LaunchActivity.this, GuideActivity.class);
 
         startActivity(intent);
 
